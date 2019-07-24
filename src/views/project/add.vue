@@ -1,4 +1,6 @@
 <script>
+import moment from "moment";
+let Atime = new moment()
 export default {
     name: 'login',
     props: {
@@ -9,7 +11,8 @@ export default {
           lists:[
             {id:1,startTime:'选择开始时间',endTime:"选择结束时间"}
          ],
-         value1:null
+         value1:Atime.format('YYYY/MM/DD'),
+         value2:Atime.format('YYYY/MM/DD')
         }
       
     },
@@ -67,6 +70,7 @@ export default {
                     v-model="value1"
                     type="date"
                     class="startDate"
+                   
                     placeholder="start日期">
                   </el-date-picker>
                 </span>
@@ -74,7 +78,7 @@ export default {
                 <span class="blockTwo">
                   <span class="demonstration">{{list.endTime}}</span>
                   <el-date-picker
-                    v-model="value1"
+                    v-model="value2"
                     type="date"
                     class="endDate"
                     placeholder="end日期">
@@ -127,18 +131,18 @@ export default {
     }
     .addMain{
       padding-top:25px;
-      padding-left:40px;
+      padding-left:30px;
       .Addweek{
         padding-bottom: 15px;
        .Addlist{
         display: inline-block;
        }
        .startDate{
-         width:100px;
+         width:150px;
          display: inline-block;
        }
        .endDate{
-         width:100px;
+         width:150px;
          display: inline-block;
        }
       }
@@ -150,7 +154,7 @@ export default {
           padding-bottom: 10px;
 
           .block{
-            padding-left:45px;
+            padding-left:35px;
           }
           .blockTwo{
             padding-left:15px;
