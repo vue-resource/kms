@@ -19,6 +19,7 @@ export default {
 </script>
 <style lang="less">
 @import url('~@/assets/style/index.less');
+@import url('~@/assets/style/reset.css');
 </style>
 
 

@@ -59,13 +59,11 @@
      const item = {
          name:'车型项目'
      }
-     return {
-         dataArr:item
-     }
+     return {};
     //  console.log(item)
     },
     created(){ 
-        console.log("11",this.dataArr)
+       
     },
     methods: {
       handleOpen(key, keyPath) {

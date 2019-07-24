@@ -1,3 +1,185 @@
+<script>
+export default {
+    name: 'login',
+    props: {
+
+    },
+    data () {
+        return {
+          lists:[
+            {id:1,startTime:'选择开始时间',endTime:"选择结束时间"}
+         ],
+         value1:null
+        }
+      
+    },
+    computed: {
+
+    },
+    watch: {
+
+    },
+    // 生命周期
+    created () {
+
+    },
+    methods: {
+      addNewList:function(e){
+        console.log(this,this.index)
+     
+         this.lists.unshift({
+             id:this.index++,
+             startTime:'选择开始时间',
+             endTime:"选择结束时间"
+         })
+         console.log(this.lists)
+        //  this.newAddText=''
+     }
+    }
+}
+</script>
+
 <template>
-  <div>project add</div>
+  <div class="proAddBox">
+      <div class="creat">
+        创建项目
+      </div>
+      <div class="addMain">
+         <div class="detips">
+           <span>项目名称:</span>
+           <input type="text"  placeholder="K11项目" class="userInp">
+         </div>
+         <div class="detips">
+           <span>项目简介:</span>
+           <input type="text"  placeholder="K11" class="userInp">
+         </div>
+         <div class="Addweek">
+           <span class="Addlist">项目周期:</span>
+           
+            <ul class="Astrict">
+              <li v-for='(list,index) in lists' v-bind:key='index'>             
+                <input type="text"  placeholder="Q1" class="depat">
+                <!-- <span>{{list.startTime}}</span> -->
+                <!-- {{list.endTime}} -->
+                <span class="block">
+                  <span class="demonstration">{{list.startTime}}</span>
+                  <el-date-picker
+                    v-model="value1"
+                    type="date"
+                    class="startDate"
+                    placeholder="start日期">
+                  </el-date-picker>
+                </span>
+                <!-- <span>{{list.endTime}}</span> -->
+                <span class="blockTwo">
+                  <span class="demonstration">{{list.endTime}}</span>
+                  <el-date-picker
+                    v-model="value1"
+                    type="date"
+                    class="endDate"
+                    placeholder="end日期">
+                  </el-date-picker>
+                </span>
+              </li>
+            </ul>
+            <button @click='addNewList'>继续添加周期</button>
+         </div>
+         <div class="description">
+           <span>项目描述:</span>
+           <textarea rows="3" cols="20" class="textAre">
+             K11项目是我司战略上最重要的一款车型。  
+            </textarea>
+         </div>
+         <div class="people">
+            <span>项目负责人:</span>
+           <el-dropdown size="medium" split-button type="primary">
+            李工
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>黄金糕</el-dropdown-item>
+              <el-dropdown-item>狮子头</el-dropdown-item>
+              <el-dropdown-item>螺蛳粉</el-dropdown-item>
+              <el-dropdown-item>双皮奶</el-dropdown-item>
+              <el-dropdown-item>蚵仔煎</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+         </div>
+          <div class="description">
+           <span>项目成员:</span>
+           <textarea rows="3" cols="20" class="textAre">
+             K1222项目成员。  
+            </textarea>
+         </div>
+         <el-button type="primary" class="submitTxt">提交</el-button>
+      </div>
+  </div>
 </template>
+<style lang="less">
+  .proAddBox{
+    border: 1px solid #ccc;
+    width:980px;
+    height: 724px;
+    border-radius:5px;
+    margin:0 auto; 
+    .creat{
+      padding-top: 20px;
+      padding-left:20px;
+      font-weight: bold;
+    }
+    .addMain{
+      padding-top:25px;
+      padding-left:40px;
+      .Addweek{
+        padding-bottom: 15px;
+       .Addlist{
+        display: inline-block;
+       }
+       .startDate{
+         width:100px;
+         display: inline-block;
+       }
+       .endDate{
+         width:100px;
+         display: inline-block;
+       }
+      }
+      
+      .Astrict{
+        display: inline-block;
+        margin-left:20px;
+        li{
+          padding-bottom: 10px;
+
+          .block{
+            padding-left:45px;
+          }
+          .blockTwo{
+            padding-left:15px;
+          }
+        }
+      }
+      .detips{
+        padding-bottom: 15px;
+        .userInp{
+          width:400px;
+          display: inline-block;
+          margin-left: 20px;
+        }
+      }
+      .description{
+        padding-bottom: 15px;
+        .textAre{
+          width:830px;
+          height: 110px;
+          margin-left:20px;
+          vertical-align: text-top;
+        }   
+      }
+      .people{
+        padding-bottom: 15px;
+      }
+      .submitTxt{
+        marigin-top:20px;
+      }
+    }
+  }
+</style>
