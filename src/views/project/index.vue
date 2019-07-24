@@ -1,8 +1,6 @@
 <script>
 import moment from "moment";
 let Atime = new moment()
-console.log(Atime)
-console.log(Atime.format('YYYY年MM月DD日'))
 export default {
     name: 'project',
     props: {

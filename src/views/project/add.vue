@@ -12,7 +12,29 @@ export default {
             {id:1,startTime:'选择开始时间',endTime:"选择结束时间"}
          ],
          value1:Atime.format('YYYY/MM/DD'),
-         value2:Atime.format('YYYY/MM/DD')
+         value2:Atime.format('YYYY/MM/DD'),
+         form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        options: [{
+          value: '选项1',
+          label: '张三'
+        }, {
+          value: '选项2',
+          label: '李四'
+        }, {
+          value: '选项3',
+          label: '王五'
+        }],
+        value: ''
+ 
         }
       
     },
@@ -43,12 +65,19 @@ export default {
 </script>
 
 <template>
+
   <div class="proAddBox">
       <div class="creat">
         创建项目
       </div>
+       
       <div class="addMain">
-         <div class="detips">
+          <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="活动名称">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+        </el-form>
+          <div class="detips">
            <span>项目名称:</span>
            <input type="text"  placeholder="K11项目" class="userInp">
          </div>
@@ -96,16 +125,14 @@ export default {
          </div>
          <div class="people">
             <span>项目负责人:</span>
-           <el-dropdown size="medium" split-button type="primary">
-            李工
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>黄金糕</el-dropdown-item>
-              <el-dropdown-item>狮子头</el-dropdown-item>
-              <el-dropdown-item>螺蛳粉</el-dropdown-item>
-              <el-dropdown-item>双皮奶</el-dropdown-item>
-              <el-dropdown-item>蚵仔煎</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+            <el-select v-model="value" placeholder="李工">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
          </div>
           <div class="description">
            <span>项目成员:</span>

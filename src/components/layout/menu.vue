@@ -1,7 +1,68 @@
+<script>
+  export default {
+    name: 'project',
+    props: {
+
+    },
+    data(){
+     return {
+        data: [{
+          label: '市场定义产品',
+          children: [{
+            label: '整车TVS',
+            children: [{
+              label: '安全性'
+            },{
+              label: 'NVH'
+            },
+            {
+              label: '重量'
+            },
+            {
+              label: '操稳'
+            },
+            {
+              label: 'CFD'
+            }
+            ]
+          }]
+        }],
+         defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
+     };
+    },
+    computed: {
+
+    },
+    watch: {
+
+    },
+    // 生命周期
+    created () {
+
+    },
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleNodeClick(data) {
+        console.log(data);
+      }
+      
+    }
+  }
+</script>
 <template>
     <div>
-    <el-row class="tac">
-    <!-- <el-col :data="dataArr">
+      <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+
+    <!-- <el-row class="tac"> 
+      <el-col :data="dataArr">
         <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
@@ -46,33 +107,10 @@
                 </el-submenu>
       </el-submenu>
        </el-menu>
-    </el-col> -->
+    </el-col> 
    
-    </el-row>
+    </el-row> -->
 </div>
 
 </template>
 
-<script>
-  export default {
-    data(){
-     const item = {
-         name:'车型项目'
-     }
-     return {};
-    //  console.log(item)
-    },
-    created(){ 
-       
-    },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
-      
-    }
-  }
-</script>
