@@ -229,7 +229,7 @@ export default {
             <el-table-column
               prop="name"
               label="目标名称"
-              width="350">
+              width="200">
             </el-table-column>
             <el-table-column
               prop="rage"
