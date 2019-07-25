@@ -34,7 +34,7 @@ export default {
       <!-- login -->
       <div class="loginContain">
         <div class="loginImg">
-          img
+          
         </div>
         <div class="loginForm">
           <el-form
@@ -126,6 +126,8 @@ html {
         text-align: center;
         line-height: 60px;
         float: left;
+         background: url("~@/assets/img/login.jpeg") no-repeat;
+             background-size: 100% 100%;
     }
     .loginForm {
         flex: 1;
