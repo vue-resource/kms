@@ -8,8 +8,8 @@ const Login =  () => import(/* webpackChunkName: "common" */  '@/views/login');
 const ProjectList =  () => import(/* webpackChunkName: "project" */  '@/views/project');
 const ProjectAdd =  () => import(/* webpackChunkName: "project" */  '@/views/project/add');
 
-
-
+const Contract = () => import(/* webpackChunkName: "contract" */  '@/views/contract');
+const Interior = () => import(/* webpackChunkName: "interior" */  '@/views/interior');
 
 
 let routes = [
@@ -32,6 +32,14 @@ let routes = [
             component: ProjectAdd
         }]
     },{
+            path: '/contract',
+            component: Contract 
+    },
+    {
+        path: '/interior',
+        component: Interior 
+},
+    {
         path: '*',
         component: NotFound
     }

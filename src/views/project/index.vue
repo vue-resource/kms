@@ -72,7 +72,22 @@ export default {
        <div class="proText">项目列表</div>
        <div class="proMain">
          <ul class="ulist">
-           <li v-for="(todo,index) in list" class="gether" v-bind:key="index">{{todo.name}}</li>
+           <el-popover
+              ref="popover1"
+              placement="top-start"
+              v-for="(todo,index) in list" 
+              class="gether" 
+              v-bind:key="index"
+              title="todo.name"
+              trigger="hover"
+              content= '11'
+              >
+              <li   class="gether" slot="reference" >
+                {{todo.name}}
+                <div></div>
+              </li>
+            </el-popover>
+           <!-- <li v-for="(todo,index) in list" class="gether" v-bind:key="index">{{todo.name}}</li> -->
          </ul>
        </div>
      </div>

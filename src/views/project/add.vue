@@ -74,7 +74,7 @@ export default {
       <div class="addMain">
           <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="活动名称">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model.trim="form.name"></el-input>
             </el-form-item>
         </el-form>
           <div class="detips">

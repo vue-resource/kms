@@ -85,7 +85,7 @@ export default {
          width: 400px;
          margin:30px auto;
          display: block;
-         border: 2px solid #746d6d;
+         border: 1px solid #ddd;
     }
   }
   .loginContain{
