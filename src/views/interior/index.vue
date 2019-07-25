@@ -179,24 +179,23 @@ export default {
     methods: {
        handleClick(tab, event) {
          let label = tab.label;
-         
-        console.log(tab, event);
-        console.log(label)
-        let arrTxt = ['ALL','仪表盘本体','CCB','手套箱','c','外覆盖件'];
-        let arrTxtObj = {
-          'ALL': this.tableData,
-          '仪表盘本体': this.tableData1,
-          'CCB': this.tableData2,
-          '手套箱': this.tableData3,
-          '出风口': this.tableData4,
-          '外覆盖件': this.tableData5
-        }
-        this.istab = label;
-        if(arrTxt.includes(label)){
+          let arrTxtObj = {
+            'ALL': this.tableData,
+            '仪表盘本体': this.tableData1,
+            'CCB': this.tableData2,
+            '手套箱': this.tableData3,
+            '出风口': this.tableData4,
+            '外覆盖件': this.tableData5
+          }
+          this.istab = label;
           this.tabName = arrTxtObj[label];
-          console.log(this)
-        }
-      }
+      },
+      sorHand(tag){
+        console.log(tag)
+        alert(tag+"Event")
+      },
+     
+
     }
 }
 </script>
@@ -243,18 +242,16 @@ export default {
               label="目标值">
             </el-table-column>
              <el-table-column
-              prop="codename"
-              
+              prop="codename"       
               label="需求编号">
             </el-table-column>
           </el-table>
         </div>
         
         <div class="intergoal">
-          <el-button type="info">SOR</el-button>
-           <el-button type="info">产品开发技术协议</el-button>
-            <el-button type="info">DVR</el-button>
-          
+          <el-button type="info" @click="sorHand('sor')">SOR</el-button>
+           <el-button type="info" @click="sorHand('pro')">产品开发技术协议</el-button>
+            <el-button type="info" @click="sorHand('dvr')">DVR</el-button>   
        </div>
        <div style="clear:both"></div>
          <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -292,8 +289,7 @@ export default {
               label="目标值">
             </el-table-column>
              <el-table-column
-              prop="codename"
-              
+              prop="codename"            
               label="需求编号">
             </el-table-column>
           </el-table>
@@ -303,21 +299,18 @@ export default {
   .interior{
     .intergoal{
        float: right;
-      padding:15px;
-       font-size: 14px;     
-      
+       padding:15px;
+       font-size: 14px;        
      }
      .chartBox{
         width:570px;
         height: 280px;
-        // display: inline-block;
         float: left;
         background: url('~@/assets/img/car.jpeg') no-repeat;
         background-size:100% 100%; 
         margin-top: 20px;
       }
       .right{
-        //  display: inline-block;
         float: right;
       }
       .confine{
