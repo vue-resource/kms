@@ -8,7 +8,7 @@ export default {
         return {
             value1: Atime.format("YYYY/MM/DD"),
             value2: Atime.format("YYYY/MM/DD"),
-            hold:'1',
+            hold: "1",
             form: {
                 name: "",
                 region: "",
@@ -18,7 +18,7 @@ export default {
                 type: [],
                 resource: "",
                 desc: "",
-                lists: [{ id: 1, startTime: "选择开始时间", endTime: "选择结束时间" }],
+                lists: [{ id: 1, startTime: "选择开始时间", endTime: "选择结束时间" }]
             },
             options: [
                 {
@@ -69,7 +69,9 @@ export default {
         ref="form"
         :model="form"
         label-width="100px"
+        
       >
+     
         <el-form-item label="活动名称:">
           <el-input
             v-model.trim="form.name"
@@ -112,14 +114,17 @@ export default {
                   v-model="value2"
                   type="date"
                   class="endDate"
-                   style="width: 140px;"
+                  style="width: 140px;"
                   placeholder="end日期"
                 >
                 </el-date-picker>
               </span>
             </li>
           </ul>
-           <el-button plain @click='addNewList'>继续添加周期</el-button>
+          <el-button
+            plain
+            @click='addNewList'
+          >继续添加周期</el-button>
         </el-form-item>
         <el-form-item label="项目描述:">
           <el-input
@@ -149,14 +154,15 @@ export default {
             type="textarea"
             v-model.trim="form.desc"
             style="width:600px;"
-             :rows="4"
+            :rows="4"
             placeholder="K1222项目成员。  "
           ></el-input>
         </el-form-item>
-        <el-button
-          type="primary"
-          class="submitTxt"
-        >提交</el-button>
+        <el-form-item>
+          <el-button
+            type="primary"
+          >提交</el-button>
+        </el-form-item>
       </el-form>
 
     </div>

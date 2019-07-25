@@ -5,7 +5,7 @@
         </keep-alive>
         <router-view v-if="!$route.meta.keepAlive"></router-view>
     </layout>
-    <!-- <login></login> -->
+     <!-- <login></login> -->
 </template>
 <!-- 引入组件库 -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>

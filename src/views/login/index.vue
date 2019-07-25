@@ -86,16 +86,12 @@ export default {
   </div>
 </template>
 <style lang="less">
-.body,
-html {
-    width: 100%;
-    height: 100%;
-}
 .loginBox {
     width: 500px;
     height: 300px;
     border: 1px solid #ccc;
     position: absolute;
+    background: #fff;
     top: 50%;
     left: 50%;
     margin-left: -250px;
