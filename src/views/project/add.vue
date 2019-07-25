@@ -6,9 +6,9 @@ export default {
     props: {},
     data() {
         return {
-            lists: [{ id: 1, startTime: "选择开始时间", endTime: "选择结束时间" }],
             value1: Atime.format("YYYY/MM/DD"),
             value2: Atime.format("YYYY/MM/DD"),
+            hold:'1',
             form: {
                 name: "",
                 region: "",
@@ -17,7 +17,8 @@ export default {
                 delivery: false,
                 type: [],
                 resource: "",
-                desc: ""
+                desc: "",
+                lists: [{ id: 1, startTime: "选择开始时间", endTime: "选择结束时间" }],
             },
             options: [
                 {
@@ -43,8 +44,8 @@ export default {
     methods: {
         addNewList: function(e) {
             console.log(this, this.index);
-
-            this.lists.unshift({
+            this.hold = this.index;
+            this.form.lists.unshift({
                 id: this.index++,
                 startTime: "选择开始时间",
                 endTime: "选择结束时间"
@@ -83,15 +84,16 @@ export default {
         </el-form-item>
         <el-form-item label="项目周期:">
 
-          <ul class="Astrict1">
+          <ul class="Astrict">
             <li
-              v-for='(list,index) in lists'
+              v-for='(list,index) in form.lists'
               v-bind:key='index'
             >
               <el-input
                 v-model.trim="form.date1"
                 class="userInp"
                 style="width:200px"
+                placeholder="Q1"
               ></el-input>
               <span class="block">
                 <span class="demonstration">{{list.startTime}}</span>
@@ -99,6 +101,7 @@ export default {
                   v-model="value1"
                   type="date"
                   class="startDate"
+                  style="width: 140px;"
                   placeholder="start日期"
                 >
                 </el-date-picker>
@@ -109,13 +112,14 @@ export default {
                   v-model="value2"
                   type="date"
                   class="endDate"
+                   style="width: 140px;"
                   placeholder="end日期"
                 >
                 </el-date-picker>
               </span>
             </li>
           </ul>
-          <button @click='addNewList'>继续添加周期</button>
+           <el-button plain @click='addNewList'>继续添加周期</el-button>
         </el-form-item>
         <el-form-item label="项目描述:">
           <el-input
@@ -178,19 +182,10 @@ export default {
             .Addlist {
                 display: inline-block;
             }
-            .startDate {
-                width: 150px;
-                display: inline-block;
-            }
-            .endDate {
-                width: 150px;
-                display: inline-block;
-            }
         }
 
         .Astrict {
             display: inline-block;
-            margin-left: 20px;
             li {
                 padding-bottom: 10px;
 
