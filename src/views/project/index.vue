@@ -21,7 +21,8 @@ export default {
                 { name: "K12项目" },
                 { name: "K13项目" },
                 { name: "K14项目" },
-                { name: "K15项目" }
+                { name: "K15项目" },
+                { name: "K16项目" }
             ]
         };
     },
@@ -50,7 +51,8 @@ export default {
 
 <template>
   <div class="projctBox">
-    <div class="proHead">
+    <div class="proheadWrap">
+      <div class="proHead">
       <div class="proleft">
         <div class="username"> {{username}} 上午好！</div>
         <div class="dataTime">{{time}}</div>
@@ -75,6 +77,8 @@ export default {
         </div>
       </div>
     </div>
+    </div>
+    
     <div class="proContain">
       <div class="proText">项目列表</div>
       <div class="proMain">
@@ -86,7 +90,8 @@ export default {
             :ref="index"
          
           >
-            {{todo.name}}
+            <!-- {{todo.name}} -->
+
             <div class="markShy" v-if="index===0">
               <div class="matip">
                   <span class="eyer" @click="commenHand"></span>
@@ -104,59 +109,57 @@ export default {
 <style lang="less">
 .projctBox {
 }
+.proheadWrap{
+  width: 100%;
+  background-color: rgb(242, 242, 242);
+}
 .proHead {
     width: 760px;
     height: 140px;
     border-radius: 4px;
     margin: 0 auto;
-    background-color: rgb(242, 242, 242);
-    display: flex;
+    // background-color: rgb(242, 242, 242);
+    // display: flex;
     .proleft {
-        float: left;
         width: 150px;
+        padding-top:10px;
         .dataTime {
-            padding-left: 30px;
-            padding-top: 20px;
+            margin-top: 10px;
             color: #999;
             font-size: 12px;
         }
         .username {
-            padding-left: 30px;
-            padding-top: 40px;
         }
     }
-    .line {
-        height: 74px;
-        width: 1px;
-        background: #999;
-        float: left;
-        margin-top: 51px;
-        margin-left: 42px;
-    }
+   
     .proright {
-        flex: 1;
+        // flex: 1;
         // background: red;
+        width: 760px;
         font-size: 14px;
         display: flex;
-        justify-content: space-between;
+        padding-top:10px;
+        // justify-content: space-between;
         .rightfit {
             flex: 1;
-            text-align: center;
-            padding-top: 52px;
+            // text-align: center;
+            
         }
         .targetTxt {
-            padding-top: 10px;
-            font-size: 16px;
+            
+            font-size: 36px;
+            color:blue;
         }
     }
 }
 .proContain {
-    width: 760px;
+    width: 895px;
     height: 560px;
     margin: 10px auto 0;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
+
     background-color: rgb(242, 242, 242);
     .proText {
         padding-left: 30px;
@@ -172,18 +175,25 @@ export default {
         display: flex;
         width: 100%;
         height: 100%;
-        justify-content: space-around;
+        // display:inline-block;
+        justify-content: space-between;
+        // align-content:flex-start;
+
         flex-wrap: wrap;
         .gether {
             width: 200px;
             height: 200px;
-            display: flex;
+            // display: flex;
             position: relative;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(228, 228, 228);
-            border-radius: 4px;
+           // align-items: center;
+            // justify-content: center;
+
+            // background-color: rgb(228, 228, 228);
+            border-radius: 6px;
             font-weight: bold;
+            color: #fff;
+            background: url("~@/assets/img/developImg.png") no-repeat;
+             background-size: 100% 100%;
         }
         .markShy{
           width: 100%;
@@ -207,6 +217,7 @@ export default {
              background: url("~@/assets/img/eye.png") no-repeat;
              background-size: 100% 100%;
              display: inline-block;
+             color: #fff;
            }
            .edition{
               width:20px;

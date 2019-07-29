@@ -2,7 +2,7 @@
     <el-container class="kms-container">
         <el-header class="kms-header">Header</el-header>
         <el-container>
-            <el-aside width="200px" class="kms-side-bar">
+            <el-aside width="200px" class="kms-side-bar" v-if="!checkIsProject()">
                 <Menu/>
             </el-aside>
             <el-main class="kms-content"><slot></slot></el-main>
@@ -13,7 +13,12 @@
 import Menu from './menu'
 export default {
     name: 'layout',
-    components: { Menu }
+    components: { Menu },
+    methods: {
+        checkIsProject () {
+            return this.$route.path.startsWith('/project');
+        }
+    }
 }
 </script>
 
