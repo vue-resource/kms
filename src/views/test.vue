@@ -33,10 +33,65 @@ export default {
                 name: "father",
                 children:[{
                     name: "son1",
-                    children:[ {name: "grandson"}, {name: "grandson2"}]
+                    children:[ 
+                        {name: "son1-1"}, 
+                        {name: "son1-2"}
+                    ]
                 },{
                     name: "son2",
-                    children:[ {name: "grandson3"}, {name: "grandson4"}]
+                    children:[ 
+                        {
+                            name: "son2-1",
+                            children:[
+                                {name: "son2-1-1"}, 
+                                {name: "son2-1-2"},
+                                {name: "son2-1-3"}, 
+                                {name: "son2-1-4"}
+                            ]
+                        }, 
+                        {
+                            name: "son2-2",
+                            children:[
+                                {name: "son2-2-1"}, 
+                                {name: "son2-2-2"},
+                                {name: "son2-2-3"}, 
+                                {name: "son2-2-4"},
+                                {name: "son2-2-5"}, 
+                                {name: "son2-2-6"},
+                                {name: "son2-2-7"}, 
+                                {name: "son2-2-8"}
+                            ]
+                        }
+                    ]
+                },{
+                    name: "son3",
+                    children:[ 
+                        {
+                            name: "son3-1",
+                            children: [
+                                {
+                                    name: "son3-1-1",
+                                    children: [
+                                        {name: "son3-1-1-1"}
+                                    ]
+                                }
+                            ]
+                        }, 
+                        {
+                            name: "son3-2",
+                            children: [
+                                {
+                                    name: "son3-2-1"
+                                }
+                            ]
+                        }
+                    ]
+                },{
+                    name: "son4",
+                    children:[ 
+                        {name: "son4-1"}, 
+                        {name: "son4-2"}
+                    ]
                 }]
             },
             tableData: [

@@ -48,8 +48,6 @@ let routes = [{
     path: '/test',
     component: Test
   }, {
-  },
-  {
     path: '/alert',
     component: Alert
   },
