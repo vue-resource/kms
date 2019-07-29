@@ -11,6 +11,7 @@ const ProjectAdd = () => import( /* webpackChunkName: "project" */ '@/views/proj
 const Contract = () => import( /* webpackChunkName: "contract" */ '@/views/contract');
 const Interior = () => import( /* webpackChunkName: "interior" */ '@/views/interior');
 const Weight = ()=> import( /* webpackChunkName: "weight" */ '@/views/weight');
+const Test = ()=> import( /* webpackChunkName: "weight" */ '@/views/test');
 
 let routes = [{
     path: '/',
@@ -42,8 +43,10 @@ let routes = [{
   }, {
     path: '/weight',
     component: Weight
-  },
-  {
+  }, {
+    path: '/test',
+    component: Test
+  }, {
     path: '*',
     component: NotFound
   }
