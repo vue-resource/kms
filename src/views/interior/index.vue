@@ -206,7 +206,7 @@ export default {
             <el-tab-pane label="目标管理" name="first">目标管理</el-tab-pane>
             <el-tab-pane label="分块BOM" name="second">分块BOM</el-tab-pane>
             <el-tab-pane label="成本分析" name="third">成本分析</el-tab-pane>
-            <el-tab-pane label="问题管理" name="fourth">问题管理</el-tab-pane>
+            <el-tab-pane label="ISL" name="fourth">ISL</el-tab-pane>
           </el-tabs>
        </div>
        
@@ -255,8 +255,8 @@ export default {
        </div>
        <div style="clear:both"></div>
          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="ALL" name="first">ALL</el-tab-pane>
-            <el-tab-pane label="仪表盘本体" name="second">仪表盘本体</el-tab-pane>
+            <el-tab-pane label="ALL" name="first">ALL</el-tab-pane> 
+            <el-tab-pane label="  仪表盘本体" name="second">仪表盘本体</el-tab-pane>
             <el-tab-pane label="CCB" name="third">CCB</el-tab-pane>
             <el-tab-pane label="手套箱" name="fourth">手套箱</el-tab-pane>
              <el-tab-pane label="出风口" name="five">出风口</el-tab-pane>

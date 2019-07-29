@@ -6,7 +6,8 @@ export default {
     props: {},
     data() {
         return {
-            activeName2: "first",
+            activeName: "first",
+            dataTab:[],
             tableData3: [
                 {
                     id: "1",
@@ -98,6 +99,19 @@ export default {
     methods: {
         handleClick(tab, event) {
             console.log(tab, event);
+            let name = tab.name;
+            console.log("name",name)
+            let obj = {
+              first:[],
+              second:[],
+              third:[],
+              fourth:[]
+            }
+            this.dataTab = obj[name];//后台数据接口数据
+          console.log(this.dataTab)
+        },
+        creathand(){
+          console.log("3223")
         }
     }
 };
@@ -105,45 +119,60 @@ export default {
 <template>
   <div class="contract">
     <div>
-      <el-tabs
-        v-model="activeName2"
-        type="card"
-        @tab-click="handleClick"
-      >
-        <el-tab-pane
-          label="目标管理"
-          name="first"
-        >目标管理</el-tab-pane>
-        <el-tab-pane
-          label="分块BOM"
-          name="second"
-        >分块BOM</el-tab-pane>
-        <el-tab-pane
-          label="成本分析"
-          name="third"
-        >成本分析</el-tab-pane>
-        <el-tab-pane
-          label="问题管理"
-          name="fourth"
-        >问题管理</el-tab-pane>
-      </el-tabs>
+     
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="目标管理" name="first"></el-tab-pane>
+    <el-tab-pane label="分块BOM" name="second"></el-tab-pane>
+    <el-tab-pane label="成本分析" name="third"></el-tab-pane>
+    <el-tab-pane label="问题管理" name="fourth"></el-tab-pane>
+  </el-tabs>
     </div>
     <div class="congoal">
       <div class="goaltipOne">发出的目标</div>
-      <div class="line"></div>
+      <!-- <div class="line"></div> -->
       <div class="goaltipTwo">收到的目标</div>
     </div>
     <div class="chartBox">
       <!-- <img src="chartImg" alt=""> -->
+      <el-progress type="circle" :percentage="68" class="circle"></el-progress>
+      <div class="cirleright">
+        <div class="cirlehead">
+           <div class="timeLeft">
+              <p>项目工期</p>
+              <p class="timeText">460天</p>
+           </div>
+           <div class="timeright">
+              <p>消耗</p>
+              <p class="timeText">460天</p>
+           </div>
+        </div>
+        <div class="cirlefoot">
+          <div class="processOne">
+            <div class="processOneText">
+              <p>总R：460</p>
+              <p class="add">昨日新增：6556</p>
+            </div>
+            <el-progress :percentage="30"  style="width:400px"></el-progress>
+          </div>
+          <div class="processTwo">
+             <div class="processTwoText">
+                <p>总S：5060</p>
+                <p class="add">昨日新增：12</p>
+             </div>
+            <el-progress :percentage="60" style="width:400px"></el-progress>
+          </div>
+        </div>
+        <div class="goalTarget" @click="creathand">创建目标</div>
+      </div>
     </div>
-    <div class="confine">
+    <div class="confine1">
 
     </div>
     <el-table
       :data="tableData3"
       height="350"
       border
-      style="width: 100%"
+      style="width: 1200px"
     >
       <el-table-column
         prop="id"
@@ -169,6 +198,12 @@ export default {
         label="目标值"
       >
       </el-table-column>
+       <el-table-column
+        prop="address"
+        width="100"
+        label="目标值"
+      >
+      </el-table-column>
       <el-table-column
         prop="codename"
         label="需求编号"
@@ -186,8 +221,10 @@ export default {
         display: flex;
         font-size: 14px;
 
-        border-bottom: 1px solid #ddd;
+       
         .goaltipOne {
+          padding-right:10px;
+          border-bottom: 1px solid blue;
         }
         .line {
             height: 15px;
@@ -199,12 +236,63 @@ export default {
         }
     }
     .chartBox {
-        width: 530px;
+        width: 642px;
         height: 220px;
-        display: inline-block;
-        background: url("~@/assets/img/chart.jpeg") no-repeat;
-        background-size: 100% 100%;
-        margin-top: 20px;
+        display: flex;
+        background: #ccc;
+        border-radius: 6px;
+         position: relative;
+        // background: url("~@/assets/img/chart.jpeg") no-repeat;
+        // background-size: 100% 100%;
+        margin: 10px 10px 10px 0;
+        .circle{
+          margin-top:40px;
+          margin-left:26px;
+        }
+        .cirleright{
+          padding-top:25px;
+          padding-left:25px; 
+         
+          .cirlehead{
+            display: flex;
+            .timeLeft{
+             
+            }
+            .timeText{
+              font-weight: 300;
+              font-size:24px;
+              padding-top:10px;
+            }
+            .timeright{
+              padding-left:25px;
+            }
+
+          }
+          .cirlefoot{
+            .processOne{
+               padding-top:10px;
+               .processOneText{
+                  display: flex;
+                }
+            }
+            .add{
+              padding-left:30px;
+            }
+            .processTwoText{
+              display: flex;
+            }
+          }
+          .goalTarget{
+            position: absolute;
+            right:20px;
+            top:20px;
+            background: blue;
+            color: #fff;
+            border-radius: 6px;
+            padding:5px 20px;
+            font-size:12px;
+          }
+        }
     }
     .confine {
         width: 450px;

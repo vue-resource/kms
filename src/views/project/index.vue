@@ -1,5 +1,7 @@
 <script>
 import moment from "moment";
+// import Alert from '../components/alert'
+// console.log(Alert)
 let Atime = new moment();
 export default {
     name: "project",
@@ -32,11 +34,15 @@ export default {
         console.log(index)
         let vm = this;
         let mask = vm.$refs[index];
-        console.log(mask)
-        console.log(this)
         if(mask==index){
           this.idx = true
         }
+      },
+      editHand(){
+        console.log("editHand")
+      },
+      commenHand(){
+        console.log("commenHand")
       }
     }
 };
@@ -49,7 +55,7 @@ export default {
         <div class="username"> {{username}} 上午好！</div>
         <div class="dataTime">{{time}}</div>
       </div>
-      <div class="line"></div>
+      <!-- <div class="line"></div> -->
       <div class="proright">
         <div class="rightfit">
           <p>我发出的目标</p>
@@ -78,14 +84,13 @@ export default {
             class="gether"
             v-bind:key="index"
             :ref="index"
-            @mouseover="changeMask(index)"
-            @mouseout="changeMask(index)"
+         
           >
             {{todo.name}}
-            <div class="markShy" v-if="true">
+            <div class="markShy" v-if="index===0">
               <div class="matip">
-                  <span class="eyer"></span>
-                  <span class="edition"></span>
+                  <span class="eyer" @click="commenHand"></span>
+                  <span class="edition" @click="editHand"></span>
               </div>
               <span class="detail">查看项目目标</span>
             </div>
@@ -190,8 +195,12 @@ export default {
           color: #ddd;
           .matip{
             padding-top: 20px;
-            float: right;
+           
             padding-right:20px;
+           left: 25px;
+            bottom: 15px;
+            position: absolute;
+
            .eyer{
              width:20px;
              height: 20px;
@@ -208,12 +217,12 @@ export default {
            }
           }
           .detail{
-            background: #fff;
+            background: blue;
             position: absolute;
-            left: 27%;
-            bottom: 30px;
-            color: #000;
-            padding: 7px;
+            left: 23%;
+            bottom: 50px;
+            color: #fff;
+            padding: 5px 20px;
             border-radius: 4px;
             font-size: 14px;
           }
