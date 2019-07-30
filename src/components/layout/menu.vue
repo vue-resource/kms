@@ -1,116 +1,146 @@
 <script>
-  export default {
-    name: 'project',
-    props: {
-
-    },
-    data(){
-     return {
-        data: [{
-          label: '市场定义产品',
-          children: [{
-            label: '整车TVS',
-            children: [{
-              label: '安全性'
-            },{
-              label: 'NVH'
-            },
-            {
-              label: '重量'
-            },
-            {
-              label: '操稳'
-            },
-            {
-              label: 'CFD'
+export default {
+    name: "project",
+    props: {},
+    data() {
+        return {
+            data: [
+                {
+                    label: "车型项目",
+                    children: [
+                       {
+                            label: "市场定义产品",
+                            children: []
+                        },
+                        {
+                            label: "整车TVS",
+                            children: [
+                                {
+                                    label: "安全性"
+                                },
+                                {
+                                    label: "NVH"
+                                },
+                                {
+                                    label: "重量"
+                                },
+                                {
+                                    label: "操稳"
+                                },
+                                {
+                                    label: "CFD"
+                                }
+                            ]
+                        },
+                        {
+                            label: "动力",
+                            children: []
+                        },
+                        {
+                            label: "底盘",
+                            children: []
+                        },
+                        {
+                            label: "自车身",
+                            children: []
+                        },
+                        {
+                            label: "开闭件",
+                            children: [
+                                {
+                                    label: "前舱盖"
+                                },
+                                {
+                                    label: "前车门",
+                                    children:[
+                                      {label: "前车门骨架"}, 
+                                      {label: "前车门护板"}, 
+                                      {label: "前车门锁"},   
+                                    ]
+                                },
+                                {
+                                    label: "后车门"
+                                },
+                                {
+                                    label: "后尾门"
+                                },
+                                {
+                                    label: "后行李箱"
+                                }
+                            ]
+                        },
+                         {
+                            label: "车身附件",
+                            children: [
+                                {
+                                    label: "前挡风玻璃"
+                                },
+                                
+                            ]
+                        },
+                        {
+                            label: "内饰",
+                            children: [
+                                {
+                                    label: "仪表盘系统"
+                                },
+                                
+                            ]
+                        },
+                        {
+                            label: "外饰",
+                            children: []
+                        },
+                        {
+                            label: "电器",
+                            children: []
+                        },
+                        {
+                            label: "三电",
+                            children: [{label: "电池"}]
+                        },
+                        {
+                            label: "造型",
+                            children: []
+                        },
+                        {
+                            label: "采购",
+                            children: []
+                        },
+                    ]
+                }
+            ],
+            defaultProps: {
+                children: "children",
+                label: "label"
             }
-            ]
-          }]
-        }],
-         defaultProps: {
-          children: 'children',
-          label: 'label'
-        }
-     };
+        };
     },
-    computed: {
-
-    },
-    watch: {
-
-    },
+    computed: {},
+    watch: {},
     // 生命周期
-    created () {
-
-    },
+    created() {},
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleNodeClick(data) {
-        console.log(data);
-      }
-      
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleNodeClick(data) {
+            console.log(data);
+        }
     }
-  }
+};
 </script>
 <template>
-    <div>
-      <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-
-    <!-- <el-row class="tac"> 
-      <el-col :data="dataArr">
-        <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose">  
-             <el-submenu index="1">
-                <template slot="title" >
-                    <span prop="name">188</span>
-                </template>
-                <el-menu-item-group  >
-                   <el-menu-item index="1-1">市场定义产品</el-menu-item>
-                </el-menu-item-group>               
-                <el-submenu index="1-2">
-                   <template slot="title">整车TVS</template>
-                    <el-menu-item index="1-2">安全性</el-menu-item>
-                    <el-menu-item index="1-3">NVH</el-menu-item>
-                    <el-menu-item index="1-4">重量</el-menu-item>
-                    <el-menu-item index="1-5">操稳</el-menu-item>
-                    <el-menu-item index="1-6">CFD</el-menu-item>
-                </el-submenu>
-                 <el-menu-item-group  >
-                   <el-menu-item index="1-7">动力</el-menu-item>
-                   <el-menu-item index="1-8">底盘</el-menu-item>
-                   <el-menu-item index="1-9">白车身</el-menu-item>
-                 </el-menu-item-group>
-                 <el-submenu index="1-3">
-                   <template slot="title">开闭件</template>
-                    <el-menu-item index="1-3-1">前舱盖</el-menu-item>
-                    <el-submenu index="3-1">
-                        <template slot="title">前车门</template>
-                        <el-menu-item index="3-1-1">前车门骨架</el-menu-item>
-                         <el-menu-item index="3-1-2">前车门护板</el-menu-item>
-                          <el-menu-item index="3-1-3">前车门锁</el-menu-item>
-                    </el-submenu>
-                    <el-menu-item index="1-3-3">后车门</el-menu-item>
-                    <el-menu-item index="1-3-4">后尾门</el-menu-item>
-                    <el-menu-item index="1-3-5">后行李箱</el-menu-item>
-                </el-submenu>
-                <el-submenu index="1-5">
-                    <template slot="title">车身附件</template>
-                    <el-menu-item index="1-5-1">前挡风玻璃</el-menu-item>
-                </el-submenu>
-      </el-submenu>
-       </el-menu>
-    </el-col> 
-   
-    </el-row> -->
-</div>
+  <div>
+    <el-tree
+      :data="data"
+      :props="defaultProps"
+      @node-click="handleNodeClick"
+    ></el-tree>   
+  </div>
 
 </template>
 

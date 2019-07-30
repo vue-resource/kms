@@ -1,6 +1,12 @@
 <template>
     <el-container class="kms-container">
-        <el-header class="kms-header">Header</el-header>
+        <el-header class="kms-header">
+            <div class="headImg"></div>
+            <div class="headright">
+                <span class="backText">后台管理</span>
+                <span>{{'罗伯特'}}</span>
+            </div>
+        </el-header>
         <el-container>
             <el-aside width="200px" class="kms-side-bar" v-if="!checkIsProject()">
                 <Menu/>
@@ -27,9 +33,28 @@ export default {
     height: 100%;
     box-sizing: border-box;
     .kms-header {
-        text-align: center;
+       
         line-height: 60px;
+        // display: table-cell;
         border-bottom: 1px solid #ddd;
+        .headImg{
+            width: 140px;
+            height: 38px;
+            // line-height: 38px;
+            vertical-align: middle;
+            display: inline-block;
+          background: url("~@/assets/img/login.jpg") no-repeat;
+          background-size: 100% 100%;
+        }
+        .headright{
+          float: right;
+          font-size:12px;
+          color:#999;
+          .backText{
+              padding-right:50px;
+          }
+        }
+
     }
     .kms-side-bar {
         border-right: 1px solid #ddd;

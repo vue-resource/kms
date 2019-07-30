@@ -130,7 +130,8 @@ export default {
             <el-progress :percentage="60" style="width:400px"></el-progress>
           </div>
         </div>
-        <div class="goalTarget" @click="creathand">创建目标</div>
+         <el-button size="mini" class="goalTarget" @click="creathand" type="primary">创建目标</el-button>
+        <!-- <div >创建目标</div> -->
       </div>
     </div>
     <div style="width: 1000px;margin: 0 auto;">
@@ -229,11 +230,11 @@ export default {
             position: absolute;
             right:20px;
             top:20px;
-            background: blue;
-            color: #fff;
-            border-radius: 6px;
-            padding:5px 20px;
-            font-size:12px;
+            // background: blue;
+            // color: #fff;
+            // border-radius: 6px;
+            // padding:5px 20px;
+            // font-size:12px;
           }
         }
     }

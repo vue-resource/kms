@@ -13,8 +13,26 @@ export default {
             Btarget: "12",
             Ctarget: "8",
             Dtarget: "20",
-            idx:false,
-            username:'罗伯特',
+            idx: false,
+            username: "罗伯特",
+            tableData: [
+                {
+                    id: "1",
+                    date: "2016-05-03",
+                    rage: "[min]",
+                    name: "快充SOC(30%~80%)时间，常温",
+                    address: "<35~45",
+                    codename: "B01.005"
+                },
+                {
+                    id: "2",
+                    rage: "[s]",
+                    date: "2016-05-02",
+                    name: "滑行距离，初速120-0km/h",
+                    address: "<35~45",
+                    codename: "B01.005"
+                }
+            ],
             list: [
                 { name: "K09项目" },
                 { name: "K11项目" },
@@ -29,22 +47,61 @@ export default {
     computed: {},
     watch: {},
     // 生命周期
-    created() {},
+    created() {
+        this.creathand();
+    },
     methods: {
-      changeMask(index){
-        console.log(index)
-        let vm = this;
-        let mask = vm.$refs[index];
-        if(mask==index){
-          this.idx = true
+        changeMask(index) {
+            console.log(index);
+            let vm = this;
+            let mask = vm.$refs[index];
+            if (mask == index) {
+                this.idx = true;
+            }
+        },
+        editHand() {
+            console.log("editHand");
+        },
+        commenHand() {
+            console.log("commenHand");
+        },
+        creathand() {
+            console.log("查看项目");
+            let str = `<div class="tabbox">
+                     <div class="tabhead">
+                       <div>
+                          <span>项目简介：</span>
+                          <span>K11</span>
+                       </div>
+                       <div>
+                          <span>创建日期：</span>
+                          <span>2019/7/29</span>
+                       </div>
+                        <div>
+                          <span>创建人：</span>
+                          <span>马总</span>
+                       </div>
+                        <div>
+                          <span>项目负责人：</span>
+                          <span>李总工</span>
+                       </div>
+                     </div>
+                     <div class="recent">项目周期</div>
+                     <div >                   
+                         <ul >
+                           <li>tabel li</li>
+                         </ul>
+                          
+                     </div>
+                     <div class="tabfoot">项目成员</div>
+                     <div class="tabfootText">
+                        张三，李四，王五
+                     </div>
+                   </div>`;
+            this.$alert(str, `K11项目 编辑`, {
+                dangerouslyUseHTMLString: true
+            });
         }
-      },
-      editHand(){
-        console.log("editHand")
-      },
-      commenHand(){
-        console.log("commenHand")
-      }
     }
 };
 </script>
@@ -53,32 +110,32 @@ export default {
   <div class="projctBox">
     <div class="proheadWrap">
       <div class="proHead">
-      <div class="proleft">
-        <div class="username"> {{username}} 上午好！</div>
-        <div class="dataTime">{{time}}</div>
-      </div>
-      <!-- <div class="line"></div> -->
-      <div class="proright">
-        <div class="rightfit">
-          <p>我发出的目标</p>
-          <p class="targetTxt">{{Atarget}}</p>
+        <div class="proleft">
+          <div class="username"> {{username}} 上午好！</div>
+          <div class="dataTime">{{time}}</div>
         </div>
-        <div class="rightfit">
-          <p>我收到的目标</p>
-          <p class="targetTxt">{{Btarget}}</p>
-        </div>
-        <div class="rightfit">
-          <p>我发起的问题</p>
-          <p class="targetTxt">{{Ctarget}}</p>
-        </div>
-        <div class="rightfit">
-          <p>指派给我的问题</p>
-          <p class="targetTxt">{{Dtarget}}</p>
+        <!-- <div class="line"></div> -->
+        <div class="proright">
+          <div class="rightfit">
+            <p>我发出的目标</p>
+            <p class="targetTxt">{{Atarget}}</p>
+          </div>
+          <div class="rightfit">
+            <p>我收到的目标</p>
+            <p class="targetTxt">{{Btarget}}</p>
+          </div>
+          <div class="rightfit">
+            <p>我发起的问题</p>
+            <p class="targetTxt">{{Ctarget}}</p>
+          </div>
+          <div class="rightfit">
+            <p>指派给我的问题</p>
+            <p class="targetTxt">{{Dtarget}}</p>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-    
+
     <div class="proContain">
       <div class="proText">项目列表</div>
       <div class="proMain">
@@ -88,16 +145,30 @@ export default {
             class="gether"
             v-bind:key="index"
             :ref="index"
-         
           >
             <!-- {{todo.name}} -->
 
-            <div class="markShy" v-if="index===0">
+            <div
+              class="markShy"
+              v-if="index===0"
+            >
               <div class="matip">
-                  <span class="eyer" @click="commenHand"></span>
-                  <span class="edition" @click="editHand"></span>
+                <span
+                  class="eyer"
+                  @click="commenHand"
+                ></span>
+                <span
+                  class="edition"
+                  @click="editHand"
+                ></span>
               </div>
-              <span class="detail">查看项目目标</span>
+              <el-button
+                size="mini"
+                class="detail"
+                @click="creathand"
+                type="primary"
+              >查看项目目标</el-button>
+              <!-- <span class="detail">查看项目目标</span> -->
             </div>
           </li>
         </ul>
@@ -109,9 +180,9 @@ export default {
 <style lang="less">
 .projctBox {
 }
-.proheadWrap{
-  width: 100%;
-  background-color: rgb(242, 242, 242);
+.proheadWrap {
+    width: 100%;
+    background-color: rgb(242, 242, 242);
 }
 .proHead {
     width: 760px;
@@ -122,7 +193,7 @@ export default {
     // display: flex;
     .proleft {
         width: 150px;
-        padding-top:10px;
+        padding-top: 10px;
         .dataTime {
             margin-top: 10px;
             color: #999;
@@ -131,24 +202,18 @@ export default {
         .username {
         }
     }
-   
+
     .proright {
-        // flex: 1;
-        // background: red;
         width: 760px;
         font-size: 14px;
         display: flex;
-        padding-top:10px;
-        // justify-content: space-between;
+        padding-top: 10px;
         .rightfit {
             flex: 1;
-            // text-align: center;
-            
         }
         .targetTxt {
-            
             font-size: 36px;
-            color:blue;
+            color: blue;
         }
     }
 }
@@ -185,7 +250,7 @@ export default {
             height: 200px;
             // display: flex;
             position: relative;
-           // align-items: center;
+            // align-items: center;
             // justify-content: center;
 
             // background-color: rgb(228, 228, 228);
@@ -193,51 +258,74 @@ export default {
             font-weight: bold;
             color: #fff;
             background: url("~@/assets/img/developImg.png") no-repeat;
-             background-size: 100% 100%;
+            background-size: 100% 100%;
         }
-        .markShy{
-          width: 100%;
-          height: 100%;
-          position:absolute;
-          top:0;
-          left:0;
-          background: rgba(0, 0, 0, 0.2);
-          color: #ddd;
-          .matip{
-            padding-top: 20px;
-           
-            padding-right:20px;
-           left: 25px;
-            bottom: 15px;
+        .markShy {
+            width: 100%;
+            height: 100%;
             position: absolute;
-
-           .eyer{
-             width:20px;
-             height: 20px;
-             background: url("~@/assets/img/eye.png") no-repeat;
-             background-size: 100% 100%;
-             display: inline-block;
-             color: #fff;
-           }
-           .edition{
-              width:20px;
-             height: 20px;
-             background: url("~@/assets/img/edition.png") no-repeat;
-             background-size: 100% 100%;
-             display: inline-block;
-           }
-          }
-          .detail{
-            background: blue;
-            position: absolute;
-            left: 23%;
-            bottom: 50px;
-            color: #fff;
-            padding: 5px 20px;
-            border-radius: 4px;
-            font-size: 14px;
-          }
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.2);
+            color: #ddd;
+            .matip {
+                padding-top: 20px;
+                padding-right: 20px;
+                left: 25px;
+                bottom: 15px;
+                position: absolute;
+                .eyer {
+                    width: 20px;
+                    height: 20px;
+                    background: url("~@/assets/img/eye.png") no-repeat;
+                    background-size: 100% 100%;
+                    display: inline-block;
+                    color: #fff;
+                }
+                .edition {
+                    width: 20px;
+                    height: 20px;
+                    background: url("~@/assets/img/edition.png") no-repeat;
+                    background-size: 100% 100%;
+                    display: inline-block;
+                }
+            }
+            .detail {
+                position: absolute;
+                left: 23%;
+                bottom: 50px;
+            }
         }
     }
+}
+.tabbox {
+    border-radius: 6px;
+    .tabhead {
+        display: flex;
+        justify-content: space-around;
+    }
+    .recent{
+       color: #000;
+       font-size:14px;
+       padding-bottom:10px;
+    }
+    .tabfoot{
+       color: #000;
+       font-size:14px;
+       padding-bottom:10px;
+     
+    }
+    .tabfootText{
+       background: #ddd;
+       height: 40px;
+      border-radius: 4px;
+       line-height: 40px;
+       padding-left:20px;
+     }
+
+}
+.el-message-box {
+    width: 900px;
+    height: 500px;
 }
 </style>
