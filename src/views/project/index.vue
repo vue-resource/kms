@@ -48,7 +48,7 @@ export default {
     watch: {},
     // 生命周期
     created() {
-        this.creathand();
+        // this.creathand();
     },
     methods: {
         changeMask(index) {
@@ -178,7 +178,9 @@ export default {
 </template>
 
 <style lang="less">
-.projctBox {
+.kms-content {
+  margin:0;
+  padding:0;
 }
 .proheadWrap {
     width: 100%;
@@ -218,19 +220,21 @@ export default {
     }
 }
 .proContain {
-    width: 895px;
-    height: 560px;
+    width: 760px;
+    height: 860px;
     margin: 10px auto 0;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
 
-    background-color: rgb(242, 242, 242);
+    // background-color: rgb(242, 242, 242);
     .proText {
-        padding-left: 30px;
+        // padding-left: 30px;
         padding-top: 15px;
-        height: 90px;
-        line-height: 90px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom:1px solid #ddd;  
+        margin-bottom:10px; 
         //  width:100%;
     }
     .proMain {
@@ -240,20 +244,12 @@ export default {
         display: flex;
         width: 100%;
         height: 100%;
-        // display:inline-block;
-        justify-content: space-between;
-        // align-content:flex-start;
-
         flex-wrap: wrap;
         .gether {
             width: 200px;
             height: 200px;
-            // display: flex;
+            margin-right:50px;
             position: relative;
-            // align-items: center;
-            // justify-content: center;
-
-            // background-color: rgb(228, 228, 228);
             border-radius: 6px;
             font-weight: bold;
             color: #fff;

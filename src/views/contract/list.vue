@@ -4,6 +4,11 @@ export default {
     props: {},
     data() {
         return {
+          dataTab:[
+              {name: '发出的目标', value: '1', route: '/contract'},
+              {name: '收到的目标', value: '2', route: '/b'},
+             
+            ],
             tableData: [
                 {
                     date: '2016-05-03',
@@ -96,9 +101,13 @@ export default {
 <template>
   <div class="contract">
     <div class="congoal">
-      <div class="goaltipOne">发出的目标</div>
-      <!-- <div class="line"></div> -->
-      <div class="goaltipTwo">收到的目标</div>
+      <!-- <div class="goaltipOne">发出的目标</div>
+      
+      <div class="goaltipTwo">收到的目标</div> -->
+      <el-tabs v-model="activeName">
+           <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx"
+           :label="tab.name" :name="tab.value"></el-tab-pane>
+      </el-tabs>
     </div>
     <div class="chartBox">
       <!-- <img src="chartImg" alt=""> -->
@@ -167,7 +176,7 @@ export default {
 
        
         .goaltipOne {
-          padding-right:10px;
+          // padding-right:10px;
           border-bottom: 1px solid blue;
         }
         .line {
@@ -182,13 +191,14 @@ export default {
     .chartBox {
         width: 642px;
         height: 220px;
+        clear:both;
         display: flex;
         background: #ccc;
         border-radius: 6px;
          position: relative;
         // background: url("~@/assets/img/chart.jpeg") no-repeat;
         // background-size: 100% 100%;
-        margin: 10px 10px 10px 0;
+        margin: 0px 10px 10px 0;
         .circle{
           margin-top:40px;
           margin-left:26px;
