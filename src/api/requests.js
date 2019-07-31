@@ -1,4 +1,4 @@
-import service from './api.js'
+import service from './apis.js/index.js'
 /**
  * 获取用户信息
  * @param {loginInfo: {user,password} }

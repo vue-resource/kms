@@ -1,28 +1,48 @@
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     name: "login",
     props: {},
     data() {
         return {
             checked: false,
-            labelPosition: "right",
-            dynamicValidateForm: {
-                user: "",
+            formData: {
+                account: "",
                 password: ""
+            },
+            rules: {
+              account: [
+                { required: true, message: '请输入用户名', trigger: 'change' },
+              ],
+              password: [
+                { required: true, message: '请输入密码', trigger: 'change' },
+              ],
             }
         };
     },
-    computed: {},
-    watch: {},
-    // 生命周期
-    created() {},
     methods: {
-        submit(form) {
-            this.$refs[form].validate(valid => {
-                console.log(valid);
-            });
-        }
+      ...mapActions('common', ['updateUsername']),
+      submit() {
+          this.$refs['form'].validate(valid => {
+            if(valid){
+              this.$ajax({
+                // url: '/login',
+                url: '/login.json',
+                method: 'get',
+                params: {
+                  account: 'aaa',
+                  password: '11111'
+                }
+              }).then(res => {
+                if(res.success){
+                  this.updateUsername(res.data.username);
+                  this.$router.push('/project');
+                }
+              })
+            }
+          });
+      }
     }
 };
 </script>
@@ -33,50 +53,33 @@ export default {
       <div class="loginImg"></div>
       <!-- login -->
       <div class="loginContain">
-        <div class="loginTitle">
-          项目开发系统
-        </div>
+        <div class="loginTitle"> 项目开发系统 </div>
         <div class="loginForm">
-          <el-form
-            :model="dynamicValidateForm"
-            ref="dynamicValidateForm"
-            label-width="100px"
-            :label-position="labelPosition"
-            class="demo-dynamic"
-          >
-          <el-input
-                v-model.trim="dynamicValidateForm.user"  
+          <el-form :model="formData" :rules="rules"
+            ref="form" class="demo-dynamic" label-width="0">
+            <el-form-item label="" prop="account">
+              <el-input v-model.trim="formData.account"  
                 style="margin:10px auto ;width:300px;"  
-                placeholder="请输入用户名"
-                class="inp"
-              >
-              <div slot="prepend" class="user"></div>
+                placeholder="请输入用户名" class="inp">
+                <div slot="prepend" class="user"></div>
               </el-input>
-               <el-input
-                v-model.trim="dynamicValidateForm.password"
-               style="margin:10px auto;width:300px"  
-                placeholder="请输入密码"
-              >
-               <div slot="prepend" class="password"></div>
+            </el-form-item> 
+            <el-form-item label="" prop="password">
+              <el-input v-model.trim="formData.password"  type="password"
+                style="margin:10px auto ;width:300px;"  
+                placeholder="请输入用户名" class="inp">
+                <div slot="prepend" class="password"></div>
               </el-input>
-           <div class="restore">
-              <el-checkbox
-              v-model="checked"
-             
-            >保持登录</el-checkbox>
-            <span class="forgoton">忘记密码</span>
-           </div>
-           
+            </el-form-item>
+            <div class="restore">
+              <el-checkbox v-model="checked">保持登录</el-checkbox>
+              <span class="forgoton">忘记密码</span>
+            </div>
             <div class="loginFoot">
-              <el-button
-                type="primary"
-                @click="submit('dynamicValidateForm')"
-                style="width:300px"
-              >登录</el-button>
-              
+              <el-button type="primary" @click="submit"
+                style="width:300px">登录</el-button>
             </div>
           </el-form>
-
         </div>
       </div>
     </div>

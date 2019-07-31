@@ -13,17 +13,18 @@ module.exports = merge(baseConfig, {
         quiet:false,
         historyApiFallback: true,
         noInfo: true,
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 8080,
         hot: true,
         contentBase: utils.resolve('dist'),
         compress: true,
         proxy: {
-            '/api/': {
-                target: 'http://crm.weizhipin.com/',
+            '/api': {
+                // target: 'http://crm.weizhipin.com/',
+                target: 'http://localhost:2000',
                 secure: false,
                 changeOrigin: true,
-                pathRewrite: { '^/api': '' }
+                pathRewrite: { '^/api': '/' }
             }
         }
     },

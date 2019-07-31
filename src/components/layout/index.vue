@@ -7,10 +7,10 @@
         <span class="backText">后台管理</span>        
         <el-dropdown>
             <span class="el-dropdown-link">
-                {{"罗伯特"}}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click="handle">退出登录</el-dropdown-item>
+                <el-dropdown-item @click.native="logout ">退出登录</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -30,17 +30,31 @@
   </el-container>
 </template>
 <script>
+import { mapState ,mapActions} from 'vuex';
 import Menu from "./menu";
 export default {
     name: "layout",
     components: { Menu },
+    computed: {
+      ...mapState('common',['username'])
+    },
     methods: {
-        checkIsProject() {
-            return this.$route.path.startsWith("/project");
-        },
-         handle(a) {
-         console.log('click on item ' + a);
-       }
+       ...mapActions('common', ['updateUsername']),
+      checkIsProject() {
+          return this.$route.path.startsWith("/project");
+      },
+      logout () {
+        this.$ajax({
+          // url: '/logout',
+          url: '/logout.json',
+          method: 'get',
+        }).then(res => {
+          if(res.success){
+            this.updateUsername('');
+            this.$router.push('/login');
+          }
+        })
+      }
     }
 };
 </script>

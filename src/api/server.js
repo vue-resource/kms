@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import axios from 'axios';
 import store from '@/store/index';
-// import md5 from 'blueimp-md5';
+import md5 from 'blueimp-md5';
 
-// axios.defaults.baseURL = window['ApiPrefix'] || '';
+axios.defaults.baseURL = '/api';
 
 const stringify = o => {
     try {
@@ -52,24 +52,24 @@ instance.interceptors.response.use(
     response => {
         let { status, data } = response;        
         if (status !== 200) {
-            Vue.prototype.$toast({
-                content: data,
+            Vue.prototype.$message({
+                message: data,
                 type: 'error'
             });
             return Promise.reject(data);
         } else {
-            if(data.code !== 1 && !data.success){
-                Vue.prototype.$toast({
+            if(data.success !== 1){
+                Vue.prototype.$message({
                     type:'error',
-                    content:data.message
+                    message:data.errorMsg
                 });
             }
             return data;
         }
     },
     error =>  {
-        Vue.prototype.$toast({
-            content: error,
+        Vue.prototype.$message({
+            message: error,
             type: 'error'
         });
         return Promise.reject(error);

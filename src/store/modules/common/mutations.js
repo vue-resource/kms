@@ -9,5 +9,8 @@ export default {
     [Type.UPDATE_TOKEN] (state, token) {
         state.token = token;
         Storage.set('token', token);
+    },
+    [Type.UPDATE_USERNAME] (state, username) {
+        state.username = username;
     }
 };

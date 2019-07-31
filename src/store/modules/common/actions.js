@@ -12,5 +12,8 @@ export default {
     },
     [Type.UPDATE_TOKEN] ({commit}, token) {
         commit(Type.UPDATE_TOKEN, token);
+    },
+    [Type.UPDATE_USERNAME] ({commit}, username) {
+        commit(Type.UPDATE_USERNAME, username);
     }
 };
