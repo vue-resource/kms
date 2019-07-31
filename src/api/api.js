@@ -1,9 +1,9 @@
 import Axios from 'axios'
 
 const data = {
-  // "proxy":"https://jarvis.cycle.stg-myteksi.com/MKjarvis"
-  // host: 'https://jarvis.cycle.myteksi.net/MKjarvis',      //  请求地址正式环境
-  // host: 'https://jarvis.cycle.stg-myteksi.com/MKjarvis',      //  请求地址测试环境
+  // "proxy":""//代理地址
+  // host: '', //  请求地址正式环境
+  // host: '',//  请求地址测试环境
   host: 'http://localhost:8080', // 本地环境
 
   // 网络请求地址
