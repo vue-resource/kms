@@ -116,21 +116,15 @@ export default {
 
         </div>
         <div class="reletionship">
-           
           <router-link to="/contract/topo">
             <el-button
               size="mini"
-              class="reletionshipBtn2"
+              class="reletionshipBtn"
               @click="creathand"
               type="primary"
             >需求关系图</el-button>
           </router-link>
-          <el-button
-              size="mini"
-              class="reletionshipBtn1"
-              @click="creathand"
-              type="plain"
-            >目标拆解</el-button>
+
         </div>
       </div>
     </div>
@@ -187,6 +181,40 @@ export default {
             GBT-12432 汽车质量参数检测方法
           </div>
         </div>
+         <div class="reviewFoot">
+          <el-button
+            size="mini"
+            class="submitBtn"
+            @click="creathand"
+            type="primary"
+           
+            round
+          >发布</el-button>
+          <span class="btnBox">
+            <el-button
+              size="mini"
+              class="submitBtn"
+              @click="creathand"
+              type="plain"
+              round
+            >提交</el-button>
+            <el-button
+              size="mini"
+              class="submitBtn"
+              @click="creathand"
+              type="plain"
+              round
+            >保存</el-button>
+            <el-button
+              size="mini"
+              class="submitBtn"
+              @click="creathand"
+              type="plain"
+              round
+            >取消</el-button>
+          </span>
+
+        </div>
       </div>
       <div class="contain-right">
         <div class="contain-head">
@@ -239,38 +267,38 @@ export default {
             GBT-12432 汽车质量参数检测方法
           </div>
         </div>
-        <div class="reviewFoot">
+         <div class="reviewFootrit">
           <el-button
             size="mini"
             class="submitBtn"
             @click="creathand"
-            type="primary"
+            type="plain"
            
             round
-          >发布</el-button>
-          <span class="btnBox">
+          >解决方案确认</el-button>
+         
             <el-button
               size="mini"
               class="submitBtn"
               @click="creathand"
               type="plain"
               round
-            >提交</el-button>
+            >ISL</el-button>
             <el-button
               size="mini"
               class="submitBtn"
               @click="creathand"
               type="plain"
               round
-            >保存</el-button>
+            >暂停</el-button>
             <el-button
               size="mini"
               class="submitBtn"
               @click="creathand"
               type="plain"
               round
-            >取消</el-button>
-          </span>
+            >删除</el-button>
+          
 
         </div>
       </div>
@@ -304,12 +332,8 @@ export default {
             }
             .reletionship {
                 flex: 1;
-                //  float: right;
-                .reletionshipBtn1 {
-                    float: right;
-                    margin-right:20px;
-                }
-                 .reletionshipBtn2 {
+
+                .reletionshipBtn {
                     float: right;
                 }
             }
@@ -342,7 +366,7 @@ export default {
             }
              .reviewFoot {
                 width: 450px;
-                margin: 20px auto;
+                margin: 30px auto;
                 .btnBox{
                   float: right;
                 }
@@ -381,13 +405,11 @@ export default {
                 right: 30px;
                 border-radius: 4px;
             }
-            .reviewFoot {
-                width: 450px;
-                margin: 20px auto;
-                .btnBox{
-                  float: right;
-                }
-            }
+           .reviewFootrit{
+             margin-top: 20px;
+              width: 450px;
+              float: right;
+           }
         }
     }
 }

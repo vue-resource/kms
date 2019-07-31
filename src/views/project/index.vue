@@ -15,6 +15,29 @@ export default {
             Dtarget: "20",
             idx: false,
             username: "罗伯特",
+            gridData: [
+                {
+                    date: "2016-05-02",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                },
+                {
+                    date: "2016-05-04",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                },
+                {
+                    date: "2016-05-01",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                },
+                {
+                    date: "2016-05-03",
+                    name: "王小虎",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }
+            ],
+            dialogTableVisible: false,
             tableData: [
                 {
                     id: "1",
@@ -67,40 +90,7 @@ export default {
         },
         creathand() {
             console.log("查看项目");
-            let str = `<div class="tabbox">
-                     <div class="tabhead">
-                       <div>
-                          <span>项目简介：</span>
-                          <span>K11</span>
-                       </div>
-                       <div>
-                          <span>创建日期：</span>
-                          <span>2019/7/29</span>
-                       </div>
-                        <div>
-                          <span>创建人：</span>
-                          <span>马总</span>
-                       </div>
-                        <div>
-                          <span>项目负责人：</span>
-                          <span>李总工</span>
-                       </div>
-                     </div>
-                     <div class="recent">项目周期</div>
-                     <div >                   
-                         <ul >
-                           <li>tabel li</li>
-                         </ul>
-                          
-                     </div>
-                     <div class="tabfoot">项目成员</div>
-                     <div class="tabfootText">
-                        张三，李四，王五
-                     </div>
-                   </div>`;
-            this.$alert(str, `K11项目 编辑`, {
-                dangerouslyUseHTMLString: true
-            });
+           
         }
     }
 };
@@ -155,7 +145,7 @@ export default {
               <div class="matip">
                 <span
                   class="eyer"
-                  @click="commenHand"
+                  @click="dialogTableVisible = true"
                 ></span>
                 <span
                   class="edition"
@@ -165,7 +155,7 @@ export default {
               <el-button
                 size="mini"
                 class="detail"
-                @click="creathand"
+                @click="dialogTableVisible = true"
                 type="primary"
               >查看项目目标</el-button>
               <!-- <span class="detail">查看项目目标</span> -->
@@ -174,13 +164,57 @@ export default {
         </ul>
       </div>
     </div>
+    <el-dialog
+      title="K11项目"
+      :visible.sync="dialogTableVisible"
+    >
+      <div class="tabhead">
+        <div>
+          <span>项目简介：</span>
+          <span>K11</span>
+        </div>
+        <div>
+          <span>创建日期：</span>
+          <span>2019/7/29</span>
+        </div>
+        <div>
+          <span>创建人：</span>
+          <span>马总</span>
+        </div>
+        <div>
+          <span>项目负责人：</span>
+          <span>李总工</span>
+        </div>
+      </div>
+       <div class="recent">项目周期</div>
+      <el-table :data="gridData">
+        <el-table-column
+          property="date"
+          label="日期"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          property="name"
+          label="姓名"
+          width="200"
+        ></el-table-column>
+        <el-table-column
+          property="address"
+          label="地址"
+        ></el-table-column>
+      </el-table>
+      <div class="tabfoot">项目成员</div>
+      <div class="tabfootText">
+        张三，李四，王五
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <style lang="less">
 .kms-content {
-  margin:0;
-  padding:0;
+    margin: 0;
+    padding: 0;
 }
 .proheadWrap {
     width: 100%;
@@ -233,8 +267,8 @@ export default {
         padding-top: 15px;
         height: 40px;
         line-height: 40px;
-        border-bottom:1px solid #ddd;  
-        margin-bottom:10px; 
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
         //  width:100%;
     }
     .proMain {
@@ -248,7 +282,7 @@ export default {
         .gether {
             width: 200px;
             height: 200px;
-            margin-right:50px;
+            margin-right: 50px;
             position: relative;
             border-radius: 6px;
             font-weight: bold;
@@ -294,32 +328,31 @@ export default {
         }
     }
 }
-.tabbox {
-    border-radius: 6px;
-    .tabhead {
-        display: flex;
-        justify-content: space-around;
-    }
-    .recent{
-       color: #000;
-       font-size:14px;
-       padding-bottom:10px;
-    }
-    .tabfoot{
-       color: #000;
-       font-size:14px;
-       padding-bottom:10px;
-     
-    }
-    .tabfootText{
-       background: #ddd;
-       height: 40px;
-      border-radius: 4px;
-       line-height: 40px;
-       padding-left:20px;
-     }
 
+.tabhead {
+    display: flex;
+    justify-content: space-around;
 }
+.recent {
+    color: #000;
+    font-size: 14px;
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+.tabfoot {
+    color: #000;
+    font-size: 14px;
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+.tabfootText {
+    background: #ddd;
+    height: 40px;
+    border-radius: 4px;
+    line-height: 40px;
+    padding-left: 20px;
+}
+
 .el-message-box {
     width: 900px;
     height: 500px;

@@ -10,9 +10,9 @@ const ProjectAdd = () => import( /* webpackChunkName: "project" */ '@/views/proj
 const Contract = () => import( /* webpackChunkName: "contract" */ '@/views/contract');
 const ContractList = () => import( /* webpackChunkName: "contract" */ '@/views/contract/list');
 const ContractAdd = () => import( /* webpackChunkName: "contract" */ '@/views/contract/add');
-const ContractEdit = () => import( /* webpackChunkName: "contract" */ '@/views/contract/edit');
 const ContractTopo = () => import( /* webpackChunkName: "contract" */ '@/views/contract/topo');
-
+const ContractEdit = () => import( /* webpackChunkName: "contract" */ '@/views/contract/edit');
+const ContractEditr = () => import( /* webpackChunkName: "contract" */ '@/views/contract/editr');
 
 
 
@@ -55,20 +55,28 @@ let routes = [
     }, {
       path: 'edit',
       component: ContractEdit
-    }, {
+    }, 
+    {
+      path: 'editr',
+      component: ContractEditr
+    },  
+    {
       path: 'topo',
       component: ContractTopo
-    }]
+    },
+    {
+      path: '/weight',
+      component: Weight
+    }
+  ]
   },
   // 问题管理
-  {
-    path: '/interior',
-    component: Interior
-  },
+ 
   // {
-  //   path: '/weight',
-  //   component: Weight
-  // }, {
+  //   path: '/interior',
+  //   component: Interior
+  // },
+  //{
   //   path: '/test',
   //   component: Test
   // }, 

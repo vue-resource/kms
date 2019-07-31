@@ -4,74 +4,75 @@ export default {
     props: {},
     data() {
         return {
+          activeName: '1',
           dataTab:[
-              {name: '发出的目标', value: '1', route: '/contract'},
-              {name: '收到的目标', value: '2', route: '/b'},
-             
-            ],
-            tableData: [
-                {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    province: '上海',
-                    person: '王小虎',
-                    from: '上海'
-                }, {
-                    date: '2016-05-02',
-                    name: '葛二蛋',
-                    province: '北京',
-                    person: '葛二蛋',
-                    from: '北京'
-                },{
-                    date: '2016-05-03',
-                    name: '薛仁贵',
-                    province: '南京',
-                    person: '薛仁贵',
-                    from: '南京'
-                }, {
-                    date: '2016-05-02',
-                    name: '秦琼',
-                    province: '郑州',
-                    person: '秦琼',
-                    from: '郑州'
-                },{
-                    date: '2016-05-02',
-                    name: '关羽',
-                    province: '荆州',
-                    person: '关羽',
-                    from: '荆州'
-                },{
-                    date: '2016-05-03',
-                    name: '刘备',
-                    province: '西蜀',
-                    person: '刘备',
-                    from: '西蜀'
-                }, {
-                    date: '2016-05-02',
-                    name: '张飞',
-                    province: '南蛮子',
-                    person: '张飞',
-                    from: '南蛮子'
-                },{
-                    date: '2016-05-02',
-                    name: '秦始皇',
-                    province: '西安',
-                    person: '秦始皇',
-                    from: '西安'
-                },{
-                    date: '2016-05-03',
-                    name: '老子',
-                    province: '周口',
-                    person: '老子',
-                    from: '周口'
-                }, {
-                    date: '2016-05-02',
-                    name: '曹操',
-                    province: '许昌',
-                    person: '曹操',
-                    from: '许昌'
-                },
-            ]
+            {name: '发出的目标', value: '1'},
+            {name: '收到的目标', value: '2'},
+            
+          ],
+          tableData: [
+              {
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  province: '上海',
+                  person: '王小虎',
+                  from: '上海'
+              }, {
+                  date: '2016-05-02',
+                  name: '葛二蛋',
+                  province: '北京',
+                  person: '葛二蛋',
+                  from: '北京'
+              },{
+                  date: '2016-05-03',
+                  name: '薛仁贵',
+                  province: '南京',
+                  person: '薛仁贵',
+                  from: '南京'
+              }, {
+                  date: '2016-05-02',
+                  name: '秦琼',
+                  province: '郑州',
+                  person: '秦琼',
+                  from: '郑州'
+              },{
+                  date: '2016-05-02',
+                  name: '关羽',
+                  province: '荆州',
+                  person: '关羽',
+                  from: '荆州'
+              },{
+                  date: '2016-05-03',
+                  name: '刘备',
+                  province: '西蜀',
+                  person: '刘备',
+                  from: '西蜀'
+              }, {
+                  date: '2016-05-02',
+                  name: '张飞',
+                  province: '南蛮子',
+                  person: '张飞',
+                  from: '南蛮子'
+              },{
+                  date: '2016-05-02',
+                  name: '秦始皇',
+                  province: '西安',
+                  person: '秦始皇',
+                  from: '西安'
+              },{
+                  date: '2016-05-03',
+                  name: '老子',
+                  province: '周口',
+                  person: '老子',
+                  from: '周口'
+              }, {
+                  date: '2016-05-02',
+                  name: '曹操',
+                  province: '许昌',
+                  person: '曹操',
+                  from: '许昌'
+              },
+          ]
         };
     },
     computed: {
@@ -101,9 +102,6 @@ export default {
 <template>
   <div class="contract">
     <div class="congoal">
-      <!-- <div class="goaltipOne">发出的目标</div>
-      
-      <div class="goaltipTwo">收到的目标</div> -->
       <el-tabs v-model="activeName">
            <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx"
            :label="tab.name" :name="tab.value"></el-tab-pane>
@@ -205,13 +203,9 @@ export default {
         }
         .cirleright{
           padding-top:25px;
-          padding-left:25px; 
-         
+          padding-left:25px;    
           .cirlehead{
             display: flex;
-            .timeLeft{
-             
-            }
             .timeText{
               font-weight: 300;
               font-size:24px;

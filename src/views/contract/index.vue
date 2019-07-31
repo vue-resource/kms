@@ -1,29 +1,29 @@
 <script>
 export default {
     name: "login",
-    data() {
+    data () {
         return {
             activeName: '1',
             dataTab:[
-              {name: '目标管理', value: '1', route: '/contract'},
-              {name: '分块BOM', value: '2', route: '/b'},
-              {name: '成本分析', value: '3', route: '/a'},
-              {name: '问题管理', value: '4', route: '/question'},
+              {name: '目标管理', value: '1', path: '/contract'},
+              {name: '分块BOM', value: '2', path: '/b', disabled: true},
+              {name: '成本分析', value: '3', path: '/a', disabled: true},
+              {name: '问题管理', value: '4s', path: '/weight'},
             ]
         };
     },
     methods: {
       handleTabClk (tab) {
-        console.log(tab)
-        this.$router.push(tab.route);
+        const route = this.dataTab.find(item => item.value === tab.paneName);
+        this.$router.push(route.path);
       }
     }
 };
 </script>
 <template>
   <div class="contract">
-      <el-tabs v-model="activeName">
-           <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx"
+      <el-tabs v-model="activeName" @tab-click="handleTabClk">
+           <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx" :disabled="tab.disabled"
            :label="tab.name" :name="tab.value"></el-tab-pane>
       </el-tabs>
       <router-view></router-view>
