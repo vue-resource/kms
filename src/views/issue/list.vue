@@ -67,14 +67,6 @@ export default {
 </script>
 <template>
   <div class="weightwarp">
-    <div>
-      <!-- <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-            <el-tab-pane label="目标管理" name="first">目标管理</el-tab-pane>
-            <el-tab-pane label="分块BOM" name="second">分块BOM</el-tab-pane>
-            <el-tab-pane label="成本分析" name="third">成本分析</el-tab-pane>
-            <el-tab-pane label="问题管理" name="fourth">问题管理</el-tab-pane>
-          </el-tabs> -->
-    </div>
     <div class="wighthead">
       <div class="wightOne">
         <span>问题筛选 </span>
@@ -141,7 +133,10 @@ export default {
         </el-select>
       </div>
       <div class="wightTargetBox">
-      <el-button size="mini" class="wightTarget" @click="creathand" type="primary">创建目标</el-button>        
+        <router-link to="/issue/add">
+          <el-button class="wightTarget" type="primary">创建目标</el-button>  
+        </router-link>
+            
       </div>
     </div>
     <el-table

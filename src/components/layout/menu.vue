@@ -136,7 +136,7 @@ export default {
 <template>
   <div>
     <el-tree
-      :data="data"
+      :data="data" default-expand-all
       :props="defaultProps"
       @node-click="handleNodeClick"
     ></el-tree>   

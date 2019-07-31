@@ -13,13 +13,12 @@ const ContractAdd = () => import( /* webpackChunkName: "contract" */ '@/views/co
 const ContractTopo = () => import( /* webpackChunkName: "contract" */ '@/views/contract/topo');
 const ContractEdit = () => import( /* webpackChunkName: "contract" */ '@/views/contract/edit');
 const ContractEditr = () => import( /* webpackChunkName: "contract" */ '@/views/contract/editr');
-const ContractWeight = ()=> import( /* webpackChunkName: "weight" */ '@/views/contract/weight');
 
+const issueManage = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue');
+const IssueList = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/list');
+const IssueAdd = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/add');
 
 const Interior = () => import( /* webpackChunkName: "interior" */ '@/views/interior');
-
-const Test = ()=> import( /* webpackChunkName: "weight" */ '@/views/test');
-const Alert = ()=> import( /* webpackChunkName: "weight" */ '@/components/alert');
 
 let routes = [
   {
@@ -47,43 +46,46 @@ let routes = [
     component: Contract,
     redirect: '/contract/list',
     children: [{
-      path: 'list',
-      component: ContractList
-    }, {
-      path: 'add',
-      component: ContractAdd
-    }, {
-      path: 'edit',
-      component: ContractEdit
-    }, 
-    {
-      path: 'editr',
-      component: ContractEditr
-    },  
-    {
-      path: 'topo',
-      component: ContractTopo
-    },
-    {
-      path: 'weight',
-      component: ContractWeight
-    }
-  ]
+        path: 'list',
+        component: ContractList
+      }, {
+        path: 'add',
+        component: ContractAdd
+      }, {
+        path: 'edit',
+        component: ContractEdit
+      }, 
+      {
+        path: 'editr',
+        component: ContractEditr
+      },  
+      {
+        path: 'topo',
+        component: ContractTopo
+      }
+    ]
   },
   // 问题管理
- 
-  // {
-  //   path: '/interior',
-  //   component: Interior
-  // },
-  //{
-  //   path: '/test',
-  //   component: Test
-  // }, 
-  // {
-  //   path: '/alert',
-  //   component: Alert
-  // },
+  {
+    path: '/issue',
+    component: issueManage,
+    redirect: '/issue/list',
+    children: [
+      {
+        path: 'list',
+        component: IssueList
+      },
+      {
+        path: 'add',
+        component: IssueAdd
+      }
+    ]
+  },
+  // 分块BOM
+  {
+    path: '/interior',
+    component: Interior
+  },
   {
     path: '*',
     component: NotFound

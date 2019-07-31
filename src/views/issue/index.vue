@@ -1,9 +1,9 @@
 <script>
 export default {
-    name: "login",
+    name: "issue",
     data () {
         return {
-            activeName: '1',
+            activeName: '4',
             dataTab:[
               {name: '目标管理', value: '1', path: '/contract'},
               {name: '分块BOM', value: '2', path: '/b', disabled: true},

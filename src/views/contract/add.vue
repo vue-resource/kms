@@ -138,7 +138,7 @@ export default {
   <div class="concactAdd">
     <div class="left">
       <el-tree
-        :data="data"
+        :data="data" default-expand-all
         :props="defaultProps"
         @node-click="handleNodeClick"
         style="background:#ccc;height:550px"
@@ -147,7 +147,7 @@ export default {
     </div>
      <div class="right">
       <el-tree
-        :data="data"
+        :data="data" default-expand-all
         :props="defaultProps"
         @node-click="handleNodeClick"
         style="background:#ccc;height:550px"

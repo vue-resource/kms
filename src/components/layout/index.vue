@@ -1,17 +1,17 @@
+
 <template>
   <el-container class="kms-container">
     <el-header class="kms-header">
       <div class="headImg"></div>
       <div class="headright">
-        <span class="backText">后台管理</span>
-       
+        <span class="backText">后台管理</span>        
         <el-dropdown>
-          <span class="el-dropdown-link">
-            {{"罗伯特"}}<i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>退出登录</el-dropdown-item>      
-          </el-dropdown-menu>
+            <span class="el-dropdown-link">
+                {{"罗伯特"}}<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click="handle">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
         </el-dropdown>
       </div>
     </el-header>
@@ -37,7 +37,10 @@ export default {
     methods: {
         checkIsProject() {
             return this.$route.path.startsWith("/project");
-        }
+        },
+         handle(a) {
+         console.log('click on item ' + a);
+       }
     }
 };
 </script>

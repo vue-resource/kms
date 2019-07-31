@@ -147,17 +147,22 @@ export default {
                   class="eyer"
                   @click="dialogTableVisible = true"
                 ></span>
+                <router-link to="/project/add">
                 <span
                   class="edition"
                   @click="editHand"
                 ></span>
+                </router-link>
               </div>
-              <el-button
+              <!-- <router-link to="/project/add"> -->
+                <el-button
                 size="mini"
                 class="detail"
                 @click="dialogTableVisible = true"
                 type="primary"
               >查看项目目标</el-button>
+              <!-- </router-link> -->
+              
               <!-- <span class="detail">查看项目目标</span> -->
             </div>
           </li>

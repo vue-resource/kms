@@ -4,14 +4,14 @@ export default {
     props: {},
     data() {
         return {
-          issue:'',
-          value1:'',
-          issuePeople:'',
-          Barvalue:'',
-          options: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
-          options1: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
-          options2: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
-          options3: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
+            issue: "",
+            value1: "",
+            issuePeople: "",
+            Barvalue: "",
+            options: [{ value: "选项1", label: "黄金糕" }, { value: "选项2", label: "双皮奶" }],
+            options1: [{ value: "选项1", label: "黄金糕" }, { value: "选项2", label: "双皮奶" }],
+            options2: [{ value: "选项1", label: "黄金糕" }, { value: "选项2", label: "双皮奶" }],
+            options3: [{ value: "选项1", label: "黄金糕" }, { value: "选项2", label: "双皮奶" }],
             tableData: [
                 {
                     id: "1",
@@ -53,9 +53,9 @@ export default {
     // 生命周期
     created() {},
     methods: {
-      creathandle(){
-        console.log("创建消息")
-      }
+        creathandle() {
+            console.log("创建消息");
+        }
     }
 };
 </script>
@@ -83,7 +83,7 @@ export default {
         <el-select
           v-model="value1"
           placeholder="请选择"
-           class="seleteder"
+          class="seleteder"
         >
           <el-option
             v-for="item in options1"
@@ -99,7 +99,7 @@ export default {
         <el-select
           v-model="issuePeople"
           placeholder="请选择"
-           class="seleteder"
+          class="seleteder"
         >
           <el-option
             v-for="item in options2"
@@ -127,20 +127,16 @@ export default {
         </el-select>
       </div>
       <div class="wightTargetBox">
-      <el-button size="mini" class="wightTarget" @click="creathandle" type="primary">创建目标</el-button>        
+        <el-button
+          size="mini"
+          class="wightTarget"
+          @click="creathandle"
+          type="primary"
+        >创建目标</el-button>
       </div>
     </div>
-    <el-table
-      :data="tableData"
-      height="200px"
-      border
-    >
-      <el-table-column
-        prop="id"
-        label="序号"
-        width="50"
-      >
-      </el-table-column>
+    <el-table :data="tableData" height="200px" border stripe>
+      <el-table-column prop="id" label="序号" width="50"></el-table-column>
       <el-table-column
         prop="name"
         label="问题描述"
@@ -173,27 +169,26 @@ export default {
   </div>
 </template>
 <style lang="less">
-.weightwarp{
-  font-size: 14px;
+.weightwarp {
+    font-size: 14px;
 }
-.wighthead{
-  display: flex;
-  margin-bottom:20px;
-  .wightTwo{
-    padding:0 20px;
-  }
-  .wighthree{
-     padding-right:20px;
-  }
-  .seleteder{
-    width:100px;
-  }
-  .wightTargetBox{
-     flex:1;
-     .wightTarget{
-      float: right; 
+.wighthead {
+    display: flex;
+    margin-bottom: 20px;
+    .wightTwo {
+        padding: 0 20px;
     }
-  }
-  
+    .wighthree {
+        padding-right: 20px;
+    }
+    .seleteder {
+        width: 100px;
+    }
+    .wightTargetBox {
+        flex: 1;
+        .wightTarget {
+            float: right;
+        }
+    }
 }
 </style>
