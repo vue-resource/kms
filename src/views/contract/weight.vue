@@ -4,22 +4,14 @@ export default {
     props: {},
     data() {
         return {
-          options: [{
-              value: '选项1',
-              label: '黄金糕'
-            }, {
-              value: '选项2',
-              label: '双皮奶'
-            }, {
-              value: '选项3',
-              label: '蚵仔煎'
-            }, {
-              value: '选项4',
-              label: '龙须面'
-            }, {
-              value: '选项5',
-              label: '北京烤鸭'
-            }],
+          issue:'',
+          value1:'',
+          issuePeople:'',
+          Barvalue:'',
+          options: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
+          options1: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
+          options2: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
+          options3: [{value: '选项1',label: '黄金糕'}, {value: '选项2',label: '双皮奶'}],
             tableData: [
                 {
                     id: "1",
@@ -60,24 +52,20 @@ export default {
     watch: {},
     // 生命周期
     created() {},
-    methods: {}
+    methods: {
+      creathandle(){
+        console.log("创建消息")
+      }
+    }
 };
 </script>
 <template>
   <div class="weightwarp">
-    <div>
-      <!-- <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-            <el-tab-pane label="目标管理" name="first">目标管理</el-tab-pane>
-            <el-tab-pane label="分块BOM" name="second">分块BOM</el-tab-pane>
-            <el-tab-pane label="成本分析" name="third">成本分析</el-tab-pane>
-            <el-tab-pane label="问题管理" name="fourth">问题管理</el-tab-pane>
-          </el-tabs> -->
-    </div>
     <div class="wighthead">
       <div class="wightOne">
         <span>问题筛选 </span>
         <el-select
-          v-model="value"
+          v-model="issue"
           placeholder="请选择"
           class="seleteder"
         >
@@ -93,12 +81,12 @@ export default {
       <div class="wightTwo">
         <span>问题筛选 </span>
         <el-select
-          v-model="value"
+          v-model="value1"
           placeholder="请选择"
            class="seleteder"
         >
           <el-option
-            v-for="item in options"
+            v-for="item in options1"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -109,12 +97,12 @@ export default {
       <div class="wighthree">
         <span>发起人 </span>
         <el-select
-          v-model="value"
+          v-model="issuePeople"
           placeholder="请选择"
            class="seleteder"
         >
           <el-option
-            v-for="item in options"
+            v-for="item in options2"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -125,12 +113,12 @@ export default {
       <div class="wightFour">
         <span>责任人 </span>
         <el-select
-          v-model="value"
+          v-model="Barvalue"
           placeholder="请选择"
-           class="seleteder"
+          class="seleteder"
         >
           <el-option
-            v-for="item in options"
+            v-for="item in options3"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -139,7 +127,7 @@ export default {
         </el-select>
       </div>
       <div class="wightTargetBox">
-      <el-button size="mini" class="wightTarget" @click="creathand" type="primary">创建目标</el-button>        
+      <el-button size="mini" class="wightTarget" @click="creathandle" type="primary">创建目标</el-button>        
       </div>
     </div>
     <el-table

@@ -13,11 +13,11 @@ const ContractAdd = () => import( /* webpackChunkName: "contract" */ '@/views/co
 const ContractTopo = () => import( /* webpackChunkName: "contract" */ '@/views/contract/topo');
 const ContractEdit = () => import( /* webpackChunkName: "contract" */ '@/views/contract/edit');
 const ContractEditr = () => import( /* webpackChunkName: "contract" */ '@/views/contract/editr');
-
+const ContractWeight = ()=> import( /* webpackChunkName: "weight" */ '@/views/contract/weight');
 
 
 const Interior = () => import( /* webpackChunkName: "interior" */ '@/views/interior');
-const Weight = ()=> import( /* webpackChunkName: "weight" */ '@/views/weight');
+
 const Test = ()=> import( /* webpackChunkName: "weight" */ '@/views/test');
 const Alert = ()=> import( /* webpackChunkName: "weight" */ '@/components/alert');
 
@@ -65,8 +65,8 @@ let routes = [
       component: ContractTopo
     },
     {
-      path: '/weight',
-      component: Weight
+      path: 'weight',
+      component: ContractWeight
     }
   ]
   },

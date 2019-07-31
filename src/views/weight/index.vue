@@ -3,7 +3,9 @@ export default {
     name: "weight",
     props: {},
     data() {
+       
         return {
+           value:'',
           options: [{
               value: '选项1',
               label: '黄金糕'

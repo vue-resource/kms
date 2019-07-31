@@ -115,7 +115,13 @@ export default {
     // 生命周期
     created() {},
     methods: {
-        handleOpen(key, keyPath) {
+       creatSubmit(){
+           console.log("提交信息")
+       },
+       creatCancel(){
+           console.log("取消操作")
+       },
+       handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },
         handleClose(key, keyPath) {
@@ -124,6 +130,7 @@ export default {
         handleNodeClick(data) {
             console.log(data);
         }
+
     }
 };
 </script>
@@ -149,10 +156,10 @@ export default {
     </div>
     <div class="submitBtn">
       <div class="btn">
-       <el-button size="mini" class="goalTarget" @click="creathand" type="primary">提交</el-button>         
+       <el-button size="mini" class="goalTarget" @click="creatSubmit" type="primary">提交</el-button>         
       </div>
       <div class="cencel">
-        <el-button size="mini" class="goalTarget" @click="creathand" plain>取消</el-button>         
+        <el-button size="mini" class="goalTarget" @click="creatCancel" plain>取消</el-button>         
       </div>
     </div>
   </div>
