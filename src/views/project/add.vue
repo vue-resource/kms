@@ -1,61 +1,157 @@
 <script>
-import moment from "moment";
-let Atime = new moment();
+// import moment from "moment";
+// let Atime = new moment();
 export default {
-    name: "login",
-    props: {},
+    name: "project-action",
+    computed:{
+      title () {
+        return this.$route.query.id ? '编辑项目' : '新建项目'
+      }
+    },
     data() {
+        const checkTime = (rule, value, callback) => {
+          const res = value.every(item => {
+            return item.name && item.dateStart && item.dateEnd;
+          })
+          if(value.length === 0){
+            callback(new Error('请填写项目周期'));
+          }else if(!res){
+            callback(new Error('每一项必须完整'))
+          }else {
+            callback();
+          }
+        }
         return {
-            value1: Atime.format("YYYY/MM/DD"),
-            value2: Atime.format("YYYY/MM/DD"),
-            hold: "1",
-            form: {
-                name: "",
-                region: "",
-                date1: "",
-                date2: "",
-                delivery: false,
-                type: [],
-                resource: "",
-                desc: "",
-                lists: [
-                { id: 1, startTime: "选择开始时间", endTime: "选择结束时间" },
-                { id: 2, startTime: "选择开始时间", endTime: "选择结束时间" },
-                { id: 3, startTime: "选择开始时间", endTime: "选择结束时间" }]
-            },
-            options: [
-                {
-                    value: "选项1",
-                    label: "张三"
-                },
-                {
-                    value: "选项2",
-                    label: "李四"
-                },
-                {
-                    value: "选项3",
-                    label: "王五"
-                }
+          responsibles:[
+            {value: "11", label: "张三1"},
+            {value: "22", label: "张三2"}
+          ],
+          param: {
+            projectName:'',
+            projectRecommend: '',
+            projectResponsible:'',
+            members:'',
+            projectTime:[{
+              "dateStart":"",
+              "dateEnd":"",
+              "name":""
+            }]
+          },
+          rules: {
+            projectName: [
+              { required: true, message: '请输入项目名称', trigger: 'change' }
             ],
-            value: ""
+            projectRecommend: [
+              { required: true, message: '请输入项目描述', trigger: 'change' }
+            ],
+            members: [
+              { required: true, message: '请输入项目成员', trigger: 'change' }
+            ],
+            projectResponsible: [
+              { required: true, message: '请选择项目负责人', trigger: 'change' }
+            ],
+            projectTime: [
+              { validator: checkTime, trigger: 'change' }
+            ]
+          },
+
+
+
+
+
+
+
+
+            // value1: Atime.format("YYYY/MM/DD"),
+            // value2: Atime.format("YYYY/MM/DD"),
+            // hold: "1",
+            // form: {
+            //     name: "",
+            //     region: "",
+            //     date1: "",
+            //     date2: "",
+            //     delivery: false,
+            //     type: [],
+            //     resource: "",
+            //     desc: "",
+            //     lists: [
+            //     { id: 1, startTime: "选择开始时间", endTime: "选择结束时间" },
+            //     { id: 2, startTime: "选择开始时间", endTime: "选择结束时间" },
+            //     { id: 3, startTime: "选择开始时间", endTime: "选择结束时间" }]
+            // },
+            // options: [
+            //     {
+            //         value: "选项1",
+            //         label: "张三"
+            //     },
+            //     {
+            //         value: "选项2",
+            //         label: "李四"
+            //     },
+            //     {
+            //         value: "选项3",
+            //         label: "王五"
+            //     }
+            // ],
+            // value: ""
         };
     },
-    computed: {},
-    watch: {},
-    // 生命周期
-    created() {},
+    created() {
+      if(this.$route.query.id){
+        this.getDetail(this.$route.query.id);
+      }
+    },
     methods: {
-        addNewList: function(e) {
-            console.log(this, this.index);
-            this.hold = this.index;
-            this.form.lists.unshift({
-                id: this.index++,
-                startTime: "选择开始时间",
-                endTime: "选择结束时间"
-            });
-            console.log(this.lists);
-            //  this.newAddText=''
-        }
+      // 详情
+      getDetail (id) {
+        this.$ajax({
+          // url: '/project/getProjectDetail',
+          url: '/project/getProjectDetail.json',
+          method: 'get',
+          params: {
+            id: id
+          }
+        }).then(res => {
+          if(res.success){
+            this.param = res.data;
+          }
+        })
+      },
+      // 提交
+      handleSubmit () {
+        this.$refs['form'].validate((valid) => {
+          if (valid) {
+            this.$ajax({
+              // url: '/project/updateProjectInfo',
+              url: '/project/updateProjectInfo.json',
+              method: 'get',
+              params: this.param
+            }).then(res => {
+              if(res.success){
+                this.$router.push('/project');
+              }
+            })
+          }
+        })
+      },
+
+
+
+
+
+
+
+        // addNewList: function(e) {
+        //     console.log(this, this.index);
+        //     this.hold = this.index;
+        //     this.param.lists.unshift({
+        //         id: this.index++,
+        //         startTime: "选择开始时间",
+        //         endTime: "选择结束时间"
+        //     });
+        //     console.log(this.lists);
+        //     //  this.newAddText=''
+        // }
     }
 };
 </script>
@@ -63,101 +159,48 @@ export default {
 <template>
 
   <div class="proAddBox">
-    <div class="creat">
-      新建项目
-    </div>
-
+    <div class="creat">{{ title }}</div>
     <div class="addMain">
-      <el-form
-        ref="form"
-        :model="form"
-        label-width="100px"
-        
-      >
-     
-        <el-form-item label="活动名称:">
-          <el-input
-            v-model.trim="form.name"
-            style="width:400px"
-          ></el-input>
+      <el-form ref="form" label-width="100px" :model="param" :rules="rules">
+        <el-form-item label="活动名称:" prop="projectName">
+          <el-input v-model.trim="param.projectName" style="width:400px"></el-input>
         </el-form-item>
-        <el-form-item label="项目简介:">
-          <el-input
-            v-model.trim="form.region"
-            style="width:400px"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="项目周期:">
+        <!-- <el-form-item label="项目简介:">
+          <el-input v-model.trim="param.projectRecommend" style="width:400px" ></el-input>
+        </el-form-item> -->
+        <el-form-item label="项目周期:" prop="projectTime">
           <ul class="Astrict">
-            <li
-              v-for='(list,index) in form.lists'
-              v-bind:key='index'
-            >
-              <el-input
-                v-model.trim="form.date1"
-                class="userInp"
-                style="width:200px"
-                placeholder="Q1"
-              ></el-input>
+            <li v-for='(list,index) in param.projectTime' :key='index'>
+              <el-input v-model.trim="list.name" class="userInp" style="width:200px"></el-input>
               <span class="block">
-                <span class="demonstration">{{list.startTime}}</span>
-                <el-date-picker
-                  v-model="value1"
-                  type="date"
-                  class="startDate"
-                  style="width: 140px;"
-                  placeholder="start日期"
-                >
-                </el-date-picker>
+                <span class="demonstration">请选择开始时间</span>
+                <el-date-picker v-model="list.dateStart" type="date" placeholder="开始日期"
+                  class="startDate" style="width: 140px;"></el-date-picker>
               </span>
               <span class="blockTwo">
-                <span class="demonstration">{{list.endTime}}</span>
-                <el-date-picker
-                  v-model="value2"
-                  type="date"
-                  class="endDate"
-                  style="width: 140px;"
-                  placeholder="end日期"
-                >
-                </el-date-picker>
+                <span class="demonstration">请选择结束时间</span>
+                <el-date-picker v-model="list.dateEnd" type="date" placeholder="开始日期"
+                  class="endDate" style="width: 140px;"></el-date-picker>
               </span>
             </li>
           </ul>
-          <!-- <el-button
-            plain
-            @click='addNewList'
-          >继续添加周期</el-button> -->
         </el-form-item>
-        <el-form-item label="项目描述:">
-          <el-input
-            type="textarea"
-            v-model.trim="form.desc"
-            style="width:800px;"
-            :rows="5"
-            placeholder="K11项目是我司战略上最重要的一款车型。"
-          ></el-input>
+        <el-form-item label="项目描述:" prop="projectRecommend">
+          <el-input v-model.trim="param.projectRecommend" type="textarea" 
+          :rows="5" style="width:400px" ></el-input>
         </el-form-item>
-        <el-form-item label="项目负责人:">
-          <el-select v-model="form.region" placeholder="李工">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
+        <el-form-item label="项目负责人:" prop="projectResponsible">
+          <el-select v-model="param.projectResponsible">
+            <el-option v-for="item in responsibles" :key="item.value"
+              :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="项目成员:">
-          <el-input
-            type="textarea"
-            v-model.trim="form.desc"
-            style="width:600px;"
-            :rows="4"
-            placeholder="K1222项目成员"></el-input>
+        <el-form-item label="项目成员:" prop="members">
+          <el-input v-model.trim="param.members" style="width:600px;"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="handleSubmit">提交</el-button>
         </el-form-item>
       </el-form>
 
