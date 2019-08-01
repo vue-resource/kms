@@ -15,6 +15,9 @@ export default {
             Dtarget: "20",
             idx: false,
             username: "罗伯特",
+            projectDataCount:{},
+            projectInfoList:[],
+            currentDate:'',
             gridData: [
                 {
                     date: "2016-05-02",
@@ -38,24 +41,6 @@ export default {
                 }
             ],
             dialogTableVisible: false,
-            tableData: [
-                {
-                    id: "1",
-                    date: "2016-05-03",
-                    rage: "[min]",
-                    name: "快充SOC(30%~80%)时间，常温",
-                    address: "<35~45",
-                    codename: "B01.005"
-                },
-                {
-                    id: "2",
-                    rage: "[s]",
-                    date: "2016-05-02",
-                    name: "滑行距离，初速120-0km/h",
-                    address: "<35~45",
-                    codename: "B01.005"
-                }
-            ],
             list: [
                 { name: "K09项目" },
                 { name: "K11项目" },
@@ -71,7 +56,7 @@ export default {
     watch: {},
     // 生命周期
     created() {
-        // this.creathand();
+        this.initdom();
     },
     methods: {
         changeMask(index) {
@@ -91,6 +76,29 @@ export default {
         creathand() {
             console.log("查看项目");
            
+        },
+        initdom(){
+          this.$ajax({
+                // url: '/getProjectList',
+                url: '/getProjectList.json',
+                method: 'get',
+                params: {
+                  id:'',
+                  projectName: '罗布泊',
+                  createTime:'2019/7/12',
+                  projectResponsible:'张三',
+                  projectTime:'12',
+                  projectRecommend:'K11',
+                  projectStatus:1
+                }
+              }).then(res => {
+                this.projectDataCount = res.data.projectDataCount;
+                this.projectInfoList = res.data.projectInfoList;
+                this.currentDate = res.data.currentDate;
+                if(res.success){
+                 
+                }
+              })
         }
     }
 };
@@ -102,77 +110,49 @@ export default {
       <div class="proHead">
         <div class="proleft">
           <div class="username"> {{username}} 上午好！</div>
-          <div class="dataTime">{{time}}</div>
+          <div class="dataTime">{{currentDate}}</div>
         </div>
-        <!-- <div class="line"></div> -->
         <div class="proright">
           <div class="rightfit">
             <p>我发出的目标</p>
-            <p class="targetTxt">{{Atarget}}</p>
+            <p class="targetTxt">{{projectDataCount.createTargetAmount}}</p>
           </div>
           <div class="rightfit">
             <p>我收到的目标</p>
-            <p class="targetTxt">{{Btarget}}</p>
+            <p class="targetTxt">{{projectDataCount.receiveTargetAmount}}</p>
           </div>
           <div class="rightfit">
             <p>我发起的问题</p>
-            <p class="targetTxt">{{Ctarget}}</p>
+            <p class="targetTxt">{{projectDataCount.receiveIssueAmount}}</p>
           </div>
           <div class="rightfit">
             <p>指派给我的问题</p>
-            <p class="targetTxt">{{Dtarget}}</p>
+            <p class="targetTxt">{{projectDataCount.createIssueAmount}}</p>
           </div>
         </div>
       </div>
     </div>
-
+    <!-- 项目列表 -->
     <div class="proContain">
       <div class="proText">项目列表</div>
       <div class="proMain">
         <ul class="ulist">
           <li
-            v-for="(todo,index) in list"
-            class="gether"
-            v-bind:key="index"
-            :ref="index"
-          >
-            <!-- {{todo.name}} -->
-
-            <div
-              class="markShy"
-              v-if="index===0"
-            >
+            v-for="(todo,index) in list" class="gether" v-bind:key="index" :ref="index">
+            <div class="markShy" v-if="index===0">
               <div class="matip">
-                <span
-                  class="eyer"
-                  @click="dialogTableVisible = true"
-                ></span>
+                <span class="eyer" @click="dialogTableVisible = true"></span>
                 <router-link to="/project/add">
-                <span
-                  class="edition"
-                  @click="editHand"
-                ></span>
+                   <span class="edition" @click="editHand"></span>
                 </router-link>
               </div>
-              <!-- <router-link to="/project/add"> -->
-                <el-button
-                size="mini"
-                class="detail"
-                @click="dialogTableVisible = true"
-                type="primary"
-              >查看项目目标</el-button>
-              <!-- </router-link> -->
-              
-              <!-- <span class="detail">查看项目目标</span> -->
+                <el-button size="mini" class="detail" @click="dialogTableVisible = true" type="primary">查看项目目标</el-button>        
             </div>
           </li>
         </ul>
       </div>
     </div>
-    <el-dialog
-      title="K11项目"
-      :visible.sync="dialogTableVisible"
-    >
+    <el-dialog title="K11项目" :visible.sync="dialogTableVisible">
       <div class="tabhead">
         <div>
           <span>项目简介：</span>
@@ -193,25 +173,12 @@ export default {
       </div>
        <div class="recent">项目周期</div>
       <el-table :data="gridData">
-        <el-table-column
-          property="date"
-          label="日期"
-          width="150"
-        ></el-table-column>
-        <el-table-column
-          property="name"
-          label="姓名"
-          width="200"
-        ></el-table-column>
-        <el-table-column
-          property="address"
-          label="地址"
-        ></el-table-column>
+        <el-table-column property="date" label="日期" width="150"></el-table-column>
+        <el-table-column property="name" label="姓名" width="200"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
       </el-table>
       <div class="tabfoot">项目成员</div>
-      <div class="tabfootText">
-        张三，李四，王五
-      </div>
+      <div class="tabfootText">张三，李四，王五</div>
     </el-dialog>
   </div>
 </template>
@@ -230,8 +197,6 @@ export default {
     height: 140px;
     border-radius: 4px;
     margin: 0 auto;
-    // background-color: rgb(242, 242, 242);
-    // display: flex;
     .proleft {
         width: 150px;
         padding-top: 10px;
@@ -240,10 +205,7 @@ export default {
             color: #999;
             font-size: 12px;
         }
-        .username {
-        }
     }
-
     .proright {
         width: 760px;
         font-size: 14px;
@@ -265,16 +227,12 @@ export default {
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-
-    // background-color: rgb(242, 242, 242);
     .proText {
-        // padding-left: 30px;
         padding-top: 15px;
         height: 40px;
         line-height: 40px;
         border-bottom: 1px solid #ddd;
         margin-bottom: 10px;
-        //  width:100%;
     }
     .proMain {
         flex: 1;
@@ -333,7 +291,6 @@ export default {
         }
     }
 }
-
 .tabhead {
     display: flex;
     justify-content: space-around;
@@ -357,7 +314,6 @@ export default {
     line-height: 40px;
     padding-left: 20px;
 }
-
 .el-message-box {
     width: 900px;
     height: 500px;

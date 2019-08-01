@@ -53,118 +53,55 @@ export default {
                 startTime: "选择开始时间",
                 endTime: "选择结束时间"
             });
-            console.log(this.lists);
-            //  this.newAddText=''
         }
     }
 };
 </script>
-
 <template>
-
   <div class="proAddBox">
-    <div class="creat">
-      新建项目
-    </div>
-
+    <div class="creat">新建项目</div>
     <div class="addMain">
-      <el-form
-        ref="form"
-        :model="form"
-        label-width="100px"
-        
-      >
-     
+      <el-form ref="form"  :model="form" label-width="100px">
         <el-form-item label="活动名称:">
-          <el-input
-            v-model.trim="form.name"
-            style="width:400px"
-          ></el-input>
+          <el-input v-model.trim="form.name" style="width:400px"></el-input>
         </el-form-item>
         <el-form-item label="项目简介:">
-          <el-input
-            v-model.trim="form.region"
-            style="width:400px"
-          ></el-input>
+          <el-input v-model.trim="form.region" style="width:400px"></el-input>
         </el-form-item>
         <el-form-item label="项目周期:">
-
           <ul class="Astrict">
-            <li
-              v-for='(list,index) in form.lists'
-              v-bind:key='index'
-            >
-              <el-input
-                v-model.trim="form.date1"
-                class="userInp"
-                style="width:200px"
-                placeholder="Q1"
-              ></el-input>
+            <li v-for='(list,index) in form.lists' v-bind:key='index'>
+              <el-input v-model.trim="form.date1" class="userInp" style="width:200px" placeholder="Q1" ></el-input>
               <span class="block">
                 <span class="demonstration">{{list.startTime}}</span>
-                <el-date-picker
-                  v-model="value1"
-                  type="date"
-                  class="startDate"
-                  style="width: 140px;"
-                  placeholder="start日期"
-                >
+                <el-date-picker v-model="value1" type="date" class="startDate" style="width: 140px;" placeholder="start日期">
                 </el-date-picker>
               </span>
               <span class="blockTwo">
                 <span class="demonstration">{{list.endTime}}</span>
-                <el-date-picker
-                  v-model="value2"
-                  type="date"
-                  class="endDate"
-                  style="width: 140px;"
-                  placeholder="end日期"
-                >
+                <el-date-picker v-model="value2" type="date" class="endDate" style="width: 140px;" placeholder="end日期">
                 </el-date-picker>
               </span>
             </li>
           </ul>
-          <!-- <el-button
-            plain
-            @click='addNewList'
-          >继续添加周期</el-button> -->
         </el-form-item>
         <el-form-item label="项目描述:">
-          <el-input
-            type="textarea"
-            v-model.trim="form.desc"
-            style="width:800px;"
-            :rows="5"
+          <el-input type="textarea" v-model.trim="form.desc" style="width:800px;" :rows="5"
             placeholder="K11项目是我司战略上最重要的一款车型。"
+            class="desreption"
           ></el-input>
         </el-form-item>
         <el-form-item label="项目负责人:">
-          <el-select
-            v-model="form.region"
-            placeholder="李工"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
+          <el-select v-model="form.region" placeholder="李工">
+             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="项目成员:">
-          <el-input
-            type="textarea"
-            v-model.trim="form.desc"
-            style="width:600px;"
-            :rows="4"
-            placeholder="K1222项目成员。  "
-          ></el-input>
+          <el-input type="textarea" v-model.trim="form.desc" style="width:600px;" :rows="4" placeholder="K1222项目成员"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-          >提交</el-button>
+          <el-button type="primary">提交</el-button>
         </el-form-item>
       </el-form>
 
@@ -172,9 +109,7 @@ export default {
   </div>
 </template>
 <style lang="less">
-.kms-content{
-  margin:0;padding:0;
-}
+.kms-content{margin:0;padding:0;}
 .proAddBox {
     border: 1px solid #ccc;
     border-top:none;
@@ -183,16 +118,14 @@ export default {
     border-radius:0;
     margin: 0 auto;
     .creat {
-        // padding-top: 20px;
         width: 880px;
-       margin: 0px auto 20px;
-       padding-top: 15px;
+        margin: 0px auto 20px;
+        padding-top: 15px;
         padding-bottom: 10px;
         font-weight: bold;
         border-bottom:1px solid #ddd;
     }
     .addMain {
-        // padding-top: 25px;
         padding-left: 30px;
         .Addweek {
             padding-bottom: 15px;

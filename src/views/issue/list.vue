@@ -6,6 +6,7 @@ export default {
        
         return {
            value:'',
+           list:[],
           options: [{
               value: '选项1',
               label: '黄金糕'
@@ -61,8 +62,83 @@ export default {
     computed: {},
     watch: {},
     // 生命周期
-    created() {},
-    methods: {}
+    created() {
+      this.initDom()
+      this.closeIssue();
+      // this.createIssue();
+    },
+    methods: {
+       initDom(){
+           this.$ajax({
+              // url: '/getIssueList',//问题管理
+                url: '/getIssueList.json',
+                method: 'get',
+                params: {
+                  nodeId: '12',
+                  status: '1',
+                  issueRank:"A",
+                  leader:'张三',
+                  createName:'问题创建人'
+                }
+              }).then(res => {           
+                if(res.success){
+                  let list = res.data.list;
+                  console.log(this)
+                  this.list = list;
+                  // this.updateUsername('');
+                  // this.$router.push('/login');
+                }
+            })
+        },
+        closeIssue(){
+          this.$ajax({
+              // url: '/closeIssue',//问题管理
+                url: '/closeIssue.json',
+                method: 'get',
+                params: {
+                  issueId:"1"
+                }
+              }).then(res => {                         
+                if(res.success){             
+                  console.log(this)
+                  // this.list = list;
+                  // this.updateUsername('');
+                  // this.$router.push('/login');
+                }
+            })
+        },
+        createIssue(){
+          let param = {
+                  nodeId:"1",
+                "nodeId":"8",
+                "targetId":"8",
+                "issueName":"外覆盖件",
+                "issueScope":"内部",
+                "issueCause":"注塑，卡接",
+                "solution":"无",
+                "remedialAction":"",
+                "fileName":"张三",
+                "leader":"李总",
+                "status":"1",
+                "issueRank":"中",
+                "finishTime":"2019/7/29",
+                "createTime":"2019/7/28"
+                }
+           this.$ajax({
+              // url: '/createIssue',//创建问题
+                url: '/createIssue.json',
+                method: 'get',
+                params: param
+              }).then(res => {                         
+                if(res.success){             
+                  console.log(this)
+                  // this.list = list;
+                  // this.updateUsername('');
+                  // this.$router.push('/login');
+                }
+            })
+        }
+    }
 };
 </script>
 <template>
@@ -134,14 +210,14 @@ export default {
       </div>
       <div class="wightTargetBox">
         <router-link to="/issue/add">
-          <el-button class="wightTarget" type="primary">创建目标</el-button>  
+          <el-button class="wightTarget" type="primary" @click="createIssue">创建问题</el-button>  
         </router-link>
             
       </div>
     </div>
     <el-table
-      :data="tableData"
-      height="200px"
+      :data="list"
+      height="300px"
       border
     >
       <el-table-column
@@ -151,25 +227,26 @@ export default {
       >
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="issueName"
         label="问题描述"
-        width="350"
+        width="200"
       >
       </el-table-column>
       <el-table-column
-        prop="rage"
+        prop="issueCause"
         width="150"
         label="问题原因"
       >
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="issueRank"
         width="100"
         label="问题等级"
       >
       </el-table-column>
       <el-table-column
-        prop="codename"
+        prop="leader"
+         width="100"
         label="责任人"
       >
       </el-table-column>
@@ -177,6 +254,9 @@ export default {
         prop="codename"
         label="相关功能"
       >
+      <el-button class="wightTarget" type="plain" round>查看</el-button>  
+      <el-button class="wightTarget" type="plain" round>编辑</el-button>  
+      <el-button class="wightTarget" type="plain" round>关闭</el-button>  
       </el-table-column>
     </el-table>
   </div>

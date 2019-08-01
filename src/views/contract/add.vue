@@ -137,22 +137,12 @@ export default {
 <template>
   <div class="concactAdd">
     <div class="left">
-      <el-tree
-        :data="data" default-expand-all
-        :props="defaultProps"
-        @node-click="handleNodeClick"
-        style="background:#ccc;height:550px"
-      >
+      <el-tree :data="data" default-expand-all :props="defaultProps" @node-click="handleNodeClick" class="treeOne">
       </el-tree>
     </div>
      <div class="right">
-      <el-tree
-        :data="data" default-expand-all
-        :props="defaultProps"
-        @node-click="handleNodeClick"
-        style="background:#ccc;height:550px"
-      >
-      </el-tree>
+       <el-tree :data="data" default-expand-all :props="defaultProps" @node-click="handleNodeClick" class="treeTwo">
+    </el-tree>
     </div>
     <div class="submitBtn">
       <div class="btn">
@@ -169,11 +159,21 @@ export default {
   display: flex;
   .left{
    width:400px;
-  //  background: #ddd;
+   height: 550px; 
+   .treeOne{
+      background: #ccc;
+       height: 550px;
+       overflow: auto;
+   }
   }
   .right{
     width:400px;
     margin-left:40px;
+    .treeTwo{
+       background: #ccc;
+       height: 550px;
+       overflow: auto;
+   }
   }
   .submitBtn{
     margin-left:30px;

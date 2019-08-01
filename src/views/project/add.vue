@@ -88,7 +88,6 @@ export default {
           ></el-input>
         </el-form-item>
         <el-form-item label="项目周期:">
-
           <ul class="Astrict">
             <li
               v-for='(list,index) in form.lists'
@@ -139,10 +138,7 @@ export default {
           ></el-input>
         </el-form-item>
         <el-form-item label="项目负责人:">
-          <el-select
-            v-model="form.region"
-            placeholder="李工"
-          >
+          <el-select v-model="form.region" placeholder="李工">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -158,13 +154,10 @@ export default {
             v-model.trim="form.desc"
             style="width:600px;"
             :rows="4"
-            placeholder="K1222项目成员。  "
-          ></el-input>
+            placeholder="K1222项目成员"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-          >提交</el-button>
+          <el-button type="primary">提交</el-button>
         </el-form-item>
       </el-form>
 

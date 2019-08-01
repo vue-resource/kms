@@ -99,40 +99,20 @@ export default {
         <el-select
           v-model="issuePeople"
           placeholder="请选择"
-          class="seleteder"
-        >
-          <el-option
-            v-for="item in options2"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
+          class="seleteder">
+          <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </div>
       <div class="wightFour">
         <span>责任人 </span>
-        <el-select
-          v-model="Barvalue"
-          placeholder="请选择"
-          class="seleteder"
-        >
-          <el-option
-            v-for="item in options3"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
+        <el-select v-model="Barvalue" placeholder="请选择" class="seleteder">
+          <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </div>
       <div class="wightTargetBox">
-        <el-button
-          size="mini"
-          class="wightTarget"
-          @click="creathandle"
-          type="primary"
-        >创建目标</el-button>
+        <el-button size="mini" class="wightTarget" @click="creathandle" type="primary">创建目标</el-button>
       </div>
     </div>
     <el-table :data="tableData" height="200px" border stripe>

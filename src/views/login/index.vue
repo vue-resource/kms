@@ -48,6 +48,7 @@ export default {
 </script>
 
 <template>
+<div class="loginWarp">
   <div class="loginBox">
     <div class="loginMain">
       <div class="loginImg"></div>
@@ -83,10 +84,17 @@ export default {
         </div>
       </div>
     </div>
-
   </div>
+</div>
 </template>
 <style lang="less">
+.loginWarp{
+  width:100%;
+  height: 100%;
+  background: url("~@/assets/img/body.jpeg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 .loginBox {
     width: 500px;
     height: 442px;

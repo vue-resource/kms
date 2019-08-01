@@ -37,8 +37,6 @@ export default {
         float: right;
         display: flex;
         font-size: 14px;
-
-       
         .goaltipOne {
           padding-right:10px;
           border-bottom: 1px solid blue;
@@ -59,8 +57,6 @@ export default {
         background: #ccc;
         border-radius: 6px;
          position: relative;
-        // background: url("~@/assets/img/chart.jpeg") no-repeat;
-        // background-size: 100% 100%;
         margin: 10px 10px 10px 0;
         .circle{
           margin-top:40px;
@@ -68,13 +64,9 @@ export default {
         }
         .cirleright{
           padding-top:25px;
-          padding-left:25px; 
-         
+          padding-left:25px;        
           .cirlehead{
             display: flex;
-            .timeLeft{
-             
-            }
             .timeText{
               font-weight: 300;
               font-size:24px;
@@ -83,7 +75,6 @@ export default {
             .timeright{
               padding-left:25px;
             }
-
           }
           .cirlefoot{
             .processOne{

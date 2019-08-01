@@ -19,6 +19,8 @@ export default {
                     label: "蚵仔煎"
                 }
             ],
+            time1:'2019/7/21',
+            time2:'2019/7/23',
             value8: "",
             value4: "",
             value5: "",
@@ -53,13 +55,30 @@ export default {
 
     watch: {},
     // 生命周期
-    created() {},
+    created() {
+      this.getNodeList();
+    },
     methods: {
         renderTd(column, item) {
             // return column.from === item.name ? "☑️" : "";
         },
         creathand() {
             this.$router.push("/contract/add");
+        },
+        getNodeList(){
+            this.$ajax({
+                // url: '/getNodeList',
+                url: '/getNodeList.json',
+                method: 'get',
+                params: {
+                 projectId:"0"
+                }
+              }).then(res => {
+               
+                if(res.success){
+                 
+                }
+              })
         }
     }
 };
@@ -68,17 +87,10 @@ export default {
   <div class="tipbox">
     <div class="headtip">
       <div class="strip">
-        <el-input
-          placeholder="请输入内容"
-          v-model="value1"
-        >
+        <el-input placeholder="请输入内容" v-model="value1">
           <template slot="prepend">目标名称</template>
         </el-input>
-        <el-input
-          placeholder="请输入内容"
-          v-model="value2"
-          class="simble"
-        >
+        <el-input placeholder="请输入内容" v-model="value2" class="simble">
           <template slot="prepend">边界系统</template>
         </el-input>
       </div>
@@ -86,192 +98,72 @@ export default {
         <div class="stripTwo">
           <el-input placeholder="请输入内容">
             <template slot="append">
-              <!-- <el-select
-                v-model="value8"
-                filterable
-                placeholder="请选择"
-                
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-
-              </el-select> -->
             </template>
-
             <template slot="prepend">项目阶段</template>
           </el-input>
-
-          <el-input
-            placeholder="请输入内容"
-            v-model="value5"
-            class="simble"
-          >
+          <el-input placeholder="请输入内容" v-model="value5" class="simble" >
             <template slot="prepend">时间计划</template>
           </el-input>
-
         </div>
         <div class="reletionship">
-           
           <router-link to="/contract/topo">
-            <el-button
-              size="mini"
-              class="reletionshipBtn2"
-              @click="creathand"
-              type="primary"
-            >需求关系图</el-button>
+            <el-button size="mini" class="reletionshipBtn2" @click="creathand" type="primary">需求关系图</el-button>
           </router-link>
-          <el-button
-              size="mini"
-              class="reletionshipBtn1"
-              @click="creathand"
-              type="plain"
-            >目标拆解</el-button>
+          <el-button size="mini" class="reletionshipBtn1" @click="creathand" type="plain">目标拆解</el-button>
         </div>
       </div>
     </div>
     <div class="tip-contain">
       <div class="contain-left">
         <div class="contain-head">
-          <el-tabs
-            v-model="activeName"
-            class="contain-lab"
-          >
-            <el-tab-pane
-              label="目标定义"
-              name="first"
-            ></el-tab-pane>
+          <el-tabs v-model="activeName" class="contain-lab">
+            <el-tab-pane label="目标定义" name="first"></el-tab-pane>
             <el-tab-pane>
             </el-tab-pane>
           </el-tabs>
           <div class="contain-leftTime">
-            <el-date-picker
-              v-model="value1"
-              type="date"
-              placeholder="选择日期"
-            >
-            </el-date-picker>
+            {{time1}}
           </div>
         </div>
-
-        <el-table
-          :data="gridData"
-          style="width:450px;margin:10px auto;"
-        >
-          <el-table-column
-            property="date"
-            label="日期"
-            width="100"
-          ></el-table-column>
-          <el-table-column
-            property="name"
-            label="姓名"
-            width="200"
-          ></el-table-column>
-          <el-table-column
-            property="address"
-            label="地址"
-          ></el-table-column>
+        <el-table :data="gridData" class="gridtableft">
+          <el-table-column property="date" label="日期" width="100" ></el-table-column>
+          <el-table-column property="name" label="姓名" width="200"></el-table-column>
+          <el-table-column property="address" label="地址"></el-table-column>
         </el-table>
         <div class="reviewTxt">
           <div class="laborTxt">相关附件</div>
-          <div class="carborad">
-
-            整车重量计算报告.ppt
-          </div>
-          <div class="carboradTxt">
-            GBT-12432 汽车质量参数检测方法
-          </div>
+          <div class="carborad">整车重量计算报告.ppt</div>
+          <div class="carboradTxt">GBT-12432 汽车质量参数检测方法</div>
         </div>
       </div>
       <div class="contain-right">
         <div class="contain-head">
-          <el-tabs
-            v-model="activeName1"
-            class="contain-lab"
-          >
-            <el-tab-pane
-              label="目标定义"
-              name="first"
-            ></el-tab-pane>
-
+          <el-tabs v-model="activeName1" class="contain-lab">
+            <el-tab-pane label="目标定义" name="first"></el-tab-pane>
           </el-tabs>
           <div class="contain-rightTime">
-            <el-date-picker
-              v-model="value1"
-              type="date"
-              placeholder="选择日期"
-            >
-            </el-date-picker>
+            {{time2}}
           </div>
         </div>
 
-        <el-table
-          :data="gridData"
-          style="width:450px;margin:10px auto;"
-        >
-          <el-table-column
-            property="date"
-            label="日期"
-            width="100"
-          ></el-table-column>
-          <el-table-column
-            property="name"
-            label="姓名"
-            width="200"
-          ></el-table-column>
-          <el-table-column
-            property="address"
-            label="地址"
-          ></el-table-column>
+        <el-table :data="gridData" class="gridtabright">
+          <el-table-column property="date" label="日期" width="100"></el-table-column>
+          <el-table-column property="name" label="姓名" width="200"></el-table-column>
+          <el-table-column property="address" label="地址"></el-table-column>
         </el-table>
         <div class="reviewTxt">
           <div class="laborTxt">相关附件</div>
-          <div class="carborad">
-
-            整车重量计算报告.ppt
-          </div>
-          <div class="carboradTxt">
-            GBT-12432 汽车质量参数检测方法
-          </div>
+          <div class="carborad">整车重量计算报告.ppt</div>
+          <div class="carboradTxt">GBT-12432 汽车质量参数检测方法</div>
         </div>
         <div class="reviewFoot">
           <el-button
-            size="mini"
-            class="submitBtn"
-            @click="creathand"
-            type="primary"
-           
-            round
-          >发布</el-button>
-          <span class="btnBox">
-            <el-button
-              size="mini"
-              class="submitBtn"
-              @click="creathand"
-              type="plain"
-              round
-            >提交</el-button>
-            <el-button
-              size="mini"
-              class="submitBtn"
-              @click="creathand"
-              type="plain"
-              round
-            >保存</el-button>
-            <el-button
-              size="mini"
-              class="submitBtn"
-              @click="creathand"
-              type="plain"
-              round
-            >取消</el-button>
-          </span>
-
+            size="mini" class="submitBtn" @click="creathand" type="primary" round>发布</el-button>
+            <span class="btnBox">
+              <el-button size="mini" class="submitBtn" @click="creathand" type="plain" round>提交</el-button>
+              <el-button size="mini" class="submitBtn" @click="creathand" type="plain" round>保存</el-button>
+              <el-button size="mini" class="submitBtn" @click="creathand" type="plain" round>取消</el-button>
+            </span>
         </div>
       </div>
 
@@ -304,7 +196,6 @@ export default {
             }
             .reletionship {
                 flex: 1;
-                //  float: right;
                 .reletionshipBtn1 {
                     float: right;
                     margin-right:20px;
@@ -334,6 +225,10 @@ export default {
                 width: 450px;
                 margin: 0 auto;
             }
+            .gridtableft{
+              width:450px;
+              margin:10px auto;
+            }
             .contain-leftTime {
                 position: absolute;
                 top: 10px;
@@ -348,7 +243,6 @@ export default {
                 }
             }
         }
-
         .reviewTxt {
             width: 450px;
             margin: 0 auto;
@@ -371,6 +265,10 @@ export default {
                 width: 450px;
                 margin: 0 auto;
             }
+            .gridtabright{
+              width:450px;
+              margin:10px auto;
+            }
             .contain-head {
                 position: relative;
                 padding: 15px;
@@ -378,7 +276,7 @@ export default {
             .contain-rightTime {
                 position: absolute;
                 top: 10px;
-                right: 30px;
+                right: 0px;
                 border-radius: 4px;
             }
             .reviewFoot {
