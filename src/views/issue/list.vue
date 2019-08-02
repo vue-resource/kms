@@ -1,62 +1,18 @@
 <script>
 export default {
-    name: "weight",
-    props: {},
-    data() {
-       
+    name: "issue-list",
+    data() {     
         return {
            value:'',
            list:[],
-          options: [{
-              value: '选项1',
-              label: '黄金糕'
-            }, {
-              value: '选项2',
-              label: '双皮奶'
-            }, {
-              value: '选项3',
-              label: '蚵仔煎'
-            }, {
-              value: '选项4',
-              label: '龙须面'
-            }, {
-              value: '选项5',
-              label: '北京烤鸭'
-            }],
-            tableData: [
-                {
-                    id: "1",
-                    date: "2016-05-03",
-                    rage: "角度没有定义",
-                    name: "无法确定",
-                    address: "中",
-                    codename: "马工"
-                },
-                {
-                    id: "2",
-                    rage: "角度没有定义",
-                    date: "2016-05-02",
-                    name: "无法确定",
-                    address: "中",
-                    codename: "马工"
-                },
-                {
-                    id: "3",
-                    rage: "角度没有定义",
-                    date: "2016-05-02",
-                    name: "无法确定",
-                    address: "中",
-                    codename: "马工"
-                },
-                {
-                    id: "4",
-                    rage: "角度没有定义",
-                    date: "2016-05-02",
-                    name: "无法确定",
-                    address: "中",
-                    codename: "马工"
-                }
-            ]
+            options: [{
+                value: '1',
+                label: '黄金糕'
+              }, {
+                value: '2',
+                label: '双皮奶'
+              }],
+           
         };
     },
     computed: {},
@@ -65,7 +21,6 @@ export default {
     created() {
       this.initDom()
       this.closeIssue();
-      // this.createIssue();
     },
     methods: {
        initDom(){
@@ -85,8 +40,6 @@ export default {
                   let list = res.data.list;
                   console.log(this)
                   this.list = list;
-                  // this.updateUsername('');
-                  // this.$router.push('/login');
                 }
             })
         },
@@ -210,7 +163,7 @@ export default {
       </div>
       <div class="wightTargetBox">
         <router-link to="/issue/add">
-          <el-button class="wightTarget" type="primary" @click="createIssue">创建问题</el-button>  
+          <el-button class="wightTarget" type="primary" @click="createIssue" disabled>创建问题</el-button>  
         </router-link>
             
       </div>

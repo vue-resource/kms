@@ -12,66 +12,60 @@ export default {
           ],
           tableData: [
               {
-                  date: '2016-05-03',
+                  id: '1',
                   name: '王小虎',
                   province: '上海',
                   person: '王小虎',
                   from: '上海'
               }, {
-                  date: '2016-05-02',
+                  id: '2',
                   name: '葛二蛋',
                   province: '北京',
                   person: '葛二蛋',
                   from: '北京'
               },{
-                  date: '2016-05-03',
+                  id: '3',
                   name: '薛仁贵',
                   province: '南京',
                   person: '薛仁贵',
                   from: '南京'
               }, {
-                  date: '2016-05-02',
+                  id: '4',
                   name: '秦琼',
                   province: '郑州',
                   person: '秦琼',
                   from: '郑州'
               },{
-                  date: '2016-05-02',
+                  id: '5',
                   name: '关羽',
                   province: '荆州',
                   person: '关羽',
                   from: '荆州'
               },{
-                  date: '2016-05-03',
+                  id: '6',
                   name: '刘备',
                   province: '西蜀',
                   person: '刘备',
                   from: '西蜀'
               }, {
-                  date: '2016-05-02',
+                  id: '7',
                   name: '张飞',
                   province: '南蛮子',
                   person: '张飞',
                   from: '南蛮子'
               },{
-                  date: '2016-05-02',
+                  id: '8',
                   name: '秦始皇',
                   province: '西安',
                   person: '秦始皇',
                   from: '西安'
               },{
-                  date: '2016-05-03',
+                  id: '9',
                   name: '老子',
                   province: '周口',
                   person: '老子',
                   from: '周口'
-              }, {
-                  date: '2016-05-02',
-                  name: '曹操',
-                  province: '许昌',
-                  person: '曹操',
-                  from: '许昌'
-              },
+              }
           ]
         };
     },
@@ -84,17 +78,36 @@ export default {
                     position: '负责人'
                 }
             });
-        }
+        },
+        
     },
     watch: {},
     // 生命周期
-    created() {},
+    created() {
+      this.getTarget();
+    },
     methods: {
         renderTd (column, item) {
             return column.from === item.name ? '☑️' : ''
         },
         creathand(){
           this.$router.push('/contract/add');
+        },
+        getTarget(){
+          this.$ajax({
+            // url: 'target/getTargetDirectoryInfoList',
+            url: '/contract/getTargetDirectoryInfoList.json',
+            method: 'get',
+            params: {
+              nodeId:"1",
+              queryType:0
+            }
+          }).then(res => {
+            if(res.success){
+              console.log(res)
+              this.info = res.data;
+            }
+          })
         }
     }
 };
@@ -137,20 +150,23 @@ export default {
             <el-progress :percentage="60" style="width:400px"></el-progress>
           </div>
         </div>
-         <el-button size="mini" class="goalTarget" @click="creathand" type="primary">创建目标</el-button>
+         <el-button size="mini" class="goalTargetTex" @click="creathand" type="primary">创建目标</el-button>
         <!-- <div >创建目标</div> -->
       </div>
     </div>
-    <div style="width: 1000px;margin: 0 auto;">
+    <div class="contraceTab">
       <el-table :data="tableData" max-height="300" border>
-          <el-table-column label="日期" prop="date" width="200" fixed></el-table-column>
-          <el-table-column label="姓名" prop="name" width="200" fixed></el-table-column>
+          <el-table-column label="序号" prop="id" width="50" fixed></el-table-column>
+          <el-table-column label="目标名称" prop="name" width="80" fixed></el-table-column>
+          <el-table-column label="目标分类" prop="name" width="80" fixed></el-table-column>
+          <el-table-column label="单位" prop="name" width="50" fixed></el-table-column>
+          <el-table-column label="目标值" prop="name" width="100" fixed></el-table-column>
+          <el-table-column label="需求编号" prop="name" width="80" fixed></el-table-column>
+          <el-table-column label="能量管理" prop="name" width="80" fixed></el-table-column>       
           <el-table-column v-for="(col, idx) in heads" :key="idx" align="center">
               <template slot="header">
                   <ul class="mul-thead">
                       <li>{{ col.name }}</li>
-                      <li>{{ col.position }}</li>
-                      <li>{{ col.person }}</li>
                   </ul>
               </template>
               <template slot-scope="scope">
@@ -170,11 +186,8 @@ export default {
     .congoal {
         float: right;
         display: flex;
-        font-size: 14px;
-
-       
+        font-size: 14px;    
         .goaltipOne {
-          // padding-right:10px;
           border-bottom: 1px solid blue;
         }
         .line {
@@ -186,20 +199,22 @@ export default {
             margin: 0 5px;
         }
     }
+    .contraceTab{
+      width:1100px;
+    }
     .chartBox {
         width: 642px;
         height: 220px;
         clear:both;
         display: flex;
-        background: #ccc;
+         background: #ccc;
+        // background:rgba(0, 0, 0, 0.065);
         border-radius: 6px;
          position: relative;
-        // background: url("~@/assets/img/chart.jpeg") no-repeat;
-        // background-size: 100% 100%;
         margin: 0px 10px 10px 0;
         .circle{
           margin-top:40px;
-          margin-left:26px;
+          margin-left:26px;     
         }
         .cirleright{
           padding-top:25px;
@@ -217,6 +232,7 @@ export default {
 
           }
           .cirlefoot{
+            color:#666 ;
             .processOne{
                padding-top:10px;
                .processOneText{
@@ -230,15 +246,11 @@ export default {
               display: flex;
             }
           }
-          .goalTarget{
+          .goalTargetTex{
             position: absolute;
             right:20px;
             top:20px;
-            // background: blue;
-            // color: #fff;
-            // border-radius: 6px;
-            // padding:5px 20px;
-            // font-size:12px;
+    
           }
         }
     }

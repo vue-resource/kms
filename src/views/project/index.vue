@@ -110,7 +110,7 @@ export default {
       <h2 slot="title" class="detail-head">
         <span>{{ detail.projectName }}</span>
         <router-link :to="`/project/add?id=${detail.id}`">
-          <el-button class="detail" type="primary">查看项目目标</el-button>
+          <el-button class="detail" type="primary">编辑</el-button>
         </router-link>
       </h2>
       <project-detail :source="detail"></project-detail>
@@ -122,104 +122,104 @@ export default {
 .kms-content {
     margin: 0;
     padding: 0;
-}
-.proheadWrap {
-    width: 100%;
-    background-color: rgb(242, 242, 242);
-}
-.proHead {
-    width: 760px;
-    height: 140px;
-    border-radius: 4px;
-    margin: 0 auto;
-    .proleft {
-        width: 150px;
-        padding-top: 10px;
-        .dataTime {
-            margin-top: 10px;
-            color: #999;
-            font-size: 12px;
+    .proheadWrap {
+        // width: 100%;
+        background-color: rgb(242, 242, 242);
+        .proHead {
+          width: 760px;
+          height: 140px;
+          border-radius: 4px;
+          margin: 0 auto;
+          .proleft {
+              width: 150px;
+              padding-top: 10px;
+              .dataTime {
+                  margin-top: 10px;
+                  color: #999;
+                  font-size: 12px;
+              }
+          }
+          .proright {
+              width: 760px;
+              font-size: 14px;
+              display: flex;
+              padding-top: 10px;
+              .rightfit {
+                  flex: 1;
+              }
+              .targetTxt {
+                  font-size: 36px;
+                  color: #409EFF;
+              }
+          }
         }
+    
     }
-    .proright {
-        width: 760px;
-        font-size: 14px;
-        display: flex;
-        padding-top: 10px;
-        .rightfit {
-            flex: 1;
-        }
-        .targetTxt {
-            font-size: 36px;
-            color: blue;
-        }
-    }
-}
-.proContain {
-    width: 760px;
-    height: 860px;
-    margin: 10px auto 0;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    .proText {
-        padding-top: 15px;
-        height: 40px;
-        line-height: 40px;
-        border-bottom: 1px solid #ddd;
-        margin-bottom: 10px;
-    }
-    .proMain {
-        flex: 1;
-    }
-    .ulist {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-wrap: wrap;
-        .gether {
-            width: 200px;
-            height: 200px;
-            margin-right: 50px;
-            position: relative;
-            border-radius: 6px;
-            img {
-              width: 100%;
-              height: 100%;
-              display: block;
-              font-size: 0;
-            }
-            &:hover .markShy {
-              display: block;
-            }
-            .markShy {
+    .proContain {
+      width: 760px;
+      height: 860px;
+      margin: 10px auto 0;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      .proText {    
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid #ddd;
+          margin-bottom: 15px;
+      }
+      .proMain {
+          flex: 1;
+      }
+      .ulist {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          flex-wrap: wrap;
+          .gether {
+              width: 200px;
+              height: 200px;
+              margin-right: 50px;
+              position: relative;
+              border-radius: 6px;
+              img {
                 width: 100%;
                 height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                background: rgba(0, 0, 0, 0.2);
-                display: none;
-                .matip {
-                  left: 25px;
-                  bottom: 15px;
+                display: block;
+                font-size: 0;
+              }
+              &:hover .markShy {
+                display: block;
+              }
+              .markShy {
+                  width: 100%;
+                  height: 100%;
                   position: absolute;
-                  .icon-eyer,.icon-edit {
-                      font-size: 20px;
-                      margin-left:10px;
-                      color: #fff;
-                      cursor: pointer;
+                  top: 0;
+                  left: 0;
+                  background: rgba(0, 0, 0, 0.2);
+                  display: none;
+                    .matip {
+                      left: 15px;
+                      bottom: 15px;
+                      position: absolute;
+                      .icon-eyer,.icon-edit {
+                          font-size: 20px;
+                          margin-left:10px;
+                          color: #fff;
+                          cursor: pointer;
+                      }
                   }
+                  .detail {
+                      position: absolute;
+                      left: 50%;
+                      bottom: 50px;
+                      transform: translate3d(-50%, 0,0);
+                }
               }
-              .detail {
-                  position: absolute;
-                  left: 50%;
-                  bottom: 50px;
-                  transform: translate3d(-50%, 0,0);
-              }
-            }
-        }
-        
+          }
+          
+      }
     }
 }
 

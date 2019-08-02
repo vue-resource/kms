@@ -118,17 +118,16 @@ export default {
         <div class="contain-head">
           <el-tabs v-model="activeName" class="contain-lab">
             <el-tab-pane label="目标定义" name="first"></el-tab-pane>
-            <el-tab-pane>
-            </el-tab-pane>
           </el-tabs>
           <div class="contain-leftTime">
             {{time1}}
           </div>
         </div>
         <el-table :data="gridData" class="gridtableft">
-          <el-table-column property="date" label="日期" width="100" ></el-table-column>
-          <el-table-column property="name" label="姓名" width="200"></el-table-column>
-          <el-table-column property="address" label="地址"></el-table-column>
+          <el-table-column property="date" label="序号" width="100" ></el-table-column>
+          <el-table-column property="name" label="需求项目" width="100"></el-table-column>
+          <el-table-column property="address" label="单位"></el-table-column>
+          <el-table-column property="address" label="目标值"></el-table-column>
         </el-table>
         <div class="reviewTxt">
           <div class="laborTxt">相关附件</div>
@@ -147,9 +146,10 @@ export default {
         </div>
 
         <el-table :data="gridData" class="gridtabright">
-          <el-table-column property="date" label="日期" width="100"></el-table-column>
-          <el-table-column property="name" label="姓名" width="200"></el-table-column>
-          <el-table-column property="address" label="地址"></el-table-column>
+          <el-table-column property="date" label="序号" width="100" ></el-table-column>
+          <el-table-column property="name" label="需求项目" width="100"></el-table-column>
+          <el-table-column property="address" label="单位"></el-table-column>
+          <el-table-column property="address" label="目标值"></el-table-column>
         </el-table>
         <div class="reviewTxt">
           <div class="laborTxt">相关附件</div>
@@ -187,11 +187,15 @@ export default {
             width: 100%;
             border-bottom: 1px solid #ddd;
             padding-bottom: 15px;
+            
             .stripTwo {
                 display: flex;
                 width: 600px;
                 .simble {
                     margin-left: 20px;
+                }
+                .civilop{
+                  display: flex;
                 }
             }
             .reletionship {
@@ -220,10 +224,8 @@ export default {
             font-size: 14px;
             .contain-head {
                 position: relative;
-            }
-            .contain-lab {
-                width: 450px;
-                margin: 0 auto;
+                 width: 450px;
+                margin: 10px auto;
             }
             .gridtableft{
               width:450px;
@@ -261,17 +263,14 @@ export default {
             border: 1px solid #ccc;
             box-shadow: inset #ddd;
             border-radius: 4px;
-            .contain-lab {
-                width: 450px;
-                margin: 0 auto;
-            }
             .gridtabright{
               width:450px;
               margin:10px auto;
             }
             .contain-head {
                 position: relative;
-                padding: 15px;
+                 width: 450px;
+                margin: 10px auto;
             }
             .contain-rightTime {
                 position: absolute;

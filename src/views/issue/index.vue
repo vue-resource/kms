@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: "issue",
+    name: "issue-index",
     data () {
         return {
             activeName: '4',

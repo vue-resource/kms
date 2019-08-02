@@ -1,14 +1,9 @@
 <script>
-import moment from "moment";
-let Atime = new moment();
 export default {
-    name: "login",
+    name: "issue-add",
     props: {},
     data() {
         return {
-            value1: Atime.format("YYYY/MM/DD"),
-            value2: Atime.format("YYYY/MM/DD"),
-            hold: "1",
             form: {
                 name: "",
                 region: "",
@@ -23,20 +18,14 @@ export default {
                 { id: 2, startTime: "选择开始时间", endTime: "选择结束时间" },
                 { id: 3, startTime: "选择开始时间", endTime: "选择结束时间" }]
             },
-            options: [
-                {
-                    value: "选项1",
+            options: [{
+                    value: "1",
                     label: "张三"
                 },
                 {
-                    value: "选项2",
+                    value: "2",
                     label: "李四"
-                },
-                {
-                    value: "选项3",
-                    label: "王五"
-                }
-            ],
+                }],
             value: ""
         };
     },
@@ -45,15 +34,7 @@ export default {
     // 生命周期
     created() {},
     methods: {
-        addNewList: function(e) {
-            console.log(this, this.index);
-            this.hold = this.index;
-            this.form.lists.unshift({
-                id: this.index++,
-                startTime: "选择开始时间",
-                endTime: "选择结束时间"
-            });
-        }
+       
     }
 };
 </script>
