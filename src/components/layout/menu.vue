@@ -1,145 +1,43 @@
 <script>
 export default {
-    name: "project",
-    props: {},
+    name: "silder",
     data() {
         return {
-            data: [
-                {
-                    label: "车型项目",
-                    children: [
-                       {
-                            label: "市场定义产品",
-                            children: []
-                        },
-                        {
-                            label: "整车TVS",
-                            children: [
-                                {
-                                    label: "安全性"
-                                },
-                                {
-                                    label: "NVH"
-                                },
-                                {
-                                    label: "重量"
-                                },
-                                {
-                                    label: "操稳"
-                                },
-                                {
-                                    label: "CFD"
-                                }
-                            ]
-                        },
-                        {
-                            label: "动力",
-                            children: []
-                        },
-                        {
-                            label: "底盘",
-                            children: []
-                        },
-                        {
-                            label: "自车身",
-                            children: []
-                        },
-                        {
-                            label: "开闭件",
-                            children: [
-                                {
-                                    label: "前舱盖"
-                                },
-                                {
-                                    label: "前车门",
-                                    children:[
-                                      {label: "前车门骨架"}, 
-                                      {label: "前车门护板"}, 
-                                      {label: "前车门锁"},   
-                                    ]
-                                },
-                                {
-                                    label: "后车门"
-                                },
-                                {
-                                    label: "后尾门"
-                                },
-                                {
-                                    label: "后行李箱"
-                                }
-                            ]
-                        },
-                         {
-                            label: "车身附件",
-                            children: [
-                                {
-                                    label: "前挡风玻璃"
-                                },
-                                
-                            ]
-                        },
-                        {
-                            label: "内饰",
-                            children: [
-                                {
-                                    label: "仪表盘系统"
-                                },
-                                
-                            ]
-                        },
-                        {
-                            label: "外饰",
-                            children: []
-                        },
-                        {
-                            label: "电器",
-                            children: []
-                        },
-                        {
-                            label: "三电",
-                            children: [{label: "电池"}]
-                        },
-                        {
-                            label: "造型",
-                            children: []
-                        },
-                        {
-                            label: "采购",
-                            children: []
-                        },
-                    ]
-                }
-            ],
+            nodelist:[],
             defaultProps: {
                 children: "children",
-                label: "label"
+                label: "nodeName"
             }
         };
     },
-    computed: {},
-    watch: {},
     // 生命周期
-    created() {},
+    created() {
+        const id = this.$route.query.id;
+        this.getNodeList(id);
+    },
     methods: {
-        handleOpen(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleNodeClick(data) {
-            console.log(data);
+        //节点渲染
+        getNodeList(id){
+          this.$ajax({
+            // url: '/node/getNodeList',
+            url: '/node/getNodeList.json',
+            method: 'get',
+            params: {
+              projectId:id
+            }
+          }).then(res => {
+            if(res.success){
+              console.log(res)
+              this.nodelist = res.data.nodeDirectoryInfoList;
+            }
+          })
         }
     }
 };
 </script>
 <template>
   <div>
-    <el-tree
-      :data="data" default-expand-all
-      :props="defaultProps"
-      @node-click="handleNodeClick"
-    ></el-tree>   
+    <el-tree :data="nodelist" default-expand-all :props="defaultProps"></el-tree>   
   </div>
 
 </template>

@@ -39,8 +39,8 @@ export default {
     // 项目详情
     handleView (id) {
       this.$ajax({
-        // url: '/project/getProjectDetail',
-        url: '/project/getProjectDetail.json',
+        // url: '/project/getProjectInfo',
+        url: '/project/getProjectInfo.json',
         method: 'get',
         params: {
           id: id

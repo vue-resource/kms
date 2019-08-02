@@ -54,46 +54,6 @@ export default {
               { validator: checkTime, trigger: 'change' }
             ]
           },
-
-
-
-
-
-
-
-
-            // value1: Atime.format("YYYY/MM/DD"),
-            // value2: Atime.format("YYYY/MM/DD"),
-            // hold: "1",
-            // form: {
-            //     name: "",
-            //     region: "",
-            //     date1: "",
-            //     date2: "",
-            //     delivery: false,
-            //     type: [],
-            //     resource: "",
-            //     desc: "",
-            //     lists: [
-            //     { id: 1, startTime: "选择开始时间", endTime: "选择结束时间" },
-            //     { id: 2, startTime: "选择开始时间", endTime: "选择结束时间" },
-            //     { id: 3, startTime: "选择开始时间", endTime: "选择结束时间" }]
-            // },
-            // options: [
-            //     {
-            //         value: "选项1",
-            //         label: "张三"
-            //     },
-            //     {
-            //         value: "选项2",
-            //         label: "李四"
-            //     },
-            //     {
-            //         value: "选项3",
-            //         label: "王五"
-            //     }
-            // ],
-            // value: ""
         };
     },
     created() {
@@ -105,8 +65,8 @@ export default {
       // 详情
       getDetail (id) {
         this.$ajax({
-          // url: '/project/getProjectDetail',
-          url: '/project/getProjectDetail.json',
+          // url: '/project/getProjectInfo',
+          url: '/project/getProjectInfo.json',
           method: 'get',
           params: {
             id: id
@@ -134,24 +94,6 @@ export default {
           }
         })
       },
-
-
-
-
-
-
-
-        // addNewList: function(e) {
-        //     console.log(this, this.index);
-        //     this.hold = this.index;
-        //     this.param.lists.unshift({
-        //         id: this.index++,
-        //         startTime: "选择开始时间",
-        //         endTime: "选择结束时间"
-        //     });
-        //     console.log(this.lists);
-        //     //  this.newAddText=''
-        // }
     }
 };
 </script>

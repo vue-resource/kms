@@ -1,9 +1,17 @@
 <script>
 export default {
     name: "login",
-    props: {},
     data() {
         return {
+          detail:{},
+
+
+
+
+
+
+
+
           activeName: '1',
           dataTab:[
             {name: '发出的目标', value: '1'},
@@ -80,35 +88,41 @@ export default {
             });
         },
         
+        
     },
-    watch: {},
-    // 生命周期
-    created() {
-      this.getTarget();
+    created(){
+      const id = this.$route.query.id;
+      this.getDetail(id)
     },
     methods: {
+      // 获取项目详情
+      // 详情
+      getDetail (id) {
+        this.$ajax({
+          // url: '/project/getProjectInfo',
+          url: '/project/getProjectInfo.json',
+          method: 'get',
+          params: {
+            id: id
+          }
+        }).then(res => {
+          if(res.success){
+            this.detail = res.data;
+          }
+        })
+      },
+
+
+
+
+
         renderTd (column, item) {
             return column.from === item.name ? '☑️' : ''
         },
         creathand(){
           this.$router.push('/contract/add');
         },
-        getTarget(){
-          this.$ajax({
-            // url: 'target/getTargetDirectoryInfoList',
-            url: '/contract/getTargetDirectoryInfoList.json',
-            method: 'get',
-            params: {
-              nodeId:"1",
-              queryType:0
-            }
-          }).then(res => {
-            if(res.success){
-              console.log(res)
-              this.info = res.data;
-            }
-          })
-        }
+       
     }
 };
 </script>
@@ -122,32 +136,32 @@ export default {
     </div>
     <div class="chartBox">
       <!-- <img src="chartImg" alt=""> -->
-      <el-progress type="circle" :percentage="68" class="circle"></el-progress>
+      <el-progress type="circle" :percentage="detail.consumeDuration/detail.duration*100" class="circle"></el-progress>
       <div class="cirleright">
         <div class="cirlehead">
            <div class="timeLeft">
               <p>项目工期</p>
-              <p class="timeText">460天</p>
+              <p class="timeText">{{detail.duration}}天</p>
            </div>
            <div class="timeright">
               <p>消耗</p>
-              <p class="timeText">460天</p>
+              <p class="timeText">{{detail.consumeDuration}}天</p>
            </div>
         </div>
         <div class="cirlefoot">
           <div class="processOne">
             <div class="processOneText">
-              <p>总R：460</p>
-              <p class="add">昨日新增：6556</p>
+              <p>总R：{{detail.countTarget}}</p>
+              <p class="add">昨日新增：{{detail.addIssue}}</p>
             </div>
-            <el-progress :percentage="30"  style="width:400px"></el-progress>
+            <el-progress :percentage="detail.a/detail.countTarget*100" :show-text="false"  style="width:400px"></el-progress>
           </div>
           <div class="processTwo">
              <div class="processTwoText">
-                <p>总S：5060</p>
-                <p class="add">昨日新增：12</p>
+                <p>总S：{{detail.countIssue}}</p>
+                <p class="add">昨日完成：{{detail.finishIssue}}</p>
              </div>
-            <el-progress :percentage="60" style="width:400px"></el-progress>
+            <el-progress :percentage="detail.b/detail.countIssue*100" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
          <el-button size="mini" class="goalTargetTex" @click="creathand" type="primary">创建目标</el-button>
