@@ -1,7 +1,6 @@
 <script>
 export default {
-    name: "project",
-    props: {},
+    name: "add-target",
     data() {
         return {
             list:[],
@@ -13,12 +12,14 @@ export default {
             nodeProps: {
                 children: "children",
                 label: "nodeName"
+            },
+            param: {
+              projectId: this.$route.query.id,
+              target_model_id: '',
+              nodeId: ''
             }
-
         };
     },
-    computed: {},
-    watch: {},
     // 生命周期
     created() {
         const id = this.$route.query.id;
@@ -37,7 +38,6 @@ export default {
                 }
             }).then(res => {
                 if(res.success){
-                 console.log(res)
                  this.list = res.data.List;
                 }
             })
@@ -45,8 +45,8 @@ export default {
        //右侧节点tree 
        getNodeList(id){
             this.$ajax({
-                // url: 'target/getNodeList',
-                url: '/target/getNodeList.json',
+                // url: 'node/getNodeList',
+                url: '/node/getNodeList.json',
                 method: 'get',
                 params: {
                  categoryId:id
@@ -58,37 +58,39 @@ export default {
                 }
             })
        },
-
-
-
-
-
-
-
-       creatSubmit(){
-           console.log("提交信息")
+       clickModel (node) {
+         this.param.target_model_id = node.nodeId;
        },
-       handleOpen(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleNodeClick(data) {
-            console.log(data);
-        }
-
+       handleNodeChange (node) {
+         this.param.nodeId = node.nodeNumber;
+       },
+       creatSubmit () {
+         if(this.param.target_model_id && this.param.nodeId){
+           this.$ajax({
+                // url: '/target/createTarget',
+                url: '/target/createTarget.json',
+                method: 'get',
+                params: this.param
+            }).then(res => {
+                if(res.success){
+                  this.$router.back();
+                }
+            })
+         }
+       }
     }
 };
 </script>
 <template>
   <div class="concactAdd">
     <div class="left">
-      <el-tree :data="list" default-expand-all :props="targetmodeProps" class="treeOne">
+      <el-tree :data="list" default-expand-all :props="targetmodeProps" class="treeOne"
+        @node-click="clickModel">
       </el-tree>
     </div>
     <div class="right">
-       <el-tree :data="nodelist" default-expand-all :props="nodeProps" class="treeTwo">
+       <el-tree :data="nodelist" default-expand-all :props="nodeProps" class="treeTwo"
+        @node-click="handleNodeChange">
         </el-tree>
     </div>
     <div class="submitBtn">

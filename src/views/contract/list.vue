@@ -3,107 +3,29 @@ export default {
     name: "login",
     data() {
         return {
+          nodeId: this.$route.query.id,
           detail:{},
-
-
-
-
-
-
-
-
-          activeName: '1',
+          list: {},
+          activeTab: '0',
           dataTab:[
-            {name: '发出的目标', value: '1'},
-            {name: '收到的目标', value: '2'},
-            
-          ],
-          tableData: [
-              {
-                  id: '1',
-                  name: '王小虎',
-                  province: '上海',
-                  person: '王小虎',
-                  from: '上海'
-              }, {
-                  id: '2',
-                  name: '葛二蛋',
-                  province: '北京',
-                  person: '葛二蛋',
-                  from: '北京'
-              },{
-                  id: '3',
-                  name: '薛仁贵',
-                  province: '南京',
-                  person: '薛仁贵',
-                  from: '南京'
-              }, {
-                  id: '4',
-                  name: '秦琼',
-                  province: '郑州',
-                  person: '秦琼',
-                  from: '郑州'
-              },{
-                  id: '5',
-                  name: '关羽',
-                  province: '荆州',
-                  person: '关羽',
-                  from: '荆州'
-              },{
-                  id: '6',
-                  name: '刘备',
-                  province: '西蜀',
-                  person: '刘备',
-                  from: '西蜀'
-              }, {
-                  id: '7',
-                  name: '张飞',
-                  province: '南蛮子',
-                  person: '张飞',
-                  from: '南蛮子'
-              },{
-                  id: '8',
-                  name: '秦始皇',
-                  province: '西安',
-                  person: '秦始皇',
-                  from: '西安'
-              },{
-                  id: '9',
-                  name: '老子',
-                  province: '周口',
-                  person: '老子',
-                  from: '周口'
-              }
+            {name: '发出的目标', value: '0'},
+            {name: '收到的目标', value: '1'}
           ]
         };
     },
-    computed: {
-        heads () {
-            return this.tableData.map(item => {
-                return {
-                    name: item.province,
-                    person: item.person,
-                    position: '负责人'
-                }
-            });
-        },
-        
-        
-    },
     created(){
-      const id = this.$route.query.id;
-      this.getDetail(id)
+      this.getDetail();
+      this.getTargetDirectoryInfoList();
     },
     methods: {
       // 获取项目详情
-      // 详情
-      getDetail (id) {
+      getDetail () {
         this.$ajax({
           // url: '/project/getProjectInfo',
           url: '/project/getProjectInfo.json',
           method: 'get',
           params: {
-            id: id
+            id: this.nodeId
           }
         }).then(res => {
           if(res.success){
@@ -111,32 +33,43 @@ export default {
           }
         })
       },
-
-
-
-
-
-        renderTd (column, item) {
-            return column.from === item.name ? '☑️' : ''
-        },
-        creathand(){
-          this.$router.push('/contract/add');
-        },
-       
+      // 获取目标列表
+      getTargetDirectoryInfoList () {
+        this.$ajax({
+          // url: '/target/getTargetDirectoryInfoList',
+          url: '/target/getTargetDirectoryInfoList.json',
+          method: 'get',
+          params: {
+            nodeId: this.nodeId,
+            queryType: this.activeTab
+          }
+        }).then(res => {
+          if(res.success){
+            this.list = res.data;
+          }
+        })
+      },
+      // 渲染列表
+      renderTd (column, item) {
+          return column.rNodeId.indexOf(item.id) > -1  
+            ? 'R' 
+            : column.sNodeId.indexOf(item.id) > -1
+              ? 'S'
+              : column.vNodeId.indexOf(item.id) > -1 ? 'V' : '';
+      }
     }
 };
 </script>
 <template>
   <div class="contract">
     <div class="congoal">
-      <el-tabs v-model="activeName">
+      <el-tabs v-model="activeTab" @tab-click="getTargetDirectoryInfoList">
            <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx"
            :label="tab.name" :name="tab.value"></el-tab-pane>
       </el-tabs>
     </div>
     <div class="chartBox">
-      <!-- <img src="chartImg" alt=""> -->
-      <el-progress type="circle" :percentage="detail.consumeDuration/detail.duration*100" class="circle"></el-progress>
+      <el-progress type="circle" :percentage="detail.consumeDuration/detail.duration * 100" class="circle"></el-progress>
       <div class="cirleright">
         <div class="cirlehead">
            <div class="timeLeft">
@@ -154,37 +87,39 @@ export default {
               <p>总R：{{detail.countTarget}}</p>
               <p class="add">昨日新增：{{detail.addIssue}}</p>
             </div>
-            <el-progress :percentage="detail.a/detail.countTarget*100" :show-text="false"  style="width:400px"></el-progress>
+            <el-progress :percentage="detail.a/detail.countTarget * 100" :show-text="false"  style="width:400px"></el-progress>
           </div>
           <div class="processTwo">
              <div class="processTwoText">
                 <p>总S：{{detail.countIssue}}</p>
                 <p class="add">昨日完成：{{detail.finishIssue}}</p>
              </div>
-            <el-progress :percentage="detail.b/detail.countIssue*100" :show-text="false" style="width:400px"></el-progress>
+            <el-progress :percentage="detail.b/detail.countIssue * 100" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
-         <el-button size="mini" class="goalTargetTex" @click="creathand" type="primary">创建目标</el-button>
-        <!-- <div >创建目标</div> -->
+        <router-link :to="`/contract/add?id=${nodeId}`">
+          <el-button class="goalTargetTex" type="primary">创建目标</el-button>
+        </router-link>
       </div>
     </div>
     <div class="contraceTab">
-      <el-table :data="tableData" max-height="300" border>
-          <el-table-column label="序号" prop="id" width="50" fixed></el-table-column>
-          <el-table-column label="目标名称" prop="name" width="80" fixed></el-table-column>
-          <el-table-column label="目标分类" prop="name" width="80" fixed></el-table-column>
-          <el-table-column label="单位" prop="name" width="50" fixed></el-table-column>
-          <el-table-column label="目标值" prop="name" width="100" fixed></el-table-column>
-          <el-table-column label="需求编号" prop="name" width="80" fixed></el-table-column>
-          <el-table-column label="能量管理" prop="name" width="80" fixed></el-table-column>       
-          <el-table-column v-for="(col, idx) in heads" :key="idx" align="center">
+      <el-table :data="list.targetlist" max-height="300" border>
+          <el-table-column label="序号" prop="nodeId" width="100" fixed></el-table-column>
+          <el-table-column label="目标名称" prop="targetName" width="100" fixed></el-table-column>
+          <el-table-column label="目标分类" prop="targetCategory" width="100" fixed></el-table-column>
+          <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
+          <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
+          <el-table-column label="需求编号" prop="reNum" width="100" fixed></el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
               <template slot="header">
                   <ul class="mul-thead">
-                      <li>{{ col.name }}</li>
+                      <li>{{ col.nodeName }}</li>
+                      <li>{{ col.role }}</li>
+                      <li>{{ col.responsibler }}</li>
                   </ul>
               </template>
               <template slot-scope="scope">
-                <router-link v-if="renderTd(scope.row, col)" to='/contract/edit'>
+                <router-link v-if="renderTd(scope.row, col)" :to="`/contract/${scope.row.id}?tab=${activeTab}&projectId=${nodeId}`">
                   {{ renderTd(scope.row, col) }}
                 </router-link>
               </template>
@@ -275,6 +210,15 @@ export default {
         display: inline-block;
         background: url("~@/assets/img/confine.jpeg") no-repeat;
         background-size: 100% 100%;
+    }
+    .mul-thead {
+      margin: 0 -10px;
+      li {
+        border-bottom: 1px solid #ddd;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
     }
 }
 </style>

@@ -12,7 +12,6 @@ const ContractList = () => import( /* webpackChunkName: "contract" */ '@/views/c
 const ContractAdd = () => import( /* webpackChunkName: "contract" */ '@/views/contract/add');
 const ContractTopo = () => import( /* webpackChunkName: "contract" */ '@/views/contract/topo');
 const ContractEdit = () => import( /* webpackChunkName: "contract" */ '@/views/contract/edit');
-const ContractEditr = () => import( /* webpackChunkName: "contract" */ '@/views/contract/editr');
 
 const issueManage = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue');
 const IssueList = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/list');
@@ -51,17 +50,12 @@ let routes = [
       }, {
         path: 'add',
         component: ContractAdd
-      }, {
-        path: 'edit',
-        component: ContractEdit
-      }, 
-      {
-        path: 'editr',
-        component: ContractEditr
-      },  
-      {
+      },{
         path: 'topo',
         component: ContractTopo
+      },{
+        path: ':id',
+        component: ContractEdit
       }
     ]
   },
