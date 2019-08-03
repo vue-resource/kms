@@ -70,7 +70,7 @@ export default {
     // 生命周期
     created() {
      
-      // this.createIssue()
+      this.createIssue()
     },
     methods: {
         //创建问题
@@ -96,18 +96,18 @@ export default {
 </script>
 <template>
   <div class="proAddBox">
-    <div class="creat">新建问题</div>
+    <div class="creat">新建项目</div>
     <div class="addMain">
       <el-form  ref="formInfo" :model="creatform" label-width="100px" :rules="rules">
-        <el-form-item label="活动名称:"  prop="issueName">
-          <el-input v-model.trim="creatform.issueName" style="width:400px"></el-input>
+        <el-form-item label="活动名称:">
+          <el-input v-model.trim="creatform.issueName" style="width:400px" props="issueName"></el-input>
         </el-form-item>
-        <el-form-item label="项目简介:" prop="issueCase">
-          <el-input v-model.trim="creatform.issueCause" style="width:400px" ></el-input>
+        <el-form-item label="项目简介:">
+          <el-input v-model.trim="creatform.issueCause" style="width:400px" props="issueCase"></el-input>
         </el-form-item>
         <el-form-item label="项目周期:">
-          <ul class="Astrict" >
-            <li v-for='(list,index) in creatform.lists' v-bind:key='index' prop="issueTime">
+          <ul class="Astrict">
+            <li v-for='(list,index) in creatform.lists' v-bind:key='index' props="issueTime">
               <el-input v-model.trim="creatform.a" class="userInp" style="width:200px" placeholder="Q1" ></el-input>
               <span class="block">
                 <span class="demonstration">{{list.startTime}}</span>
@@ -122,23 +122,23 @@ export default {
             </li>
           </ul>
         </el-form-item>
-        <el-form-item label="项目描述:" prop="issueCase">
+        <el-form-item label="项目描述:">
           <el-input type="textarea"  :rows="5" class="desreption"
             v-model.trim="creatform.issueScope"
-           
+            props="issueCase"
           ></el-input>
         </el-form-item>
-        <el-form-item label="项目负责人:"  prop="issueMembers">
-          <el-select v-model="creatform.leader" placeholder="李工" >
+        <el-form-item label="项目负责人:">
+          <el-select v-model="creatform.leader" placeholder="李工"  props="issueMembers">
              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="项目成员:" prop="issueMembers">
+        <el-form-item label="项目成员:">
           <el-input type="textarea" :rows="4"  v-model.trim="creatform.fileName"  ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="createIssue">提交</el-button>
+          <el-button type="primary">提交</el-button>
         </el-form-item>
       </el-form>
 
