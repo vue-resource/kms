@@ -135,7 +135,7 @@ export default {
           </el-select>
         </el-form-item>
         <el-form-item label="项目成员:" prop="issueMembers">
-          <el-input type="textarea" :rows="4"  v-model.trim="creatform.fileName"  ></el-input>
+          <el-input type="textarea" :rows="4"  v-model.trim="creatform.fileName" class="members" ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="createIssue">提交</el-button>
@@ -146,7 +146,6 @@ export default {
   </div>
 </template>
 <style lang="less">
-.kms-content{margin:0;padding:0;}
 .proAddBox {
     border: 1px solid #ccc;
     border-top:none;
@@ -177,10 +176,16 @@ export default {
                 padding-bottom: 10px;
 
                 .block {
-                    padding-left: 35px;
+                    padding-left: 25px;
+                    .startDate{
+                      margin-left:10px;
+                    }
                 }
                 .blockTwo {
                     padding-left: 15px;
+                    .endDate{
+                      margin-left:10px;
+                    }
                 }
             }
         }
@@ -190,8 +195,10 @@ export default {
                 width: 120px;
             }
         }
-        .description {
+        .desreption
+         {
             padding-bottom: 15px;
+            width:600px;
             .textAre {
                 width: 830px;
                 height: 110px;
@@ -203,7 +210,10 @@ export default {
             padding-bottom: 15px;
         }
         .submitTxt {
-            marigin-top: 20px;
+            margin-top: 20px;
+        }
+        .members{
+          width:600px;
         }
     }
 }

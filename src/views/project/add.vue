@@ -117,19 +117,19 @@ export default {
               <span class="block">
                 <span class="demonstration">请选择开始时间</span>
                 <el-date-picker v-model="list.dateStart" type="date" placeholder="开始日期"
-                  class="startDate" style="width: 140px;"></el-date-picker>
+                  class="startDate" ></el-date-picker>
               </span>
               <span class="blockTwo">
                 <span class="demonstration">请选择结束时间</span>
                 <el-date-picker v-model="list.dateEnd" type="date" placeholder="开始日期"
-                  class="endDate" style="width: 140px;"></el-date-picker>
+                  class="endDate" ></el-date-picker>
               </span>
             </li>
           </ul>
         </el-form-item>
         <el-form-item label="项目描述:" prop="projectRecommend">
           <el-input v-model.trim="param.projectRecommend" type="textarea" 
-          :rows="5" style="width:400px" ></el-input>
+          :rows="5" class="projectDes"></el-input>
         </el-form-item>
         <el-form-item label="项目负责人:" prop="projectResponsible">
           <el-select v-model="param.projectResponsible">
@@ -139,7 +139,7 @@ export default {
           </el-select>
         </el-form-item>
         <el-form-item label="项目成员:" prop="members">
-          <el-input v-model.trim="param.members" style="width:600px;"></el-input>
+          <el-input v-model.trim="param.members" class="members"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -157,11 +157,10 @@ export default {
     border: 1px solid #ccc;
     border-top:none;
     width: 980px;
-    height: 724px;
+    height: 600px;
     border-radius:0;
     margin: 0 auto;
     .creat {
-        // padding-top: 20px;
         width: 880px;
        margin: 0px auto 20px;
        padding-top: 15px;
@@ -170,7 +169,6 @@ export default {
         border-bottom:1px solid #ddd;
     }
     .addMain {
-        // padding-top: 25px;
         padding-left: 30px;
         .Addweek {
             padding-bottom: 15px;
@@ -178,17 +176,31 @@ export default {
                 display: inline-block;
             }
         }
-
+        .projectDes{
+          width:600px;
+        }
         .Astrict {
             display: inline-block;
             li {
                 padding-bottom: 10px;
 
                 .block {
-                    padding-left: 35px;
+                    padding-left: 16px;
+                    .startDate{
+                      width:140px;
+                      padding-left:5px;
+                    }
+                }
+                .startDate{
+                  width:140px;
+                  padding-left:5px;
                 }
                 .blockTwo {
                     padding-left: 15px;
+                    .endDate{
+                      width:140px;
+                      padding-left:5px;
+                    }
                 }
             }
         }
@@ -196,9 +208,6 @@ export default {
             padding-bottom: 15px;
             .userInp {
                 width: 120px;
-                // width:400px;
-                // display: inline-block;
-                // margin-left: 20px;
             }
         }
         .description {
@@ -210,11 +219,14 @@ export default {
                 vertical-align: text-top;
             }
         }
+        .members{
+          width:600px;
+        }
         .people {
             padding-bottom: 15px;
         }
         .submitTxt {
-            marigin-top: 20px;
+            margin-top: 20px;
         }
     }
 }

@@ -16,6 +16,20 @@ export default {
           }
         }
         return {
+            formInfo:{
+               "issueName":"张三",
+                "issueScope":"",
+                "issueCause":"",
+                "solution":"",
+                "remedialAction":"",
+                "fileName":"",
+                "leader":"李工",
+                "status":"",
+                "issueRank":"项目描述",
+                "finishTime":"",
+                "createTime":"", 
+                a:'11'
+            },
             creatform: {                
                 "nodeId":'',
                 "nodeId":"",
@@ -31,30 +45,12 @@ export default {
                 "issueRank":"",
                 "finishTime":"",
                 "createTime":"", 
-                "a":"",//              
+                "a":"111",//              
                 "lists": [
-                { id: 1, startTime: "选择开始时间", endTime: "选择结束时间" },
-                { id: 2, startTime: "选择开始时间", endTime: "选择结束时间" },
-                { id: 3, startTime: "选择开始时间", endTime: "选择结束时间" }]
+                { id: 1, startTime: "选择开始时间", endTime: "选择结束时间" }]
             },
             //表单验证
-            rules: {
-              issueName: [
-                { required: true, message: '请输入问题姓名', trigger: 'change' }
-              ],
-              issueCase: [
-                { required: true, message: '请输入问题原因', trigger: 'change' }
-              ],
-              issueMembers: [
-                { required: true, message: '请输入项目成员', trigger: 'change' }
-              ],
-              issueResponsible: [
-                { required: true, message: '请选择问题负责人', trigger: 'change' }
-              ],
-              issueTime: [
-                { validator: issuecheckTime, trigger: 'change' }
-              ]
-            },
+           
             options: [{
                     value: "1",
                     label: "张三"
@@ -70,13 +66,13 @@ export default {
     // 生命周期
     created() {
      
-      this.createIssue()
+      // this.createIssue()
     },
     methods: {
         //创建问题
         createIssue(){
           console.log(this)
-           this.$refs['formInfo'].validate((valid) => {
+         
              console.log(valid)
                 // if (valid) {
                   //  this.$ajax({
@@ -89,69 +85,54 @@ export default {
                   //     }
                   // })
                 // }
-             })         
+            
         }
     }
 };
 </script>
 <template>
   <div class="proAddBox">
-    <div class="creat">问题详情</div>
+    <div class="creat">查看列表</div>
     <div class="addMain">
-      <el-form   :model="creatform" label-width="100px" :>
-        <el-form-item label="问题描述：">
-           
+      <el-form  ref="formInfo" :model="creatform" label-width="100px" >
+        <el-form-item label="问题名称:" >
+           {{formInfo.issueName}}
         </el-form-item>
-        <el-form-item label="项目简介:">
-          <el-input v-model.trim="creatform.issueCause" style="width:400px" props="issueCase"></el-input>
+        <el-form-item label="问题简介:" >
+          {{formInfo.issueName}}
         </el-form-item>
-        <el-form-item label="项目周期:">
-          <ul class="Astrict">
-            <li v-for='(list,index) in creatform.lists' v-bind:key='index' props="issueTime">
-              <el-input v-model.trim="creatform.a" class="userInp" style="width:200px" placeholder="Q1" ></el-input>
-              <span class="block">
-                <span class="demonstration">{{list.startTime}}</span>
-                <el-date-picker v-model="creatform.createTime" type="date" class="startDate" style="width: 140px;" placeholder="start日期">
-                </el-date-picker>
-              </span>
-              <span class="blockTwo">
-                <span class="demonstration">{{list.endTime}}</span>
-                <el-date-picker v-model="creatform.finishTime" type="date" class="endDate" style="width: 140px;" placeholder="end日期">
-                </el-date-picker>
-              </span>
+        <el-form-item label="问题周期:">
+          <ul class="Astrict" >
+            <li v-for='(list,index) in creatform.lists' v-bind:key='index' >
+               {{formInfo.a}}
+              
             </li>
           </ul>
         </el-form-item>
-        <el-form-item label="项目描述:">
-          <el-input type="textarea"  :rows="5" class="desreption"
-            v-model.trim="creatform.issueScope"
-            props="issueCase"
-          ></el-input>
+        <el-form-item label="问题描述:" >
+        {{formInfo.issueRank}}
         </el-form-item>
-        <el-form-item label="项目负责人:">
-          <el-select v-model="creatform.leader" placeholder="李工"  props="issueMembers">
-             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
+        <el-form-item label="负责人:" >
+         
+             {{formInfo.leader}}
+         
         </el-form-item>
-        <el-form-item label="项目成员:">
-          <el-input type="textarea" :rows="4"  v-model.trim="creatform.fileName"  ></el-input>
+        <el-form-item label="成员:" >
+          {{formInfo.fileName}}
+         
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary">提交</el-button>
-        </el-form-item>
+        
       </el-form>
 
     </div>
   </div>
 </template>
 <style lang="less">
-.kms-content{margin:0;padding:0;}
 .proAddBox {
     border: 1px solid #ccc;
     border-top:none;
     width: 980px;
-    height: 724px;
+    height: 604px;
     border-radius:0;
     margin: 0 auto;
     .creat {
@@ -177,10 +158,16 @@ export default {
                 padding-bottom: 10px;
 
                 .block {
-                    padding-left: 35px;
+                    padding-left: 25px;
+                    .startDate{
+                      margin-left:10px;
+                    }
                 }
                 .blockTwo {
                     padding-left: 15px;
+                    .endDate{
+                      margin-left:10px;
+                    }
                 }
             }
         }
@@ -188,13 +175,12 @@ export default {
             padding-bottom: 15px;
             .userInp {
                 width: 120px;
-                // width:400px;
-                // display: inline-block;
-                // margin-left: 20px;
             }
         }
-        .description {
+        .desreption
+         {
             padding-bottom: 15px;
+            width:600px;
             .textAre {
                 width: 830px;
                 height: 110px;
@@ -206,7 +192,10 @@ export default {
             padding-bottom: 15px;
         }
         .submitTxt {
-            marigin-top: 20px;
+            margin-top: 20px;
+        }
+        .members{
+          width:600px;
         }
     }
 }

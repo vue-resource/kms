@@ -12,11 +12,11 @@ export default {
     created() {
       const id = this.$route.query.id;
       this.issueList(id)
-      this.closeIssue(id);
+      // this.closeIssue(id);
     },
     methods: {
       //问题列表
-       issueList(id){
+       issueList(id=0){
            this.$ajax({
               // url: '/issue/getIssueList',//问题管理
                 url: 'issue/getIssueList.json',
@@ -31,7 +31,7 @@ export default {
               }).then(res => {           
                 if(res.success){
                   let list = res.data.list;
-                  console.log(this)
+                  console.log(this,list)
                   this.list = list;
                 }
             })
@@ -40,7 +40,7 @@ export default {
         closeIssue(id){
           this.$ajax({
               // url: '/issue/closeIssue',//问题管理
-                url: 'issue/closeIssue.json',
+                url: '/issue/closeIssue.json',
                 method: 'get',
                 params: {
                   issueId:id
@@ -97,23 +97,28 @@ export default {
         </router-link>          
       </div>
     </div>
-    <el-table :data="list" height="300px" border>
-      <el-table-column  prop="id" label="序号" width="50"></el-table-column>
+    <el-table :data="list" height="300px" border  stripe>
+       <el-table-column  prop="id" label="序号" width="50"></el-table-column>
       <el-table-column  prop="issueName" label="问题描述" width="200"></el-table-column>
       <el-table-column prop="issueCause" width="150" label="问题原因"></el-table-column>
       <el-table-column prop="issueRank" width="100" label="问题等级"></el-table-column>
       <el-table-column prop="leader" width="100" label="责任人"></el-table-column>
-      <el-table-column prop="codename" label="相关功能">
-        <el-button class="wightTarget" type="plain" round>查看</el-button>  
+      <el-table-column prop="codename" label="相关功能"> 
+        
+        <router-link to="issue/incheck"> 
+             <el-button class="wightTarget" type="plain" round>查看</el-button>  
+        </router-link> 
+        
         <el-button class="wightTarget" type="plain" round>编辑</el-button>  
-        <el-button class="wightTarget" type="plain" round>关闭</el-button>  
+        <el-button class="wightTarget" type="plain" round>关闭</el-button>   
       </el-table-column>
-    </el-table>
+    </el-table> 
   </div>
 </template>
 <style lang="less">
 .weightwarp{
   font-size: 14px;
+  padding-top:10px;
 }
 .wighthead{
   display: flex;

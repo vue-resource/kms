@@ -60,15 +60,13 @@ export default {
             ref="form" class="demo-dynamic" label-width="0">
             <el-form-item label="" prop="account">
               <el-input v-model.trim="formData.account"  
-                style="margin:10px auto ;width:300px;"  
                 placeholder="请输入用户名" class="inp">
                 <div slot="prepend" class="user"></div>
               </el-input>
             </el-form-item> 
             <el-form-item label="" prop="password">
               <el-input v-model.trim="formData.password"  type="password"
-                style="margin:10px auto ;width:300px;"  
-                placeholder="请输入用户名" class="inp">
+                placeholder="请输入密码" class="wordText">
                 <div slot="prepend" class="password"></div>
               </el-input>
             </el-form-item>
@@ -119,8 +117,9 @@ export default {
     .loginTitle{
       text-align: center;
       padding-top:12px;
-      padding-bottom: 15px;
-      color: #666;
+      font-weight: bold;
+      color: #000;
+      padding-bottom:15px;
     }
 }
 
@@ -135,17 +134,17 @@ export default {
         font-size: 14px;
          color: #666;
         .restore {
-            margin-top: 20px;
+            margin-top: 10px;
             margin-bottom: 10px;
         }
         .loginFoot {
-           
             margin-top: 10px;
         }
         .forgoton {
-            marign-right: 10px;
+            margin-right: 10px;
             float: right;
-           
+            border-bottom:1px solid #ccc;
+            padding-bottom:2px;
             
         }
         .user{
@@ -159,6 +158,9 @@ export default {
           height: 20px;
           background: url("~@/assets/img/password.png") no-repeat;
           background-size: 100% 100%;
+        }
+        .wordText{
+
         }
     }
 }

@@ -22,7 +22,7 @@ export default {
 </script>
 <template>
   <div class="contract">
-      <el-tabs v-model="activeName" @tab-click="handleTabClk">
+      <el-tabs v-model="activeName" @tab-click="handleTabClk" class="headlist">
            <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx" :disabled="tab.disabled"
            :label="tab.name" :name="tab.value"></el-tab-pane>
       </el-tabs>
@@ -33,6 +33,9 @@ export default {
 .contract {
     margin-right: 50px;
     margin: 0 auto;
+    .headlist{
+      height:40px;
+    }
     .congoal {
         float: right;
         display: flex;

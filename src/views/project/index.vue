@@ -92,11 +92,11 @@ export default {
           <li v-for="(todo,index) in info.projectInfoList" class="gether" :key="index">
             <img :src="todo.imgsrc"/>
             <div class="markShy">
-              <div class="matip">
-                <span class="icon-eyer el-icon-view" @click="handleView(todo.id)"></span>
+              <div class="matip">              
                 <router-link :to="`/project/add?id=${todo.id}`">
                    <span class="icon-edit el-icon-edit"></span>
                 </router-link>
+                <span class="icon-eyer el-icon-view" @click="handleView(todo.id)"></span>
               </div>
               <router-link :to="`/contract/list?id=${todo.id}`">
                 <el-button class="detail" type="primary">查看项目目标</el-button> 
@@ -123,8 +123,7 @@ export default {
     margin: 0;
     padding: 0;
     .proheadWrap {
-        // width: 100%;
-        background-color: rgb(242, 242, 242);
+        background: #e3e3e3;
         .proHead {
           width: 760px;
           height: 140px;
@@ -135,7 +134,7 @@ export default {
               padding-top: 10px;
               .dataTime {
                   margin-top: 10px;
-                  color: #999;
+                
                   font-size: 12px;
               }
           }
@@ -143,7 +142,7 @@ export default {
               width: 760px;
               font-size: 14px;
               display: flex;
-              padding-top: 10px;
+              padding-top: 20px;
               .rightfit {
                   flex: 1;
               }
@@ -205,7 +204,7 @@ export default {
                       position: absolute;
                       .icon-eyer,.icon-edit {
                           font-size: 20px;
-                          margin-left:10px;
+                          margin-left:5px;
                           color: #fff;
                           cursor: pointer;
                       }

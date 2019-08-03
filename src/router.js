@@ -17,6 +17,7 @@ const ContractEditr = () => import( /* webpackChunkName: "contract" */ '@/views/
 const issueManage = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue');
 const IssueList = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/list');
 const IssueAdd = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/add');
+const Incheck = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/incheck');
 
 const Interior = () => import( /* webpackChunkName: "interior" */ '@/views/interior');
 
@@ -78,7 +79,12 @@ let routes = [
       {
         path: 'add',
         component: IssueAdd
+      },
+      {
+        path: 'incheck',
+        component: Incheck
       }
+      
     ]
   },
   // 分块BOM

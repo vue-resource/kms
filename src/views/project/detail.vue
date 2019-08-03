@@ -32,14 +32,15 @@ export default {
         </div>
       </div>
       <div class="recent">项目周期</div>
-      <el-table :data="source.projectTime">
-        <el-table-column label="日期">
+      <el-table :data="source.projectTime" class="tabList">
+        <el-table-column label="序号">
           <template slot-scope="scope">
             {{scope.row.dateStart}} - {{scope.row.dateEnd}}
           </template>
         </el-table-column>
-        <el-table-column property="name" label="姓名" width="200"></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
+        <el-table-column property="id" label="项目名称" width="100"></el-table-column>
+        <el-table-column property="address" label="开始时间"></el-table-column>
+         <el-table-column property="address" label="结束时间"></el-table-column>
       </el-table>
       <div class="tabfoot">项目成员</div>
       <div class="tabfootText">{{ source.members }}</div>
@@ -49,13 +50,16 @@ export default {
 <style lang="less">
 .tabhead {
     display: flex;
-    justify-content: space-around;
+    justify-content:space-between;
 }
 .recent {
     color: #000;
     font-size: 14px;
     padding-top:10px;
     padding-bottom: 10px;
+}
+.tabList{
+  background: #e3e3e3;
 }
 .tabfoot {
     color: #000;
@@ -64,7 +68,7 @@ export default {
     padding-bottom: 10px;
 }
 .tabfootText {
-    background: #ddd;
+    background: #f6f6f6;
     height: 40px;
     border-radius: 4px;
     line-height: 40px;
