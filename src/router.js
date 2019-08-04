@@ -13,11 +13,10 @@ const ContractAdd = () => import( /* webpackChunkName: "contract" */ '@/views/co
 const ContractTopo = () => import( /* webpackChunkName: "contract" */ '@/views/contract/topo');
 const ContractEdit = () => import( /* webpackChunkName: "contract" */ '@/views/contract/edit');
 
-const issueManage = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue');
+const IssueManage = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue');
 const IssueList = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/list');
-const IssueAdd = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/add');
-const Incheck = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/incheck');
-const Close = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/close');
+const IssueAction = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/action');
+const IssueDetail = ()=> import( /* webpackChunkName: "issue" */ '@/views/issue/detail');
 
 const Interior = () => import( /* webpackChunkName: "interior" */ '@/views/interior');
 
@@ -64,7 +63,7 @@ let routes = [
   // 问题管理
   {
     path: '/issue',
-    component: issueManage,
+    component: IssueManage,
     redirect: '/issue/list',
     children: [
       {
@@ -72,16 +71,12 @@ let routes = [
         component: IssueList
       },
       {
-        path: 'add',
-        component: IssueAdd
+        path: 'action',
+        component: IssueAction
       },
       {
-        path: 'incheck',
-        component: Incheck
-      },
-      {
-        path: 'close',
-        component: Close
+        path: 'detail',
+        component: IssueDetail
       }
       
     ]
