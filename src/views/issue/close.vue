@@ -76,7 +76,7 @@ export default {
         //创建问题
         createIssue(){
           console.log(this)
-           this.$refs['formInfo'].validate((valid) => {
+          //  this.$refs['formInfo'].validate((valid) => {
              console.log(valid)
                 // if (valid) {
                   //  this.$ajax({
@@ -89,7 +89,7 @@ export default {
                   //     }
                   // })
                 // }
-             })         
+            //  })         
         }
     }
 };
@@ -146,7 +146,6 @@ export default {
   </div>
 </template>
 <style lang="less">
-.kms-content{margin:0;padding:0;}
 .proAddBox {
     border: 1px solid #ccc;
     border-top:none;

@@ -103,14 +103,16 @@ export default {
       <el-table-column prop="issueCause" width="150" label="问题原因"></el-table-column>
       <el-table-column prop="issueRank" width="100" label="问题等级"></el-table-column>
       <el-table-column prop="leader" width="100" label="责任人"></el-table-column>
-      <el-table-column prop="codename" label="相关功能"> 
-        
-        <router-link to="issue/incheck"> 
+      <el-table-column prop="codename" label="相关功能">   
+        <router-link to="incheck"> 
              <el-button class="wightTarget" type="plain" round>查看</el-button>  
         </router-link> 
-        
-        <el-button class="wightTarget" type="plain" round>编辑</el-button>  
-        <el-button class="wightTarget" type="plain" round>关闭</el-button>   
+         <router-link to="add"> 
+           <el-button class="wightTarget" type="plain" round>编辑</el-button>  
+         </router-link> 
+          <router-link to="close"> 
+            <el-button class="wightTarget" type="plain" round>关闭</el-button>  
+          </router-link> 
       </el-table-column>
     </el-table> 
   </div>

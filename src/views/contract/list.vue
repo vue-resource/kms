@@ -69,7 +69,9 @@ export default {
       </el-tabs>
     </div>
     <div class="chartBox">
-      <el-progress type="circle" :percentage="detail.consumeDuration/detail.duration * 100" class="circle"></el-progress>
+      <div class="circle">
+         <el-progress type="circle" :percentage="(detail.consumeDuration/detail.duration * 100||0)" ></el-progress>        
+      </div>
       <div class="cirleright">
         <div class="cirlehead">
            <div class="timeLeft">
@@ -87,14 +89,14 @@ export default {
               <p>总R：{{detail.countTarget}}</p>
               <p class="add">昨日新增：{{detail.addIssue}}</p>
             </div>
-            <el-progress :percentage="detail.a/detail.countTarget * 100" :show-text="false"  style="width:400px"></el-progress>
+            <el-progress :percentage="(detail.a/detail.countTarget * 100)||0" :show-text="false"  style="width:400px"></el-progress>
           </div>
           <div class="processTwo">
              <div class="processTwoText">
                 <p>总S：{{detail.countIssue}}</p>
                 <p class="add">昨日完成：{{detail.finishIssue}}</p>
              </div>
-            <el-progress :percentage="detail.b/detail.countIssue * 100" :show-text="false" style="width:400px"></el-progress>
+            <el-progress :percentage="(detail.b/detail.countIssue * 100)||0" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
         <router-link :to="`/contract/add?id=${nodeId}`">
@@ -149,15 +151,14 @@ export default {
         }
     }
     .contraceTab{
-      width:1100px;
+      padding-top:10px;
     }
     .chartBox {
         width: 642px;
         height: 220px;
         clear:both;
         display: flex;
-         background: #ccc;
-        // background:rgba(0, 0, 0, 0.065);
+         background: #f4f4f4;
         border-radius: 6px;
          position: relative;
         margin: 0px 10px 10px 0;
@@ -170,10 +171,12 @@ export default {
           padding-left:25px;    
           .cirlehead{
             display: flex;
+            // color: #d5d5d5;
             .timeText{
               font-weight: 300;
               font-size:24px;
               padding-top:10px;
+             color: #000;
             }
             .timeright{
               padding-left:25px;
@@ -184,6 +187,7 @@ export default {
             color:#666 ;
             .processOne{
                padding-top:10px;
+                padding-bottom:10px;
                .processOneText{
                   display: flex;
                 }
