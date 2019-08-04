@@ -146,7 +146,6 @@ export default {
   </div>
 </template>
 <style lang="less">
-.kms-content{margin:0;padding:0;}
 .proAddBox {
     border: 1px solid #ccc;
     border-top:none;

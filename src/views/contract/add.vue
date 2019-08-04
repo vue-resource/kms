@@ -104,26 +104,31 @@ export default {
   </div>
 </template>
 <style lang="less">
+.contract{
+  padding:20px;
+}
 .concactAdd{
   display: flex;
+  margin-top:50px;
   .left{
-   width:400px;
-   height: 550px; 
+   width:200px;
+   height: 380px; 
    .treeOne{
-      background: #ccc;
-       height: 550px;
+      background: #F4F4F4;
+       height: 380px;
        overflow: auto;
    }
   }
   .right{
-    width:400px;
+    width:200px;
     margin-left:40px;
     .treeTwo{
-       background: #ccc;
-       height: 550px;
+       background: #F4F4F4;
+       height: 380px;
        overflow: auto;
    }
   }
+  
   .submitBtn{
     margin-left:30px;
     .btn{

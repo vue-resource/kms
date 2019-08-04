@@ -22,7 +22,7 @@ export default {
 </script>
 <template>
   <div class="contract">
-      <el-tabs v-model="activeName" @tab-click="handleTabClk">
+      <el-tabs v-model="activeName" @tab-click="handleTabClk" class="tablist">
            <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx" :disabled="tab.disabled"
            :label="tab.name" :name="tab.value"></el-tab-pane>
       </el-tabs>
@@ -33,16 +33,19 @@ export default {
 .contract {
     margin-right: 50px;
     margin: 0 auto;
+    padding:20px;
+    .tablist{
+      height:40px;
+    }
     .congoal {
         float: right;
         display: flex;
         font-size: 14px;
-
-       
         .goaltipOne {
           padding-right:10px;
           border-bottom: 1px solid blue;
         }
+        
         .line {
             height: 15px;
             width: 1px;
@@ -59,8 +62,6 @@ export default {
         background: #ccc;
         border-radius: 6px;
          position: relative;
-        // background: url("~@/assets/img/chart.jpeg") no-repeat;
-        // background-size: 100% 100%;
         margin: 10px 10px 10px 0;
         .circle{
           margin-top:40px;

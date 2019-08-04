@@ -60,17 +60,18 @@ export default {
 </script>
 
 <style lang="less">
+.el-main{
+  padding:0!important;
+}
 .kms-container {
     height: 100%;
     box-sizing: border-box;
     .kms-header {
         line-height: 60px;
-        // display: table-cell;
         border-bottom: 1px solid #ddd;
         .headImg {
             width: 140px;
             height: 38px;
-            // line-height: 38px;
             vertical-align: middle;
             display: inline-block;
             background: url("~@/assets/img/login.jpg") no-repeat;

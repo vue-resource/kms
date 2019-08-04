@@ -120,8 +120,6 @@ export default {
 
 <style lang="less">
 .kms-content {
-    margin: 0;
-    padding: 0;
     .proheadWrap {
         background: #e3e3e3;
         .proHead {

@@ -63,7 +63,7 @@ export default {
 <template>
   <div class="contract">
     <div class="congoal">
-      <el-tabs v-model="activeTab" @tab-click="getTargetDirectoryInfoList">
+      <el-tabs v-model="activeTab" @tab-click="getTargetDirectoryInfoList" class="contab">
            <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx"
            :label="tab.name" :name="tab.value"></el-tab-pane>
       </el-tabs>
@@ -131,13 +131,18 @@ export default {
   </div>
 </template>
 <style lang="less">
+
 .contract {
     margin-right: 50px;
     margin: 0 auto;
+    padding:20px;
     .congoal {
         float: right;
         display: flex;
-        font-size: 14px;    
+        font-size: 14px;   
+      .contab{
+        height:40px;
+      } 
         .goaltipOne {
           border-bottom: 1px solid blue;
         }
