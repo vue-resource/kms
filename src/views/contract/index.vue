@@ -2,13 +2,14 @@
 export default {
     name: "login",
     data () {
+        const id = this.$route.query.id;
         return {
             activeName: '1',
             dataTab:[
-              {name: '目标管理', value: '1', path: '/contract'},
+              {name: '目标管理', value: '1', path: '/contract?id='+id},
               {name: '分块BOM', value: '2', path: '/b', disabled: true},
               {name: '成本分析', value: '3', path: '/a', disabled: true},
-              {name: '问题管理', value: '4', path: '/issue'},
+              {name: '问题管理', value: '4', path: '/issue?id='+id},
             ]
         };
     },
