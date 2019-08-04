@@ -34,6 +34,7 @@ export default {
 .contract {
     margin-right: 50px;
     margin: 0 auto;
+    padding:20px;
     .headlist{
       height:40px;
     }

@@ -95,7 +95,7 @@ export default {
           </el-option>
         </el-select>
       </div>
-      <el-button type="primary" @click="issueList">搜索</el-button>  
+      <el-button type="primary" @click="issueList" >搜索</el-button>  
       <div class="wightTargetBox">
         <router-link to="/issue/add">
           <el-button class="wightTarget" type="primary" >创建问题</el-button>  
@@ -135,6 +135,9 @@ export default {
   }
   .wighthree{
      padding-right:20px;
+  }
+  .wightFour{
+    margin-right:10px;
   }
   .seleteder{
     width:100px;
