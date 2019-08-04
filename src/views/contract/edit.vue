@@ -148,6 +148,7 @@ export default {
 </template>
 <style lang="less">
 .project-edit {
+  padding-top:20px;
   .clearfix {
     clear: both;
     display: block;
