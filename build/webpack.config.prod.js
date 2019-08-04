@@ -18,7 +18,7 @@ module.exports = merge(baseConfig, {
         path: utils.resolve('dist'),
         publicPath: '/',
         filename: 'static/js/[name].bundle.[hash:5].js',
-        chunkFilename: 'static/js/[name].chunk.[chunkhash:5].js'
+        chunkFilename: 'static/js/[name].chunk.[chunkhash:5]js'
     },
     optimization: {
         minimizer: [
