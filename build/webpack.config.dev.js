@@ -13,7 +13,7 @@ module.exports = merge(baseConfig, {
         quiet:false,
         historyApiFallback: true,
         noInfo: true,
-        host: '192.168.31.246',
+        host: '0.0.0.0',
         port: 8888,
         hot: true,
         contentBase: utils.resolve('dist'),
