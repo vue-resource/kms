@@ -22,6 +22,9 @@ const Interior = () => import( /* webpackChunkName: "interior" */ '@/views/inter
 
 let routes = [
   {
+    path: '/',
+    redirect: '/project/list'
+  },{
     path: '/login',
     component: Login
   }, 
