@@ -61,7 +61,7 @@ export default {
 };
 </script>
 <template>
-  <div class="contract">
+  <div class="contractBox">
     <div class="congoal">
       <el-tabs v-model="activeTab" @tab-click="getTargetDirectoryInfoList" class="contab">
            <el-tab-pane v-for="(tab, idx) in dataTab" :key="idx"
@@ -132,10 +132,9 @@ export default {
 </template>
 <style lang="less">
 
-.contract {
+.contractBox {
     margin-right: 50px;
     margin: 0 auto;
-    padding:20px;
     .congoal {
         float: right;
         display: flex;
@@ -163,7 +162,7 @@ export default {
         height: 220px;
         clear:both;
         display: flex;
-         background: #f4f4f4;
+         background: #f4f4f4!important;
         border-radius: 6px;
          position: relative;
         margin: 0px 10px 10px 0;
@@ -172,11 +171,12 @@ export default {
           margin-left:26px;     
         }
         .cirleright{
-          padding-top:25px;
+          padding-top:30px;
           padding-left:25px;    
+           color:#aeaeae;
           .cirlehead{
             display: flex;
-            // color: #d5d5d5;
+           
             .timeText{
               font-weight: 300;
               font-size:24px;
@@ -189,7 +189,6 @@ export default {
 
           }
           .cirlefoot{
-            color:#666 ;
             .processOne{
                padding-top:10px;
                 padding-bottom:10px;
@@ -207,8 +206,7 @@ export default {
           .goalTargetTex{
             position: absolute;
             right:20px;
-            top:20px;
-    
+            top:20px;   
           }
         }
     }

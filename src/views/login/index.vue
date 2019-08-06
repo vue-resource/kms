@@ -60,13 +60,13 @@ export default {
         <div class="loginForm">
           <el-form :model="formData" :rules="rules"
             ref="form" class="demo-dynamic" label-width="0">
-            <el-form-item label="" prop="account">
+            <el-form-item label="" prop="account"  class="inp">
               <el-input v-model.trim="formData.account"  
                 placeholder="请输入用户名" class="inp">
                 <div slot="prepend" class="user"></div>
               </el-input>
             </el-form-item> 
-            <el-form-item label="" prop="password">
+            <el-form-item label="" prop="password"  >
               <el-input v-model.trim="formData.password"  type="password"
                 placeholder="请输入密码" class="wordText">
                 <div slot="prepend" class="password"></div>
@@ -74,12 +74,10 @@ export default {
             </el-form-item>
             <div class="restore">
               <el-checkbox v-model="checked">保持登录</el-checkbox>
-              <span class="forgoton">忘记密码</span>
+              <span class="forgoton">忘记密码?</span>
             </div>
-            <div class="loginFoot">
               <el-button type="primary" @click="submit"
-                style="width:300px">登录</el-button>
-            </div>
+                class="loginFoot">登录</el-button>
           </el-form>
         </div>
       </div>
@@ -96,20 +94,19 @@ export default {
   background-position: center;
 }
 .loginBox {
-    width: 500px;
-    height: 442px;
+    width: 31rem;
+    height: 28rem;
     border: 1px solid #ccc;
     position: absolute;
     background: #fff;
     top: 50%;
     left: 50%;
-    margin-left: -250px;
-    margin-top: -221px;
+    margin-left: -15.5rem;
+    margin-top: -14rem;
     border-radius: 4px;
     .loginImg {
         width: 215px;
         height: 56px;
-        // border: 1px solid #ccc;
         text-align: center;
         line-height: 56px;
         margin: 30px auto 0;
@@ -119,39 +116,44 @@ export default {
     .loginTitle{
       text-align: center;
       padding-top:12px;
-      font-weight: bold;
-      color: #000;
+      font-size: 18px;   
+      color: #565656;
       padding-bottom:15px;
     }
 }
 
 .loginContain {
-    margin-left: 50px;
-    margin-right: 50px;
-   
     .loginForm {
         flex: 1;
-        margin-left: 50px;
-        margin-right: 50px;
+        width:26.2rem;
+        height: 15.6rem;
+        margin:0 auto;
         font-size: 14px;
          color: #666;
         .restore {
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 2.2rem;
+            margin-bottom: 1.5rem;
         }
+        
         .loginFoot {
-            margin-top: 10px;
+            // margin-top: 10px;
+            width:100%;
+            height: 50px;
+            display: block;
+            font-size:18px;
         }
         .forgoton {
             margin-right: 10px;
             float: right;
             border-bottom:1px solid #ccc;
-            padding-bottom:2px;
-            
-        }
+            padding-bottom:2px;            
+        }  
+        input{
+          height: 48px;
+        }     
         .user{
           width:20px;
-          height: 20px;
+          height: 20px;       
           background: url("~@/assets/img/people.png") no-repeat;
           background-size: 100% 100%;
         }
@@ -161,9 +163,7 @@ export default {
           background: url("~@/assets/img/password.png") no-repeat;
           background-size: 100% 100%;
         }
-        .wordText{
-
-        }
+       
     }
 }
 </style>

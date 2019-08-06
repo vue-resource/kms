@@ -149,6 +149,7 @@ export default {
 <style lang="less">
 .project-edit {
   padding-top:20px;
+  color: #7a7a7a;
   .clearfix {
     clear: both;
     display: block;
@@ -157,7 +158,8 @@ export default {
   .tab-tip {
     position: absolute;
     right: 0;
-    top:0;
+    top:10px;
+     color: #7a7a7a;  
   }
   .involution{
     width:180px;

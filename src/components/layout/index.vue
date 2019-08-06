@@ -5,9 +5,9 @@
       <div class="headImg"></div>
       <div class="headright">
         <span class="backText">后台管理</span>        
-        <el-dropdown>
+        <el-dropdown class="gray">
             <span class="el-dropdown-link">
-                {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
@@ -80,10 +80,13 @@ export default {
         }
         .headright {
             float: right;
-            font-size: 12px;
+            font-size: 14px;
             color: #999;
             .backText {
-                padding-right: 50px;
+                padding-right: 30px;
+            }
+            .gray{
+               color: #999;
             }
         }
     }

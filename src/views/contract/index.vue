@@ -34,9 +34,11 @@ export default {
 .contract {
     margin-right: 50px;
     margin: 0 auto;
-    padding:20px;
+     padding-left:20px;
     .tablist{
       height:40px;
+      padding-top:20px;
+     
     }
     .congoal {
         float: right;

@@ -105,7 +105,7 @@ export default {
     <div class="addMain">
       <el-form ref="form" label-width="100px" :model="param" :rules="rules">
         <el-form-item label="活动名称:" prop="projectName">
-          <el-input v-model.trim="param.projectName" style="width:400px"></el-input>
+          <el-input v-model.trim="param.projectName" class="proName"></el-input>
         </el-form-item>
         <!-- <el-form-item label="项目简介:">
           <el-input v-model.trim="param.projectRecommend" style="width:400px" ></el-input>
@@ -129,7 +129,7 @@ export default {
         </el-form-item>
         <el-form-item label="项目描述:" prop="projectRecommend">
           <el-input v-model.trim="param.projectRecommend" type="textarea" 
-          :rows="5" class="projectDes"></el-input>
+          :rows="7" class="projectDes"></el-input>
         </el-form-item>
         <el-form-item label="项目负责人:" prop="projectResponsible">
           <el-select v-model="param.projectResponsible">
@@ -150,9 +150,6 @@ export default {
   </div>
 </template>
 <style lang="less">
-.kms-content{
- 
-}
 .proAddBox {
     border: 1px solid #ccc;
     border-top:none;
@@ -176,14 +173,14 @@ export default {
                 display: inline-block;
             }
         }
-        .projectDes{
+        .projectDes,.proName,.members{
           width:600px;
         }
         .Astrict {
             display: inline-block;
             li {
                 padding-bottom: 10px;
-
+                color: #797979;
                 .block {
                     padding-left: 16px;
                     .startDate{
@@ -218,9 +215,6 @@ export default {
                 margin-left: 20px;
                 vertical-align: text-top;
             }
-        }
-        .members{
-          width:600px;
         }
         .people {
             padding-bottom: 15px;

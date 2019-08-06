@@ -97,7 +97,7 @@ export default {
       </div>
       <el-button type="primary" @click="issueList" >搜索</el-button>  
       <div class="wightTargetBox">
-        <router-link to="/issue/add">
+        <router-link to="/issue/action">
           <el-button class="wightTarget" type="primary" >创建问题</el-button>  
         </router-link>          
       </div>
@@ -125,11 +125,12 @@ export default {
 <style lang="less">
 .weightwarp{
   font-size: 14px;
-  padding-top:10px;
+  padding-top:25px;
 }
 .wighthead{
   display: flex;
   margin-bottom:20px;
+ color: #7a7a7a;
   .wightTwo{
     padding:0 20px;
   }

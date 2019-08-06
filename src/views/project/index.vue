@@ -90,7 +90,7 @@ export default {
       <div class="proMain">
         <ul class="ulist">
           <li v-for="(todo,index) in info.projectInfoList" class="gether" :key="index">
-            <img :src="todo.imgsrc"/>
+            <img :src="todo.imgsrc" :onerror="todo.imgsrc"/>
             <div class="markShy">
               <div class="matip">              
                 <router-link :to="`/project/add?id=${todo.id}`">
@@ -121,26 +121,25 @@ export default {
 <style lang="less">
 .kms-content {
     .proheadWrap {
-        background: #e3e3e3;
+        background: #f8f8f8;
         .proHead {
-          width: 760px;
+          width: 47.5rem;
           height: 140px;
           border-radius: 4px;
           margin: 0 auto;
+           color: #797979;
           .proleft {
               width: 150px;
-              padding-top: 10px;
-              .dataTime {
-                  margin-top: 10px;
-                
-                  font-size: 12px;
+              padding-top:15px;
+              .dataTime {          
+                  font-size: 14px;
               }
           }
           .proright {
               width: 760px;
-              font-size: 14px;
-              display: flex;
-              padding-top: 20px;
+              font-size: 20px;
+              display: flex;          
+              padding-top: 16px;
               .rightfit {
                   flex: 1;
               }
@@ -162,6 +161,8 @@ export default {
       .proText {    
           height: 40px;
           line-height: 40px;
+          color: #545454;
+          font-weight: bold;
           border-bottom: 1px solid #ddd;
           margin-bottom: 15px;
       }
@@ -211,6 +212,8 @@ export default {
                       position: absolute;
                       left: 50%;
                       bottom: 50px;
+                      padding-left:25px;
+                      padding-right:25px;
                       transform: translate3d(-50%, 0,0);
                 }
               }
