@@ -33,10 +33,10 @@ export default {
       // 项目详情
       getDetail () {
         this.$ajax({
-          // url: '/project/getProjectInfo',
-          url: '/project/getProjectInfo.json',
-          method: 'get',
-          params: {
+          url: '/project/getProjectInfo',
+          // url: '/project/getProjectInfo.json',
+          method: 'post',
+          data: {
             id: this.$route.query.projectId
           }
         }).then(res => {
@@ -48,10 +48,10 @@ export default {
       // 目标详情
       queryTarget(){
         this.$ajax({
-            // url: '/target/queryTarget',
-            url: '/target/queryTarget.json',
-            method: 'get',
-            params: {
+            url: '/target/queryTarget',
+            // url: '/target/queryTarget.json',
+            method: 'post',
+            data: {
               targetId: this.targetId
             }
           }).then(res => {
@@ -62,10 +62,10 @@ export default {
       },
       updateTarget (role) {
         this.$ajax({
-          // url: '/target/updateTarget',
-          url: '/target/updateTarget.json',
-          method: 'get',
-          params: {
+          url: '/target/updateTarget',
+          // url: '/target/updateTarget.json',
+          method: 'post',
+          data: {
             ...this.param,
             cs:role,
             nodeId: this.targetId,

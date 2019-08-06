@@ -28,8 +28,8 @@ export default {
         //问题详情
         getDetail(){
           this.$ajax({
-            // url: '/issue/detail',
-            url: '/issue/detail.json',
+            url: '/issue/detail',
+            // url: '/issue/detail.json',
             method: 'get',
             params: {
               issueId: this.issueId
@@ -44,10 +44,10 @@ export default {
           this.$refs['form'].validate((valid) => {
             if (valid) {
               this.$ajax({
-                // url: '/issue/createIssue',
-                url: '/issue/createIssue.json',
-                method: 'get',
-                params: this.param
+                url: '/issue/createIssue',
+                // url: '/issue/createIssue.json',
+                method: 'post',
+                data: this.param
               }).then(res => {                         
                 if(res.success){
                   this.$router.back();

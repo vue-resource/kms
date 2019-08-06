@@ -9,7 +9,8 @@ export default {
             checked: false,
             formData: {
                 account: "",
-                password: ""
+                password: "",
+                captcha:'ae'
             },
             rules: {
               account: [
@@ -25,14 +26,16 @@ export default {
       ...mapActions('common', ['updateUsername']),
       submit() {
           this.$refs['form'].validate(valid => {
+            console.log(valid)
+            console.log(this.$refs['form'])
             if(valid){
               this.$ajax({
-                // url: '/login',
-                url: '/login.json',
-                method: 'get',
-                params: {
-                  account: 'aaa',
-                  password: '11111'
+                url: '/rms_api/login',
+               // url: '/login.json',
+                method: 'post',
+                data:this.formData,
+                headers:{
+                  "Content-Type":"application/x-www-form-urlencoded"
                 }
               }).then(res => {
                 if(res.success){
@@ -89,7 +92,7 @@ export default {
 .loginWarp{
   width:100%;
   height: 100%;
-  background: url("~@/assets/img/body.jpeg") no-repeat;
+  background: url("~@/assets/img/body.png") no-repeat;
   background-size: cover;
   background-position: center;
 }

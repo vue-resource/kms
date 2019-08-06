@@ -21,10 +21,10 @@ export default {
       // 获取项目详情
       getDetail () {
         this.$ajax({
-          // url: '/project/getProjectInfo',
-          url: '/project/getProjectInfo.json',
-          method: 'get',
-          params: {
+          url: '/project/getProjectInfo',
+          // url: '/project/getProjectInfo.json',
+          method: 'post',
+          data: {
             id: this.nodeId
           }
         }).then(res => {
@@ -36,10 +36,10 @@ export default {
       // 获取目标列表
       getTargetDirectoryInfoList () {
         this.$ajax({
-          // url: '/target/getTargetDirectoryInfoList',
-          url: '/target/getTargetDirectoryInfoList.json',
-          method: 'get',
-          params: {
+          url: '/target/getTargetDirectoryInfoList',
+          // url: '/target/getTargetDirectoryInfoList.json',
+          method: 'post',
+          data: {
             nodeId: this.nodeId,
             queryType: this.activeTab
           }

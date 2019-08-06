@@ -29,10 +29,10 @@ export default {
        issueList(){
           const self = this;
           this.$ajax({
-              // url: '/issue/getIssueList',//问题管理
-              url: '/issue/getIssueList.json',
-              method: 'get',
-              params: {
+              url: '/issue/getIssueList',//问题管理
+              // url: '/issue/getIssueList.json',
+              method: 'post',
+              data: {
                 nodeId: self.nodeId,
                 ...self.param
               }
@@ -45,10 +45,10 @@ export default {
         //关闭问题
         closeIssue(id){
           this.$ajax({
-              // url: '/issue/closeIssue',//问题管理
-              url: '/issue/closeIssue.json',
-              method: 'get',
-              params: {
+              url: '/issue/closeIssue',//问题管理
+              // url: '/issue/closeIssue.json',
+              method: 'post',
+              data: {
                 issueId:id
               }
             }).then(res => {                         

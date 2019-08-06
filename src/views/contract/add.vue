@@ -30,10 +30,10 @@ export default {
         //节点渲染 getTargetmodelList
        getTargetList(id){
             this.$ajax({
-                // url: 'target/getTargetmodelList',
-                url: '/target/getTargetmodelList.json',
-                method: 'get',
-                params: {
+                url: '/target/getTargetmodelList',
+                // url: '/target/getTargetmodelList.json',
+                method: 'post',
+                data: {
                 categoryId:id
                 }
             }).then(res => {
@@ -45,10 +45,10 @@ export default {
        //右侧节点tree 
        getNodeList(id){
             this.$ajax({
-                // url: 'node/getNodeList',
-                url: '/node/getNodeList.json',
-                method: 'get',
-                params: {
+                url: '/node/getNodeList',
+                // url: '/node/getNodeList.json',
+                method: 'post',
+                data: {
                  categoryId:id
                 }
             }).then(res => {
@@ -67,10 +67,10 @@ export default {
        creatSubmit () {
          if(this.param.target_model_id && this.param.nodeId){
            this.$ajax({
-                // url: '/target/createTarget',
-                url: '/target/createTarget.json',
-                method: 'get',
-                params: this.param
+                url: '/target/createTarget',
+                // url: '/target/createTarget.json',
+                method: 'post',
+                data: this.param
             }).then(res => {
                 if(res.success){
                   this.$router.back();

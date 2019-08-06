@@ -13,17 +13,23 @@ export default {
     // 生命周期
     created() {
         const id = this.$route.query.id;
-        this.getNodeList(id);
+        console.log(id)
+        if(id){
+          this.getNodeList(id);          
+        }
     },
     methods: {
         //节点渲染
-        getNodeList(id){
+        getNodeList(id=0){
           this.$ajax({
-            // url: '/node/getNodeList',
-            url: '/node/getNodeList.json',
-            method: 'get',
-            params: {
+            url: '/node/getNodeList',
+            // url: '/node/getNodeList.json',
+            method: 'post',
+            data: {
               projectId:id
+            },
+            headers:{
+                  "Contant-Type":"application/x-www-form-urlencoded"
             }
           }).then(res => {
             if(res.success){

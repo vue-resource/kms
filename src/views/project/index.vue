@@ -26,10 +26,10 @@ export default {
     // 项目列表
     getList(){
       this.$ajax({
-        // url: '/project/getProjectList',
-        url: '/project/getProjectList.json',
-        method: 'get',
-        params: {}
+        url: '/project/getProjectList',
+        // url: '/project/getProjectList.json',
+        method: 'post',
+        data: {}
       }).then(res => {
         if(res.success){
           this.info = res.data;
@@ -39,10 +39,10 @@ export default {
     // 项目详情
     handleView (id) {
       this.$ajax({
-        // url: '/project/getProjectInfo',
-        url: '/project/getProjectInfo.json',
-        method: 'get',
-        params: {
+        url: '/project/getProjectInfo',
+        // url: '/project/getProjectInfo.json',
+        method: 'post',
+        data: {
           id: id
         }
       }).then(res => {

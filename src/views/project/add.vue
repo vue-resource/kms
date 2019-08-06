@@ -65,10 +65,10 @@ export default {
       // 详情
       getDetail (id) {
         this.$ajax({
-          // url: '/project/getProjectInfo',
-          url: '/project/getProjectInfo.json',
-          method: 'get',
-          params: {
+          url: '/project/getProjectInfo',
+          // url: '/project/getProjectInfo.json',
+          method: 'post',
+          data: {
             id: id
           }
         }).then(res => {
@@ -82,10 +82,10 @@ export default {
         this.$refs['form'].validate((valid) => {
           if (valid) {
             this.$ajax({
-              // url: '/project/updateProjectInfo',
-              url: '/project/updateProjectInfo.json',
-              method: 'get',
-              params: this.param
+              url: '/project/updateProjectInfo',
+              // url: '/project/updateProjectInfo.json',
+              method: 'post',
+              data: this.param
             }).then(res => {
               if(res.success){
                 this.$router.push('/project');
