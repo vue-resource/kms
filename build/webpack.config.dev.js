@@ -21,7 +21,7 @@ module.exports = merge(baseConfig, {
         proxy: {
             '/api': {   
                 // target: 'http://crm.weizhipin.com/',
-                target: 'http://39.100.134.212:8081',
+                target: 'http://39.100.134.212:8081/api',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: { '^/api': '/' }
