@@ -70,6 +70,7 @@ export default {
     .kms-header {
         line-height: 60px;
         border-bottom: 1px solid #ddd;
+        box-shadow: 0 0 15px #aaa;
         .headImg {
             width: 140px;
             height: 38px;

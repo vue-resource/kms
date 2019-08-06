@@ -122,6 +122,7 @@ export default {
 .kms-content {
     .proheadWrap {
         background: #f8f8f8;
+        margin-top:10px;
         .proHead {
           width: 47.5rem;
           height: 140px;
