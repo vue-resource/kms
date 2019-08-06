@@ -10,7 +10,7 @@
                 {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="logout ">退出登录</el-dropdown-item>
+                <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -39,7 +39,7 @@ export default {
       ...mapState('common',['username'])
     },
     methods: {
-       ...mapActions('common', ['updateUsername']),
+       ...mapActions('common', ['updateUsername', 'cleanToken']),
       checkIsProject() {
           return this.$route.path.startsWith("/project");
       },
@@ -47,10 +47,11 @@ export default {
         this.$ajax({
           url: '/logout',
           // url: '/logout.json',
-          method: 'post',
+          method: 'get',
         }).then(res => {
           if(res.success){
             this.updateUsername('');
+            this.cleanToken();
             this.$router.push('/login');
           }
         })

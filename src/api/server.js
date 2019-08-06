@@ -37,9 +37,8 @@ instance.interceptors.request.use(
             stringify(config.body || config.params)
         );
         config.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-        if (store.state.token) {
-            config.headers.common['token'] = store.state.token;
+        if (store.state.common.token) {
+            config.headers.common['token'] = store.state.common.token;
         }
         return config;
     },

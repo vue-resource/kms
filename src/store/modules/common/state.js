@@ -1,6 +1,6 @@
-import Storage from '@/utils/tools/localstorage';
+import Cookie from '@/utils/tools/cookie';
 
 export default {
-    token: Storage.get('token') || '',
+    token: Cookie.get('t_rms') || '',
     username: ''
 };

@@ -10,7 +10,7 @@ export default {
             formData: {
                 account: "",
                 password: "",
-                captcha:'ae'
+                captcha:'test'
             },
             rules: {
               account: [
@@ -23,7 +23,7 @@ export default {
         };
     },
     methods: {
-      ...mapActions('common', ['updateUsername']),
+      ...mapActions('common', ['updateUsername', 'updateToken']),
       submit() {
           this.$refs['form'].validate(valid => {
             if(valid){
@@ -38,6 +38,7 @@ export default {
               }).then(res => {
                 if(res.success){
                   this.updateUsername(res.data.username);
+                  this.updateToken(res.data.uid);
                   this.$router.push('/project');
                 }
               })

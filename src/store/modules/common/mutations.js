@@ -1,14 +1,14 @@
 import * as Type from './consts';
-import Storage from '@/utils/tools/localstorage';
+import Cookie from '@/utils/tools/cookie';
 
 export default {
     [Type.CLEAN_TOKEN] (state) {
         state.token = '';
-        Storage.del('token');
+        Cookie.del('t_rms');
     },
     [Type.UPDATE_TOKEN] (state, token) {
         state.token = token;
-        Storage.set('token', token);
+        Cookie.set('t_rms', token);
     },
     [Type.UPDATE_USERNAME] (state, username) {
         state.username = username;
