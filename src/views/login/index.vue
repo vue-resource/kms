@@ -26,8 +26,6 @@ export default {
       ...mapActions('common', ['updateUsername']),
       submit() {
           this.$refs['form'].validate(valid => {
-            console.log(valid)
-            console.log(this.$refs['form'])
             if(valid){
               this.$ajax({
                 url: '/rms_api/login',
@@ -35,7 +33,7 @@ export default {
                 method: 'post',
                 data:this.formData,
                 headers:{
-                  "Content-Type":"application/x-www-form-urlencoded"
+                  "Content-Type":"application/json"
                 }
               }).then(res => {
                 if(res.success){

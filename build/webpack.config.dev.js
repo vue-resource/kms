@@ -19,12 +19,12 @@ module.exports = merge(baseConfig, {
         contentBase: utils.resolve('dist'),
         compress: true,
         proxy: {
-            '/api': {   
+            '/rms/api': {   
                 // target: 'http://crm.weizhipin.com/',
-                target: 'http://39.100.134.212:8081/api',
+                target: 'http://39.100.134.212:8081/rms/api',
                 secure: false,
                 changeOrigin: true,
-                pathRewrite: { '^/api': '/' }
+                pathRewrite: { '^/rms/api': '/' }
             }
         }
     },

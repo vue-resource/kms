@@ -3,7 +3,7 @@ import axios from 'axios';
 import store from '@/store/index';
 import md5 from 'blueimp-md5';
 
-axios.defaults.baseURL = '/api';
+axios.defaults.baseURL = '/rms/api';
 
 const stringify = o => {
     try {

@@ -28,8 +28,8 @@ export default {
       this.$ajax({
         url: '/project/getProjectList',
         // url: '/project/getProjectList.json',
-        method: 'post',
-        data: {}
+        method: 'get',
+        params: {}
       }).then(res => {
         if(res.success){
           this.info = res.data;
@@ -41,8 +41,8 @@ export default {
       this.$ajax({
         url: '/project/getProjectInfo',
         // url: '/project/getProjectInfo.json',
-        method: 'post',
-        data: {
+        method: 'get',
+        params: {
           id: id
         }
       }).then(res => {
