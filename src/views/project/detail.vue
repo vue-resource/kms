@@ -24,7 +24,7 @@ export default {
         </div>
         <div>
           <span>创建人：</span>
-          <span>{{ source.createBy }}</span>
+          <span>{{ source.createName }}</span>
         </div>
         <div>
           <span>项目负责人：</span>
@@ -32,7 +32,7 @@ export default {
         </div>
       </div>
       <div class="recent">项目周期</div>
-      <el-table :data="source.projectTime" class="tabList">
+      <el-table :data="source.projectPeriodList" class="tabList">
         <el-table-column label="序号">
           <template slot-scope="scope">
             {{scope.row.dateStart}} - {{scope.row.dateEnd}}
@@ -43,7 +43,7 @@ export default {
          <el-table-column property="address" label="结束时间"></el-table-column>
       </el-table>
       <div class="tabfoot">项目成员</div>
-      <div class="tabfootText">{{ source.members }}</div>
+      <div class="tabfootText">{{ source.projectResponsibleList }}</div>
   </div>
 </template>
 

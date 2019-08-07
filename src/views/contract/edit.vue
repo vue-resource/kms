@@ -4,6 +4,7 @@ export default {
     data() {
       return {
         targetId: this.$route.params.id,
+        projectId: this.$route.qurey.projectId,
         param: {
           name: '',
           nodeName: '',
@@ -34,10 +35,9 @@ export default {
       getDetail () {
         this.$ajax({
           url: '/project/getProjectInfo',
-          // url: '/project/getProjectInfo.json',
-          method: 'post',
-          data: {
-            id: this.$route.query.projectId
+          method: 'get',
+          params: {
+            id: this.projectId
           }
         }).then(res => {
           if(res.success){
@@ -49,8 +49,7 @@ export default {
       queryTarget(){
         this.$ajax({
             url: '/target/queryTarget',
-            // url: '/target/queryTarget.json',
-            method: 'post',
+            method: 'get',
             data: {
               targetId: this.targetId
             }

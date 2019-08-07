@@ -3,7 +3,7 @@ export default {
     name: "login",
     data() {
         return {
-          nodeId: this.$route.query.id,
+          projectId: this.$route.query.id,
           detail:{},
           list: {},
           activeTab: '0',
@@ -22,10 +22,9 @@ export default {
       getDetail () {
         this.$ajax({
           url: '/project/getProjectInfo',
-          // url: '/project/getProjectInfo.json',
-          method: 'post',
-          data: {
-            id: this.nodeId
+          method: 'get',
+          params: {
+            id: this.projectId
           }
         }).then(res => {
           if(res.success){
@@ -37,16 +36,10 @@ export default {
       getTargetDirectoryInfoList () {
         this.$ajax({
           url: '/target/getTargetDirectoryInfoList',
-          // url: '/target/getTargetDirectoryInfoList.json',
-          method: 'post',
+          method: 'get',
           params: {
-            nodeId: 1,
-            queryType: 1 // By duyin 2019-8-7
-            // nodeId: this.nodeId,
-            // queryType: this.activeTab
-          },
-           headers:{
-            "Content-Type":"application/json"
+            nodeId: this.projectId,
+            queryType: this.activeTab
           }
         }).then(res => {
           if(res.success){
@@ -104,7 +97,7 @@ export default {
             <el-progress :percentage="(detail.b/detail.countIssue * 100)||0" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
-        <router-link :to="`/contract/add?id=${nodeId}`">
+        <router-link :to="`/contract/add?id=${projectId}`">
           <el-button class="goalTargetTex" type="primary">创建目标</el-button>
         </router-link>
       </div>
@@ -116,7 +109,7 @@ export default {
           <el-table-column label="目标分类" prop="targetCategory" width="100" fixed></el-table-column>
           <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
-          <el-table-column label="需求编号" prop="reNum" width="100" fixed></el-table-column>
+          <el-table-column label="需求编号" prop="reNum" fixed></el-table-column>
           <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
               <template slot="header">
                   <ul class="mul-thead">
@@ -126,7 +119,7 @@ export default {
                   </ul>
               </template>
               <template slot-scope="scope">
-                <router-link v-if="renderTd(scope.row, col)" :to="`/contract/${scope.row.id}?tab=${activeTab}&projectId=${nodeId}`">
+                <router-link v-if="renderTd(scope.row, col)" :to="`/contract/${scope.row.id}?tab=${activeTab}&projectId=${projectId}`">
                   {{ renderTd(scope.row, col) }}
                 </router-link>
               </template>

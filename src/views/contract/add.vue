@@ -5,6 +5,7 @@ export default {
         return {
             list:[],
             nodelist:[],
+            projectId: this.$route.query.id,
             targetmodeProps: {
                 children: "children",
                 label: "targetName"
@@ -22,19 +23,17 @@ export default {
     },
     // 生命周期
     created() {
-        const id = this.$route.query.id;
-        this.getTargetList(id)
-        this.getNodeList(id)
+        this.getTargetList()
+        this.getNodeList()
     },
     methods: {
         //节点渲染 getTargetmodelList
-       getTargetList(id){
+       getTargetList(){
             this.$ajax({
                 url: '/target/getTargetmodelList',
-                // url: '/target/getTargetmodelList.json',
-                method: 'post',
-                data: {
-                categoryId:id
+                method: 'get',
+                params: {
+                  categoryId: this.projectId
                 }
             }).then(res => {
                 if(res.success){
@@ -43,13 +42,12 @@ export default {
             })
        },
        //右侧节点tree 
-       getNodeList(id){
+       getNodeList(){
             this.$ajax({
                 url: '/node/getNodeList',
-                // url: '/node/getNodeList.json',
-                method: 'post',
-                data: {
-                 categoryId:id
+                method: 'get',
+                params: {
+                  categoryId: this.projectId
                 }
             }).then(res => {
                 if(res.success){

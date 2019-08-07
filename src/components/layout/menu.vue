@@ -23,13 +23,9 @@ export default {
         getNodeList(id=0){
           this.$ajax({
             url: '/node/getNodeList',
-            // url: '/node/getNodeList.json',
-            method: 'post',
-            data: {
-              projectId:id
-            },
-            headers:{
-                  "Contant-Type":"application/x-www-form-urlencoded"
+            method: 'get',
+            params: {
+              projectId: id
             }
           }).then(res => {
             if(res.success){

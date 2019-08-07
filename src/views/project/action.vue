@@ -27,30 +27,30 @@ export default {
             {value: "22", label: "张三2"}
           ],
           param: {
-            projectName:'',
+            name:'',
             projectRecommend: '',
-            projectResponsible:'',
+            projectResponsibleId:'',
             members:'',
-            projectTime:[{
+            projectPeriodList:[{
               "dateStart":"",
               "dateEnd":"",
               "name":""
             }]
           },
           rules: {
-            projectName: [
+            name: [
               { required: true, message: '请输入项目名称', trigger: 'change' }
             ],
             projectRecommend: [
-              { required: true, message: '请输入项目描述', trigger: 'change' }
+              { required: true, message: '请输入项目简介', trigger: 'change' }
             ],
             members: [
               { required: true, message: '请输入项目成员', trigger: 'change' }
             ],
-            projectResponsible: [
+            projectResponsibleId: [
               { required: true, message: '请选择项目负责人', trigger: 'change' }
             ],
-            projectTime: [
+            projectPeriodList: [
               { validator: checkTime, trigger: 'change' }
             ]
           },
@@ -66,13 +66,9 @@ export default {
       getDetail (id) {
         this.$ajax({
           url: '/project/getProjectInfo',
-          // url: '/project/getProjectInfo.json',
           method: 'get',
           params: {
-            id:1 // id  //By duyin 19-8-7 注释id
-          },
-          headers:{
-            "Content-Type":"application/json"
+            id: id
           }
         }).then(res => {
           if(res.success){
@@ -87,8 +83,8 @@ export default {
             this.$ajax({
               url: '/project/updateProjectInfo',
               // url: '/project/updateProjectInfo.json',
-              method: 'get',
-              params: this.param,
+              method: 'post',
+              data: this.param,
               headers:{
                 "Content-Type":"application/json"
               }
@@ -110,15 +106,12 @@ export default {
     <div class="creat">{{ title }}</div>
     <div class="addMain">
       <el-form ref="form" label-width="100px" :model="param" :rules="rules">
-        <el-form-item label="活动名称:" prop="projectName">
-          <el-input v-model.trim="param.projectName" class="proName"></el-input>
+        <el-form-item label="活动名称:" prop="name">
+          <el-input v-model.trim="param.name" class="proName"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="项目简介:">
-          <el-input v-model.trim="param.projectRecommend" style="width:400px" ></el-input>
-        </el-form-item> -->
-        <el-form-item label="项目周期:" prop="projectTime">
+        <el-form-item label="项目周期:" prop="projectPeriodList">
           <ul class="Astrict">
-            <li v-for='(list,index) in param.projectTime' :key='index'>
+            <li v-for='(list,index) in param.projectPeriodList' :key='index'>
               <el-input v-model.trim="list.name" class="userInp" style="width:200px"></el-input>
               <span class="block">
                 <span class="demonstration">请选择开始时间</span>
@@ -133,19 +126,19 @@ export default {
             </li>
           </ul>
         </el-form-item>
-        <el-form-item label="项目描述:" prop="projectRecommend">
+        <el-form-item label="项目简介:" prop="projectRecommend">
           <el-input v-model.trim="param.projectRecommend" type="textarea" 
           :rows="7" class="projectDes"></el-input>
         </el-form-item>
-        <el-form-item label="项目负责人:" prop="projectResponsible">
-          <el-select v-model="param.projectResponsible">
-            <el-option v-for="item in responsibles" :key="item.value"
+        <el-form-item label="项目负责人:" prop="projectResponsibleId">
+          <el-select v-model="param.projectResponsibleId">
+            <el-option v-for="item in param.projectResponsibleList" :key="item.value"
               :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="项目成员:" prop="members">
-          <el-input v-model.trim="param.members" class="members"></el-input>
+          <el-input v-model.trim="param.projectResponsibleList" class="members"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit">提交</el-button>

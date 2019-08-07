@@ -5,7 +5,7 @@ const NotFound = () => import( /* webpackChunkName: "common" */ '@/views/notFoun
 const Login = () => import( /* webpackChunkName: "common" */ '@/views/login');
 
 const ProjectList = () => import( /* webpackChunkName: "project" */ '@/views/project');
-const ProjectAdd = () => import( /* webpackChunkName: "project" */ '@/views/project/add');
+const ProjectAction = () => import( /* webpackChunkName: "project" */ '@/views/project/action');
 
 const Contract = () => import( /* webpackChunkName: "contract" */ '@/views/contract');
 const ContractList = () => import( /* webpackChunkName: "contract" */ '@/views/contract/list');
@@ -39,8 +39,8 @@ let routes = [
       path: 'list',
       component: ProjectList
     }, {
-      path: 'add',
-      component: ProjectAdd
+      path: 'action',
+      component: ProjectAction
     }]
   }, 
   // 目标管理

@@ -36,13 +36,9 @@ export default {
     handleView (id) {
       this.$ajax({
         url: '/project/getProjectInfo',
-        // url: '/project/getProjectInfo.json',
         method: 'get',
         params: {
-          id: 1//id 杜印 by 2019-8-7 修改id
-        },
-        headers:{
-            "Content-Type":"application/json"
+          id: id
         }
       }).then(res => {
         if(res.success){
@@ -92,7 +88,7 @@ export default {
             <img :src="todo.imgsrc" :onerror="todo.imgsrc"/>
             <div class="markShy">
               <div class="matip">              
-                <router-link :to="`/project/add?id=${todo.id}`">
+                <router-link :to="`/project/action?id=${todo.id}`">
                    <span class="icon-edit el-icon-edit"></span>
                 </router-link>
                 <span class="icon-eyer el-icon-view" @click="handleView(todo.id)"></span>
@@ -105,10 +101,10 @@ export default {
         </ul>
       </div>
     </div>
-    <el-dialog title="K11项目" :visible.sync="dialogTableVisible">
+    <el-dialog :visible.sync="dialogTableVisible">
       <h2 slot="title" class="detail-head">
-        <span>{{ detail.projectName }}</span>
-        <router-link :to="`/project/add?id=${detail.id}`">
+        <span>{{ detail.name }}</span>
+        <router-link :to="`/project/action?id=${detail.id}`">
           <el-button class="detail" type="primary">编辑</el-button>
         </router-link>
       </h2>

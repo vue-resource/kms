@@ -31,10 +31,13 @@ export default {
           this.$ajax({
               url: '/issue/getIssueList',//问题管理
               // url: '/issue/getIssueList.json',
-              method: 'post',
-              data: {
-                nodeId: self.nodeId,
+              method: 'get',
+              params: {
+                nodeId: 1,//self.nodeId, 
                 ...self.param
+              },
+              headers:{
+                  "Content-Type":"application/json"
               }
             }).then(res => {           
               if(res.success){
@@ -47,9 +50,12 @@ export default {
           this.$ajax({
               url: '/issue/closeIssue',//问题管理
               // url: '/issue/closeIssue.json',
-              method: 'post',
-              data: {
-                issueId:id
+              method: 'get',
+              params: {
+                issueId:1//id by duyin 2019-8-7 
+              },
+               headers:{
+                  "Content-Type":"application/json"
               }
             }).then(res => {                         
               if(res.success){             
