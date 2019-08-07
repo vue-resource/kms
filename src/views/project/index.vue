@@ -1,8 +1,4 @@
 <script>
-// import moment from "moment";
-// // import Alert from '../components/alert'
-// // console.log(Alert)
-// let Atime = new moment();
 import projectDetail from './detail';
 export default {
   name: "project-list",
@@ -43,7 +39,10 @@ export default {
         // url: '/project/getProjectInfo.json',
         method: 'get',
         params: {
-          id: id
+          id: 1//id 杜印 by 2019-8-7 修改id
+        },
+        headers:{
+            "Content-Type":"application/json"
         }
       }).then(res => {
         if(res.success){
@@ -122,7 +121,6 @@ export default {
 .kms-content {
     .proheadWrap {
         background: #f8f8f8;
-        margin-top:10px;
         .proHead {
           width: 47.5rem;
           height: 140px;

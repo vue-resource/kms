@@ -15,7 +15,7 @@
         </el-dropdown>
       </div>
     </el-header>
-    <el-container>
+    <el-container class="margin10">
       <el-aside
         width="200px"
         class="kms-side-bar"
@@ -47,7 +47,7 @@ export default {
         this.$ajax({
           url: '/logout',
           // url: '/logout.json',
-          method: 'get',
+          method: 'get'
         }).then(res => {
           if(res.success){
             this.updateUsername('');
@@ -90,6 +90,9 @@ export default {
                color: #999;
             }
         }
+    }
+    .margin10{
+      margin-top:10px;
     }
     .kms-side-bar {
         border-right: 1px solid #ddd;

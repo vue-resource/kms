@@ -39,9 +39,14 @@ export default {
           url: '/target/getTargetDirectoryInfoList',
           // url: '/target/getTargetDirectoryInfoList.json',
           method: 'post',
-          data: {
-            nodeId: this.nodeId,
-            queryType: this.activeTab
+          params: {
+            nodeId: 1,
+            queryType: 1 // By duyin 2019-8-7
+            // nodeId: this.nodeId,
+            // queryType: this.activeTab
+          },
+           headers:{
+            "Content-Type":"application/json"
           }
         }).then(res => {
           if(res.success){

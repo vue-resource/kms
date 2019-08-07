@@ -67,9 +67,12 @@ export default {
         this.$ajax({
           url: '/project/getProjectInfo',
           // url: '/project/getProjectInfo.json',
-          method: 'post',
-          data: {
-            id: id
+          method: 'get',
+          params: {
+            id:1 // id  //By duyin 19-8-7 注释id
+          },
+          headers:{
+            "Content-Type":"application/json"
           }
         }).then(res => {
           if(res.success){
@@ -84,8 +87,11 @@ export default {
             this.$ajax({
               url: '/project/updateProjectInfo',
               // url: '/project/updateProjectInfo.json',
-              method: 'post',
-              data: this.param
+              method: 'get',
+              params: this.param,
+              headers:{
+                "Content-Type":"application/json"
+              }
             }).then(res => {
               if(res.success){
                 this.$router.push('/project');
