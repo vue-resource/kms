@@ -136,11 +136,8 @@ export default {
         }
         
         .loginFoot {
-            // margin-top: 10px;
             width:100%;
-            height: 50px;
-            display: block;
-            font-size:18px;
+           
         }
         .forgoton {
             margin-right: 10px;
@@ -149,7 +146,7 @@ export default {
             padding-bottom:2px;            
         }  
         input{
-          height: 48px;
+          // height: 48px;
         }     
         .user{
           width:20px;
