@@ -4,6 +4,7 @@ export default {
     data() {
         return {
             nodelist:[],
+            id:this.$route.query.id,
             defaultProps: {
                 children: "children",
                 label: "nodeName"
@@ -12,11 +13,9 @@ export default {
     },
     // 生命周期
     created() {
-        const id = this.$route.query.id;
-        console.log(id)
-        if(id){
-          this.getNodeList(id);          
-        }
+        // const id = this.$route.query.id;
+        // console.log(id)        
+        this.getNodeList();          
     },
     methods: {
         //节点渲染
@@ -25,13 +24,10 @@ export default {
             url: '/node/getNodeList',
             method: 'get',
             params: {
-              projectId: id
+              projectId: this.id
             }
           }).then(res => {
-            if(res.success){
-              console.log(res)
-              this.nodelist = res.data.nodeDirectoryInfoList;
-            }
+              this.nodelist = res.data;
           })
         }
     }

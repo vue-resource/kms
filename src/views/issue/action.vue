@@ -29,15 +29,14 @@ export default {
         getDetail(){
           this.$ajax({
             url: '/issue/detail',
-            // url: '/issue/detail.json',
             method: 'get',
             params: {
               issueId: this.issueId
             }
-          }).then(res => {                         
-            if(res.success){
+          }).then(res => {    
+            console.log(res)
+
               this.param = res.data;
-            }
           })
         },
         createIssue () {
@@ -45,13 +44,10 @@ export default {
             if (valid) {
               this.$ajax({
                 url: '/issue/createIssue',
-                // url: '/issue/createIssue.json',
                 method: 'post',
                 data: this.param
               }).then(res => {                         
-                if(res.success){
                   this.$router.back();
-                }
               })
             }
           });

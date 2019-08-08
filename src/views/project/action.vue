@@ -10,6 +10,7 @@ export default {
     },
     data() {
         const checkTime = (rule, value, callback) => {
+         
           const res = value.every(item => {
             return item.name && item.dateStart && item.dateEnd;
           })
@@ -89,13 +90,24 @@ export default {
                 "Content-Type":"application/json"
               }
             }).then(res => {
-              if(res.success){
+              // if(res.success){
                 this.$router.push('/project');
-              }
+              //}
             })
           }
         })
       },
+      addEvent(){     
+        this.param.projectPeriodList.push({
+           "dateStart":"",
+            "dateEnd":"",
+            "name":""
+        })
+      },
+      delEvent(){
+        let index = 0;
+        this.param.projectPeriodList.splice(index,1)
+      }
     }
 };
 </script>
@@ -123,7 +135,10 @@ export default {
                 <el-date-picker v-model="list.dateEnd" type="date" placeholder="开始日期"
                   class="endDate" ></el-date-picker>
               </span>
+              
             </li>
+            <el-button type="primary" class="add" @click="addEvent">添加</el-button>
+            <el-button type="primary" class="del" @click="delEvent">删除</el-button>
           </ul>
         </el-form-item>
         <el-form-item label="项目简介:" prop="projectRecommend">
@@ -132,13 +147,14 @@ export default {
         </el-form-item>
         <el-form-item label="项目负责人:" prop="projectResponsibleId">
           <el-select v-model="param.projectResponsibleId">
-            <el-option v-for="item in param.projectResponsibleList" :key="item.value"
-              :label="item.label" :value="item.value">
+            <el-option v-for="item in param.projectResponsibleList" :key="item.userId"
+              :label="item.username" :value="item.userId">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="项目成员:" prop="members">
-          <el-input v-model.trim="param.projectResponsibleList" class="members"></el-input>
+        <el-form-item label="项目成员:" prop="members" >
+          <!-- <el-input v-model.trim="param.projectResponsibleList"  class="members"></el-input> -->
+           <span class="flot"  v-for="(todo,index) in param.projectResponsibleList" :key="index">{{todo.username}}</span>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -177,28 +193,35 @@ export default {
         }
         .Astrict {
             display: inline-block;
+            
             li {
                 padding-bottom: 10px;
                 color: #797979;
+                float: left;
                 .block {
-                    padding-left: 16px;
+                    padding-left: 3px;
                     .startDate{
                       width:140px;
-                      padding-left:5px;
+                      // padding-left:5px;
                     }
                 }
                 .startDate{
                   width:140px;
-                  padding-left:5px;
+                  // padding-left:5px;
                 }
                 .blockTwo {
-                    padding-left: 15px;
+                    padding-left: 5px;
                     .endDate{
                       width:140px;
                       padding-left:5px;
                     }
                 }
             }
+            .add,.del{
+              float: left;
+              margin-left:5px;
+            }
+           
         }
         .detips {
             padding-bottom: 15px;

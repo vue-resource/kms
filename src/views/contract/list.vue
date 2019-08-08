@@ -27,9 +27,9 @@ export default {
             id: this.projectId
           }
         }).then(res => {
-          if(res.success){
+          // if(res.success){
             this.detail = res.data;
-          }
+          // }
         })
       },
       // 获取目标列表
@@ -42,9 +42,9 @@ export default {
             queryType: this.activeTab
           }
         }).then(res => {
-          if(res.success){
+          // if(res.success){
             this.list = res.data;
-          }
+          // }
         })
       },
       // 渲染列表
@@ -78,7 +78,7 @@ export default {
            </div>
            <div class="timeright">
               <p>消耗</p>
-              <p class="timeText">{{detail.consumeDuration}}天</p>
+              <p class="timeText">{{detail.consumeDuration||0}}天</p>
            </div>
         </div>
         <div class="cirlefoot">

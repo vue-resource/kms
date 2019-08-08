@@ -29,7 +29,6 @@ export default {
             if(valid){
               this.$ajax({
                 url: '/rms_api/login',
-               // url: '/login.json',
                 method: 'post',
                 data:this.formData,
                 headers:{
@@ -145,9 +144,7 @@ export default {
             border-bottom:1px solid #ccc;
             padding-bottom:2px;            
         }  
-        input{
-          // height: 48px;
-        }     
+        
         .user{
           width:20px;
           height: 20px;       

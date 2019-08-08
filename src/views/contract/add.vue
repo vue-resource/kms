@@ -8,7 +8,7 @@ export default {
             projectId: this.$route.query.id,
             targetmodeProps: {
                 children: "children",
-                label: "targetName"
+                label: "targetModelName"
             },
             nodeProps: {
                 children: "children",
@@ -36,9 +36,7 @@ export default {
                   categoryId: this.projectId
                 }
             }).then(res => {
-                if(res.success){
-                 this.list = res.data.List;
-                }
+                 this.list = res.data;
             })
        },
        //右侧节点tree 
@@ -50,23 +48,27 @@ export default {
                   categoryId: this.projectId
                 }
             }).then(res => {
-                if(res.success){
-                 console.log(res)
-                 this.nodelist = res.data.nodeDirectoryInfoList;
-                }
+                // if(res.success){
+                
+                 this.nodelist = res.data;
+               
             })
        },
        clickModel (node) {
-         this.param.target_model_id = node.nodeId;
+         console.log(node)
+         //this.param.target_model_id = node.nodeId; by duyin 2019-8-8
+         this.param.target_model_id = node.id;
        },
        handleNodeChange (node) {
+         console.log(node)
+         //this.param.nodeId = node.nodeNumber; by duyin 2019-8-8
          this.param.nodeId = node.nodeNumber;
        },
        creatSubmit () {
+         console.log(this.param.target_model_id , this.param.nodeId)
          if(this.param.target_model_id && this.param.nodeId){
            this.$ajax({
                 url: '/target/createTarget',
-                // url: '/target/createTarget.json',
                 method: 'post',
                 data: this.param
             }).then(res => {

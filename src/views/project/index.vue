@@ -27,9 +27,9 @@ export default {
         method: 'get',
         params: {}
       }).then(res => {
-        if(res.success){
+        // if(res.success){
           this.info = res.data;
-        }
+        // }
       })
     },
     // 项目详情

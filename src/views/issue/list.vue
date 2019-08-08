@@ -10,10 +10,6 @@ export default {
             leader: '',
             createName: ''
           },
-
-
-
-
            value:'',
            list:[],
            options: [{value: '1',label: '黄金糕'}, {value: '2',label: '双皮奶'}],
@@ -40,9 +36,9 @@ export default {
                   "Content-Type":"application/json"
               }
             }).then(res => {           
-              if(res.success){
-                this.list = res.data.list;
-              }
+              
+                this.list = res.data;
+              
           })
         },
         //关闭问题
@@ -103,7 +99,7 @@ export default {
       </div>
       <el-button type="primary" @click="issueList" >搜索</el-button>  
       <div class="wightTargetBox">
-        <router-link to="/issue/action">
+        <router-link :to="`/issue/action?id=${this.nodeId}`">
           <el-button class="wightTarget" type="primary" >创建问题</el-button>  
         </router-link>          
       </div>

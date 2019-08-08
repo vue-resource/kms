@@ -12,7 +12,9 @@ export default {
 </script>
 
 <template>
+
   <div class="project-detail">
+   
     <div class="tabhead">
         <div>
           <span>项目简介：</span>
@@ -33,17 +35,20 @@ export default {
       </div>
       <div class="recent">项目周期</div>
       <el-table :data="source.projectPeriodList" class="tabList">
-        <el-table-column label="序号">
-          <template slot-scope="scope">
+        <el-table-column property="id" label="序号">
+          <!-- <template slot-scope="scope">
             {{scope.row.dateStart}} - {{scope.row.dateEnd}}
-          </template>
+          </template> -->
         </el-table-column>
-        <el-table-column property="id" label="项目名称" width="100"></el-table-column>
-        <el-table-column property="address" label="开始时间"></el-table-column>
-         <el-table-column property="address" label="结束时间"></el-table-column>
+        <el-table-column property="periodName" label="项目名称" width="100"></el-table-column>
+        <el-table-column property="createTime" label="开始时间"></el-table-column>
+         <el-table-column property="endDate" label="结束时间"></el-table-column>
       </el-table>
       <div class="tabfoot">项目成员</div>
-      <div class="tabfootText">{{ source.projectResponsibleList }}</div>
+      <div class="tabfootText">
+       
+           <span class="flot"  v-for="(todo,index) in source.projectResponsibleList" :key="index">{{todo.username}}</span>
+        </div>
   </div>
 </template>
 
@@ -73,6 +78,9 @@ export default {
     border-radius: 4px;
     line-height: 40px;
     padding-left: 20px;
+    .flot{
+      float: left;
+    }
 }
 .el-message-box {
     width: 900px;
