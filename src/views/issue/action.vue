@@ -23,6 +23,7 @@ export default {
       if(this.issueId){
         this.getDetail();
       }
+     
     },
     methods: {
         //问题详情

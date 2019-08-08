@@ -15,16 +15,15 @@ export default {
         //问题详情
         getDetail(){
           this.$ajax({
-            url: '/issue/detail',
-            // url: '/issue/detail.json',
+            url: '/issue/getIssue',
             method: 'post',
             data: {
               issueId: this.issueId
             }
           }).then(res => {                         
-            if(res.success){
+            // if(res.success){
               this.detail = res.data;
-            }
+            // }
           })
         }
     }

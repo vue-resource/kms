@@ -19,6 +19,7 @@ export default {
     created() {
       this.issueList()
       // this.closeIssue(id);
+       this.getUserList();
     },
     methods: {
       //问题列表
@@ -29,7 +30,7 @@ export default {
               // url: '/issue/getIssueList.json',
               method: 'get',
               params: {
-                nodeId: 1,//self.nodeId, 
+                nodeId: self.nodeId, 
                 ...self.param
               },
               headers:{
@@ -39,6 +40,20 @@ export default {
               
                 this.list = res.data;
               
+          })
+        },
+        //user/getUserList
+        getUserList(){
+           this.$ajax({
+            url: '/user/getUserList',
+            method: 'get',
+            params: {
+              
+            }
+          }).then(res => {    
+            console.log(res)
+
+              this.options = res.data;
           })
         },
         //关闭问题
@@ -85,7 +100,7 @@ export default {
         <span>发起人 </span>
         <el-select v-model="param.createName" placeholder="请选择" class="seleteder">
           <el-option
-            v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            v-for="item in options" :key="item.id" :label="item.username" :value="item.id">
           </el-option>
         </el-select>
       </div>
@@ -93,7 +108,7 @@ export default {
         <span>责任人 </span>
         <el-select v-model="param.leader" placeholder="请选择" class="seleteder">
           <el-option
-            v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            v-for="item in options" :key="item.id" :label="item.username" :value="item.id">
           </el-option>
         </el-select>
       </div>
