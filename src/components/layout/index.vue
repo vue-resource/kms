@@ -45,15 +45,15 @@ export default {
       },
       logout () {
         this.$ajax({
-          url: '/logout',
+          url: '/rms_api/logout',
           // url: '/logout.json',
           method: 'post'
         }).then(res => {
-          if(res.success){
+          // if(res.success){
             this.updateUsername('');
             this.cleanToken();
             this.$router.push('/login');
-          }
+          // }
         })
       }
     }
