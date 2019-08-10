@@ -16,8 +16,8 @@ export default {
         getDetail(){
           this.$ajax({
             url: '/issue/getIssue',
-            method: 'post',
-            data: {
+            method: 'get',
+            params: {
               issueId: this.issueId
             }
           }).then(res => {                         

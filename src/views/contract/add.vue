@@ -62,19 +62,19 @@ export default {
        handleNodeChange (node) {
          console.log(node)
          //this.param.nodeId = node.nodeNumber; by duyin 2019-8-8
-         this.param.nodeId = node.nodeNumber;
+         this.param.nodeId = node.id;
        },
        creatSubmit () {
-         console.log(this.param.target_model_id , this.param.nodeId)
+         console.log(this.param.target_model_id , this.param.id)
          if(this.param.target_model_id && this.param.nodeId){
            this.$ajax({
                 url: '/target/createTarget',
                 method: 'post',
                 data: this.param
             }).then(res => {
-                if(res.success){
+                // if(res.success){
                   this.$router.back();
-                }
+                // }
             })
          }
        }

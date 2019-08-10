@@ -63,15 +63,15 @@ export default {
               // url: '/issue/closeIssue.json',
               method: 'get',
               params: {
-                issueId:1//id by duyin 2019-8-7 
+                issueId:id //id by duyin 2019-8-7 
               },
                headers:{
                   "Content-Type":"application/json"
               }
             }).then(res => {                         
-              if(res.success){             
+              // if(res.success){             
                 this.issueList();
-              }
+              // }
           })
         },
        
