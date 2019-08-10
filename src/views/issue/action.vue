@@ -38,6 +38,7 @@ export default {
             console.log(res)
 
               this.param = res.data;
+              console.log(this.param)
           })
         },
         createIssue () {
@@ -79,9 +80,9 @@ export default {
           </el-form-item>
           <el-form-item label="问题负责人:" prop="leaderId">
             <el-select v-model="param.leaderId" placeholder="请选择">
-              <el-option label="高" value="0"></el-option>
-              <el-option label="中" value="1"></el-option>
-              <el-option label="低" value="2"></el-option>
+              <el-option label="李工" value="0"></el-option>
+              <el-option label="马工" value="1"></el-option>
+              <el-option label="孙工" value="2"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="问题级别:" prop="issueRankId">
