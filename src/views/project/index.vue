@@ -10,6 +10,7 @@ export default {
             currentDate: '',
             userName: ''
           },
+          projectImg: require('@/assets/img/person.jpg'),
           dialogTableVisible: false,
           detail: {}
       };
@@ -23,13 +24,11 @@ export default {
     getList(){
       this.$ajax({
         url: '/project/getProjectList',
-        // url: '/project/getProjectList.json',
-        method: 'get',
-        params: {}
+        method: 'get'
       }).then(res => {
-        // if(res.success){
+        if(res.success){
           this.info = res.data;
-        // }
+        }
       })
     },
     // 项目详情
@@ -85,7 +84,7 @@ export default {
       <div class="proMain">
         <ul class="ulist">
           <li v-for="(todo,index) in info.projectInfoList" class="gether" :key="index">
-            <img :src="todo.imgsrc" :onerror="todo.imgsrc"/>
+            <img :src="projectImg"/>
             <div class="markShy">
               <div class="matip">              
                 <router-link :to="`/project/action?id=${todo.id}`">
@@ -93,7 +92,7 @@ export default {
                 </router-link>
                 <span class="icon-eyer el-icon-view" @click="handleView(todo.id)"></span>
               </div>
-              <router-link :to="`/contract/list?id=${todo.id}`">
+              <router-link :to="`/contract/list?projectId=${todo.id}`">
                 <el-button class="detail" type="primary">查看项目目标</el-button> 
               </router-link>
             </div>
@@ -175,6 +174,7 @@ export default {
               margin-right: 50px;
               position: relative;
               border-radius: 6px;
+              border: 1px solid #ccc;
               img {
                 width: 100%;
                 height: 100%;

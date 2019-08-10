@@ -5,7 +5,7 @@ export default {
         return {
             list:[],
             nodelist:[],
-            projectId: this.$route.query.id,
+            projectId: this.$route.query.projectId,
             targetmodeProps: {
                 children: "children",
                 label: "targetModelName"
@@ -15,7 +15,7 @@ export default {
                 label: "nodeName"
             },
             param: {
-              projectId: this.$route.query.id,
+              projectId: this.projectId,
               target_model_id: '',
               nodeId: ''
             }
@@ -36,7 +36,9 @@ export default {
                   categoryId: this.projectId
                 }
             }).then(res => {
-                 this.list = res.data;
+              if(res.success){
+                this.list = res.data;
+              }
             })
        },
        //右侧节点tree 
@@ -48,33 +50,27 @@ export default {
                   categoryId: this.projectId
                 }
             }).then(res => {
-                // if(res.success){
-                
-                 this.nodelist = res.data;
-               
+                if(res.success){
+                  this.nodelist = res.data;
+                }
             })
        },
        clickModel (node) {
-         console.log(node)
-         //this.param.target_model_id = node.nodeId; by duyin 2019-8-8
          this.param.target_model_id = node.id;
        },
        handleNodeChange (node) {
-         console.log(node)
-         //this.param.nodeId = node.nodeNumber; by duyin 2019-8-8
          this.param.nodeId = node.id;
        },
        creatSubmit () {
-         console.log(this.param.target_model_id , this.param.id)
          if(this.param.target_model_id && this.param.nodeId){
            this.$ajax({
                 url: '/target/createTarget',
                 method: 'post',
                 data: this.param
             }).then(res => {
-                // if(res.success){
+                if(res.success){
                   this.$router.back();
-                // }
+                }
             })
          }
        }
@@ -114,7 +110,7 @@ export default {
    width:200px;
    height: 380px; 
    .treeOne{
-      background: #F4F4F4;
+      border: 1px solid #ccc;
        height: 380px;
        overflow: auto;
    }
@@ -123,7 +119,7 @@ export default {
     width:200px;
     margin-left:40px;
     .treeTwo{
-       background: #F4F4F4;
+       border: 1px solid #ccc;
        height: 380px;
        overflow: auto;
    }

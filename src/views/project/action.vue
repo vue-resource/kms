@@ -6,13 +6,16 @@ export default {
     computed:{
       title () {
         return this.$route.query.id ? '编辑项目' : '新建项目'
+      },
+      members () {
+        return this.param.projectResponsibleList.map(item => item.username)
+          .join('、');
       }
     },
     data() {
         const checkTime = (rule, value, callback) => {
-         
           const res = value.every(item => {
-            return item.name && item.dateStart && item.dateEnd;
+            return item.periodName && item.beginDate && item.endDate;
           })
           if(value.length === 0){
             callback(new Error('请填写项目周期'));
@@ -23,20 +26,13 @@ export default {
           }
         }
         return {
-          responsibles:[
-            {value: "11", label: "张三1"},
-            {value: "22", label: "张三2"}
-          ],
+          projectId: this.$route.query.id,
           param: {
             name:'',
             projectRecommend: '',
-            projectResponsibleId:'',
-            members:'',
-            projectPeriodList:[{
-              "dateStart":"",
-              "dateEnd":"",
-              "name":""
-            }]
+            projectResponsible:'',
+            projectPeriodList:[],
+            projectResponsibleList: []
           },
           rules: {
             name: [
@@ -45,10 +41,7 @@ export default {
             projectRecommend: [
               { required: true, message: '请输入项目简介', trigger: 'change' }
             ],
-            members: [
-              { required: true, message: '请输入项目成员', trigger: 'change' }
-            ],
-            projectResponsibleId: [
+            projectResponsible: [
               { required: true, message: '请选择项目负责人', trigger: 'change' }
             ],
             projectPeriodList: [
@@ -58,18 +51,18 @@ export default {
         };
     },
     created() {
-      if(this.$route.query.id){
-        this.getDetail(this.$route.query.id);
+      if(this.projectId){
+        this.getDetail();
       }
     },
     methods: {
       // 详情
-      getDetail (id) {
+      getDetail () {
         this.$ajax({
           url: '/project/getProjectInfo',
           method: 'get',
           params: {
-            id: id
+            id: this.projectId
           }
         }).then(res => {
           if(res.success){
@@ -79,35 +72,36 @@ export default {
       },
       // 提交
       handleSubmit () {
+        const {id, name, projectRecommend, projectResponsible, projectPeriodList} = this.param;
         this.$refs['form'].validate((valid) => {
           if (valid) {
             this.$ajax({
               url: '/project/updateProjectInfo',
               // url: '/project/updateProjectInfo.json',
               method: 'post',
-              data: this.param,
+              data: {
+                id, name, projectRecommend, projectResponsible, projectPeriodList
+              },
               headers:{
                 "Content-Type":"application/json"
               }
             }).then(res => {
-              // if(res.success){
+              if(res.success){
                 this.$router.push('/project');
-              //}
+              }
             })
           }
         })
       },
       addEvent(){     
         this.param.projectPeriodList.push({
-           "dateStart":"",
-            "dateEnd":"",
-            "name":""
+            "beginDate":"",
+            "endDate":"",
+            "periodName":""
         })
       },
-      delEvent(){
-       
-        let index = 0;
-        this.param.projectPeriodList.splice(index,1)
+      delEvent(index){
+        this.param.projectPeriodList.splice(index,1);
       }
     }
 };
@@ -125,40 +119,41 @@ export default {
         <el-form-item label="项目周期:" prop="projectPeriodList">
           <ul class="Astrict">
             <li v-for='(list,index) in param.projectPeriodList' :key='index'>
-              <el-input v-model.trim="list.name" class="userInp" style="width:200px"></el-input>
+              <el-input v-model.trim="list.periodName" class="userInp" style="width:200px"></el-input>
               <span class="block">
                 <span class="demonstration">请选择开始时间</span>
-                <el-date-picker v-model="list.dateStart" type="date" placeholder="开始日期"
+                <el-date-picker v-model="list.beginDate" type="date" placeholder="开始日期"
                   class="startDate" ></el-date-picker>
               </span>
               <span class="blockTwo">
                 <span class="demonstration">请选择结束时间</span>
-                <el-date-picker v-model="list.dateEnd" type="date" placeholder="开始日期"
+                <el-date-picker v-model="list.endDate" type="date" placeholder="开始日期"
                   class="endDate" ></el-date-picker>
               </span>
-              
+              <template v-if="param.projectPeriodList.length-1 === index">
+                <el-button type="primary" class="add" @click="addEvent">添加</el-button>
+                <!-- <el-button type="primary" class="del" @click="delEvent(index)">删除</el-button> -->
+              </template>
             </li>
-            <el-button type="primary" class="add" @click="addEvent">添加</el-button>
-            <el-button type="primary" class="del" @click="delEvent">删除</el-button>
           </ul>
         </el-form-item>
         <el-form-item label="项目简介:" prop="projectRecommend">
           <el-input v-model.trim="param.projectRecommend" type="textarea" 
           :rows="7" class="projectDes"></el-input>
         </el-form-item>
-        <el-form-item label="项目负责人:" prop="projectResponsibleId">
-          <el-select v-model="param.projectResponsibleId">
-            <el-option v-for="item in param.projectResponsibleList" :key="item.userId"
-              :label="item.username" :value="item.userId">
+        <el-form-item label="项目负责人:" prop="projectResponsible">
+          <el-select v-model="param.projectResponsible">
+            <el-option v-for="(item, idx) in param.projectResponsibleList" :key="idx"
+              :label="item.username" :value="item.userId+''">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="项目成员:" prop="members" >
-          <!-- <el-input v-model.trim="param.projectResponsibleList"  class="members"></el-input> -->
-           <span class="flot"  v-for="(todo,index) in param.projectResponsibleList" :key="index">{{todo.username}}</span>
+        <el-form-item label="项目成员:">
+          <el-input v-model="members" disabled class="projectDes"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit">提交</el-button>
+          <el-button @click="$router.back()">返回</el-button>
         </el-form-item>
       </el-form>
 

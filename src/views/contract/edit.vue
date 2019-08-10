@@ -3,8 +3,8 @@ export default {
     name: "target-edit",
     data() {
       return {
-        targetId: this.$route.params.id,
-        projectId: this.$route.qurey.projectId,
+        targetId: this.$route.query.id,
+        projectId: this.$route.query.projectId,
         param: {
           name: '',
           nodeName: '',
@@ -50,7 +50,7 @@ export default {
         this.$ajax({
             url: '/target/queryTarget',
             method: 'get',
-            data: {
+            params: {
               targetId: this.targetId
             }
           }).then(res => {
@@ -62,7 +62,6 @@ export default {
       updateTarget (role) {
         this.$ajax({
           url: '/target/updateTarget',
-          // url: '/target/updateTarget.json',
           method: 'post',
           data: {
             ...this.param,
@@ -73,7 +72,7 @@ export default {
           }
         }).then(res => {
           if(res.success){
-            this.$router.push('/contract')
+            this.$router.back();
           }
         })
       }
@@ -102,13 +101,13 @@ export default {
       </el-form-item>
     </el-form>
     <div class="reletionship">
-          <router-link to="/contract/topo">
+          <router-link :to="`/contract/topo?id=${targetId}`">
             <el-button type="primary" class="temp-text">需求关系图</el-button>
           </router-link>
           <el-button type="plain">目标拆解</el-button>
     </div>
         <div class="cardBox">
-            <el-card>
+          <el-card>
             <div slot="header" class="clearfix">
               <span v-if="$route.query.tab == 0">目标定义</span>
               <el-tabs class="contain-lab" v-model="activeTab" v-else>
@@ -137,7 +136,7 @@ export default {
               <el-button @click="updateTarget(2)" type="primary" round>发布</el-button>
               <el-button @click="updateTarget(1)" type="plain" round>提交</el-button>
               <el-button @click="updateTarget(0)" type="plain" round>保存</el-button>
-              <el-button @click="$router.push('/contract')" type="plain" round>取消</el-button>
+              <el-button @click="$router.back()" type="plain" round>取消</el-button>
             </div>
           </el-card>
          

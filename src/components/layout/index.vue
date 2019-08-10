@@ -15,7 +15,7 @@
         </el-dropdown>
       </div>
     </el-header>
-    <el-container class="margin10">
+    <el-container class="kms-body">
       <el-aside
         width="200px"
         class="kms-side-bar"
@@ -68,6 +68,11 @@ export default {
     height: 100%;
     box-sizing: border-box;
     .kms-header {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1000;
         line-height: 60px;
         border-bottom: 1px solid #ddd;
         box-shadow: 0 0 15px #aaa;
@@ -91,11 +96,15 @@ export default {
             }
         }
     }
-    .margin10{
-      margin-top:10px;
-    }
-    .kms-side-bar {
+    .kms-body{
+      padding-top:70px;
+      overflow: hidden;
+      .kms-side-bar {
         border-right: 1px solid #ddd;
+      }
+      .kms-content {
+        position: relative;
+      }
     }
 }
 </style>

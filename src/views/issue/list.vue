@@ -3,78 +3,59 @@ export default {
     name: "issue-list",
     data() {
         return {
-          nodeId: this.$route.query.id,
+          projectId: this.$route.query.projectId,
           param: {
             status: '',
             issueRank: '',
             leader: '',
             createName: ''
           },
-           value:'',
-           list:[],
-           options: [{value: '1',label: '黄金糕'}, {value: '2',label: '双皮奶'}],
+          list:[],
+          userlist: [],
         };
     },
     // 生命周期
     created() {
       this.issueList()
-      // this.closeIssue(id);
-       this.getUserList();
+      this.getUserList();
     },
     methods: {
       //问题列表
        issueList(){
           const self = this;
           this.$ajax({
-              url: '/issue/getIssueList',//问题管理
-              // url: '/issue/getIssueList.json',
+              url: '/issue/getIssueList',
               method: 'get',
               params: {
-                nodeId: self.nodeId, 
+                nodeId: self.projectId, 
                 ...self.param
-              },
-              headers:{
-                  "Content-Type":"application/json"
               }
             }).then(res => {           
-              
-                this.list = res.data;
-              
+              this.list = res.data;
           })
         },
-        //user/getUserList
         getUserList(){
            this.$ajax({
             url: '/user/getUserList',
-            method: 'get',
-            params: {
-              
-            }
+            method: 'get'
           }).then(res => {    
-            console.log(res)
-
-              this.options = res.data;
+              this.userlist = [{username:'全部', id: '', userId: ''}].concat(res.data);
           })
         },
         //关闭问题
         closeIssue(id){
           this.$ajax({
-              url: '/issue/closeIssue',//问题管理
-              // url: '/issue/closeIssue.json',
+              url: '/issue/closeIssue',
               method: 'get',
               params: {
-                issueId:id //id by duyin 2019-8-7 
-              },
-               headers:{
-                  "Content-Type":"application/json"
+                issueId:id 
               }
             }).then(res => {                         
-              // if(res.success){             
+              if(res.success){             
                 this.issueList();
-              // }
+              }
           })
-        },
-       
+        }
     }
 };
 </script>
@@ -84,6 +65,7 @@ export default {
       <div class="wightOne">
         <span>问题级别 </span>
         <el-select v-model="param.issueRank" placeholder="请选择" class="seleteder">
+          <el-option label="全部" value=""></el-option>
           <el-option label="高" value="0"></el-option>
           <el-option label="中" value="1"></el-option>
           <el-option label="低" value="2"></el-option>
@@ -92,7 +74,8 @@ export default {
       <div class="wightTwo">
         <span>问题状态 </span>
         <el-select v-model="param.status" placeholder="请选择" class="seleteder">
-           <el-option label="关闭" value="0"></el-option>
+          <el-option label="全部" value=""></el-option>
+          <el-option label="关闭" value="0"></el-option>
           <el-option label="进行中" value="1"></el-option>
         </el-select>
       </div>
@@ -100,7 +83,7 @@ export default {
         <span>发起人 </span>
         <el-select v-model="param.createName" placeholder="请选择" class="seleteder">
           <el-option
-            v-for="item in options" :key="item.id" :label="item.username" :value="item.id">
+            v-for="item in userlist" :key="item.id" :label="item.username" :value="item.id">
           </el-option>
         </el-select>
       </div>
@@ -108,7 +91,7 @@ export default {
         <span>责任人 </span>
         <el-select v-model="param.leader" placeholder="请选择" class="seleteder">
           <el-option
-            v-for="item in options" :key="item.id" :label="item.username" :value="item.id">
+            v-for="item in userlist" :key="item.id" :label="item.username" :value="item.id">
           </el-option>
         </el-select>
       </div>
@@ -128,7 +111,7 @@ export default {
       <el-table-column label="相关功能">
         <template slot-scope="scope">
           <router-link :to="`/issue/detail?id=${scope.row.id}`"> 
-              <el-button class="wightTarget" type="plain" round>查看</el-button>  
+            <el-button class="wightTarget" type="plain" round>查看</el-button>  
           </router-link> 
           <router-link :to="`/issue/action?id=${scope.row.id}`"> 
             <el-button class="wightTarget" type="plain" round>编辑</el-button>  

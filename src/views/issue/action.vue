@@ -23,7 +23,6 @@ export default {
       if(this.issueId){
         this.getDetail();
       }
-     
     },
     methods: {
         //问题详情
@@ -35,10 +34,7 @@ export default {
               issueId: this.issueId
             }
           }).then(res => {    
-            console.log(res)
-
               this.param = res.data;
-              console.log(this.param)
           })
         },
         createIssue () {

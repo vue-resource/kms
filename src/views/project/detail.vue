@@ -2,6 +2,12 @@
 <script>
 export default {
   name: 'project-detail',
+  computed: {
+    members () {
+      return this.source.projectResponsibleList.map(item => item.username)
+        .join('、');
+    }
+  },
   props: {
     source: {
       type: Object,
@@ -35,20 +41,15 @@ export default {
       </div>
       <div class="recent">项目周期</div>
       <el-table :data="source.projectPeriodList" class="tabList">
-        <el-table-column property="id" label="序号">
-          <!-- <template slot-scope="scope">
-            {{scope.row.dateStart}} - {{scope.row.dateEnd}}
-          </template> -->
-        </el-table-column>
+        <el-table-column property="id" label="序号"></el-table-column>
         <el-table-column property="periodName" label="项目名称" width="100"></el-table-column>
         <el-table-column property="createTime" label="开始时间"></el-table-column>
          <el-table-column property="endDate" label="结束时间"></el-table-column>
       </el-table>
       <div class="tabfoot">项目成员</div>
-      <div class="tabfootText">
-       
-           <span class="flot"  v-for="(todo,index) in source.projectResponsibleList" :key="index">{{todo.username}}</span>
-        </div>
+      <div>
+        <el-input v-model="members" disabled class="projectDes"></el-input>
+      </div>
   </div>
 </template>
 

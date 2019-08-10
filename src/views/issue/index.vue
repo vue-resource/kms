@@ -2,14 +2,14 @@
 export default {
     name: "issue-index",
     data () {
-        const id = this.$route.query.id;
+        const projectId = this.$route.query.projectId;
         return {
             activeName: '4',
             dataTab:[
-              {name: '目标管理', value: '1', path: '/contract?id='+id},
+              {name: '目标管理', value: '1', path: '/contract?projectId='+projectId},
               {name: '分块BOM', value: '2', path: '/b', disabled: true},
               {name: '成本分析', value: '3', path: '/a', disabled: true},
-              {name: '问题管理', value: '4', path: '/issue?id='+id},
+              {name: '问题管理', value: '4', path: '/issue?projectId='+projectId},
             ]
         };
     },
@@ -112,7 +112,6 @@ export default {
         height: 220px;
         margin-top: 20px;
         display: inline-block;
-        background: url("~@/assets/img/confine.jpeg") no-repeat;
         background-size: 100% 100%;
     }
 }

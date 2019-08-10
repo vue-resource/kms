@@ -58,7 +58,7 @@ let routes = [
         path: 'topo',
         component: ContractTopo
       },{
-        path: ':id',
+        path: 'edit',
         component: ContractEdit
       }
     ]

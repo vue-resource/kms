@@ -306,7 +306,6 @@ export default {
         width:570px;
         height: 280px;
         float: left;
-        background: url('~@/assets/img/car.jpeg') no-repeat;
         background-size:100% 100%; 
         margin-top: 20px;
       }
@@ -318,8 +317,6 @@ export default {
         height: 220px;
          margin-top: 20px;
          display: inline-block;
-        background: url('~@/assets/img/confine.jpeg') no-repeat;
-        background-size:100% 100%; 
       }
   }
 </style>

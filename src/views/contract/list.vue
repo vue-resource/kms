@@ -3,7 +3,7 @@ export default {
     name: "login",
     data() {
         return {
-          projectId: this.$route.query.id,
+          projectId: this.$route.query.projectId,
           detail:{},
           list: {},
           activeTab: '0',
@@ -27,9 +27,9 @@ export default {
             id: this.projectId
           }
         }).then(res => {
-          // if(res.success){
+          if(res.success){
             this.detail = res.data;
-          // }
+          }
         })
       },
       // 获取目标列表
@@ -42,18 +42,23 @@ export default {
             queryType: this.activeTab
           }
         }).then(res => {
-          // if(res.success){
+          if(res.success){
             this.list = res.data;
-          // }
+          }
         })
       },
       // 渲染列表
       renderTd (column, item) {
-          return column.rNodeId.indexOf(item.id) > -1  
+          const nodeList = {
+            rNodeId: column.rNodeId || [],
+            sNodeId: column.sNodeId || [],
+            vNodeId: column.vNodeId || []
+          };
+          return nodeList.rNodeId.indexOf(item.id) > -1  
             ? 'R' 
-            : column.sNodeId.indexOf(item.id) > -1
+            : nodeList.sNodeId.indexOf(item.id) > -1
               ? 'S'
-              : column.vNodeId.indexOf(item.id) > -1 ? 'V' : '';
+              : nodeList.vNodeId.indexOf(item.id) > -1 ? 'V' : 'X';
       }
     }
 };
@@ -68,7 +73,7 @@ export default {
     </div>
     <div class="chartBox">
       <div class="circle">
-         <el-progress type="circle" :percentage="(detail.consumeDuration/detail.duration * 100||0)" ></el-progress>        
+         <el-progress type="circle" :percentage="detail.consumeDuration/detail.duration * 100" ></el-progress>        
       </div>
       <div class="cirleright">
         <div class="cirlehead">
@@ -78,48 +83,47 @@ export default {
            </div>
            <div class="timeright">
               <p>消耗</p>
-              <p class="timeText">{{detail.consumeDuration||0}}天</p>
+              <p class="timeText">{{detail.consumeDuration}}天</p>
            </div>
         </div>
         <div class="cirlefoot">
           <div class="processOne">
             <div class="processOneText">
               <p>总R：{{detail.countTarget}}</p>
-              <p class="add">昨日新增：{{detail.addIssue}}</p>
+              <p class="add">昨日新增：{{detail.addTarget}}</p>
             </div>
-            <el-progress :percentage="(detail.a/detail.countTarget * 100)||0" :show-text="false"  style="width:400px"></el-progress>
+            <el-progress :percentage="(detail.addTarget/detail.countTarget * 100)" :show-text="false"  style="width:400px"></el-progress>
           </div>
           <div class="processTwo">
              <div class="processTwoText">
                 <p>总S：{{detail.countIssue}}</p>
                 <p class="add">昨日完成：{{detail.finishIssue}}</p>
              </div>
-            <el-progress :percentage="(detail.b/detail.countIssue * 100)||0" :show-text="false" style="width:400px"></el-progress>
+            <el-progress :percentage="(detail.finishIssue/detail.countIssue * 100)" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
-        <router-link :to="`/contract/add?id=${projectId}`">
+        <router-link :to="`/contract/add?projectId=${projectId}`">
           <el-button class="goalTargetTex" type="primary">创建目标</el-button>
         </router-link>
       </div>
     </div>
     <div class="contraceTab">
-      <el-table :data="list.targetlist" max-height="300" border>
-          <el-table-column label="序号" prop="nodeId" width="100" fixed></el-table-column>
+      <el-table :data="list.targetList" max-height="300" border>
+          <el-table-column label="序号" prop="id" width="100" fixed></el-table-column>
           <el-table-column label="目标名称" prop="targetName" width="100" fixed></el-table-column>
           <el-table-column label="目标分类" prop="targetCategory" width="100" fixed></el-table-column>
           <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
-          <el-table-column label="需求编号" prop="reNum" fixed></el-table-column>
+          <el-table-column label="需求编号" prop="updateTime" fixed></el-table-column>
           <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
               <template slot="header">
                   <ul class="mul-thead">
                       <li>{{ col.nodeName }}</li>
-                      <li>{{ col.role }}</li>
-                      <li>{{ col.responsibler }}</li>
                   </ul>
               </template>
               <template slot-scope="scope">
-                <router-link v-if="renderTd(scope.row, col)" :to="`/contract/${scope.row.id}?tab=${activeTab}&projectId=${projectId}`">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
                   {{ renderTd(scope.row, col) }}
                 </router-link>
               </template>
@@ -213,7 +217,6 @@ export default {
         height: 220px;
         margin-top: 20px;
         display: inline-block;
-        background: url("~@/assets/img/confine.jpeg") no-repeat;
         background-size: 100% 100%;
     }
     .mul-thead {
