@@ -29,7 +29,7 @@ export default {
         //问题详情
         getDetail(){
           this.$ajax({
-            url: '/issue/detail',
+            url: '/issue/getIssue',
             method: 'get',
             params: {
               issueId: this.issueId

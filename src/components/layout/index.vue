@@ -47,7 +47,7 @@ export default {
         this.$ajax({
           url: '/logout',
           // url: '/logout.json',
-          method: 'get'
+          method: 'post'
         }).then(res => {
           if(res.success){
             this.updateUsername('');

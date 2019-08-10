@@ -105,6 +105,7 @@ export default {
         })
       },
       delEvent(){
+       
         let index = 0;
         this.param.projectPeriodList.splice(index,1)
       }
