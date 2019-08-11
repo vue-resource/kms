@@ -137,9 +137,9 @@ export default {
           </el-form-item>
           <el-form-item label="问题级别:" prop="issueRankId">
             <el-select v-model="param.issueRankId" placeholder="请选择">
-              <el-option label="高" value="0"></el-option>
-              <el-option label="中" value="1"></el-option>
-              <el-option label="低" value="2"></el-option>
+              <el-option label="高" :value="0"></el-option>
+              <el-option label="中" :value="1"></el-option>
+              <el-option label="低" :value="2"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="完成时间:" prop="finishTime">
