@@ -4,7 +4,9 @@ export default {
     data() {
       return {
         issueId: this.$route.query.id,
+        projectId: this.$route.query.projectId,
         param: {},
+        userlist:[],
         rules: {
           issueName: [ { required: true, message: '请输入问题描述', trigger: 'change' }],
           issueScope: [ { required: true, message: '请输入问题影响', trigger: 'change' }],
@@ -20,8 +22,10 @@ export default {
     },
     // 生命周期
     created() {
+      this.getUserList();
       if(this.issueId){
         this.getDetail();
+        
       }
     },
     methods: {
@@ -35,6 +39,14 @@ export default {
             }
           }).then(res => {    
               this.param = res.data;
+          })
+        },
+         getUserList(){
+           this.$ajax({
+            url: '/user/getUserList',
+            method: 'get'
+          }).then(res => {    
+              this.userlist = res.data;
           })
         },
         createIssue () {
@@ -75,10 +87,15 @@ export default {
             <el-input v-model="param.remedialAction" type="textarea"></el-input>
           </el-form-item>
           <el-form-item label="问题负责人:" prop="leaderId">
-            <el-select v-model="param.leaderId" placeholder="请选择">
+            <!-- <el-select v-model="param.leaderId" placeholder="请选择">
               <el-option label="李工" value="0"></el-option>
               <el-option label="马工" value="1"></el-option>
               <el-option label="孙工" value="2"></el-option>
+            </el-select> -->
+            <el-select v-model="param.leaderId" placeholder="请选择" >
+              <el-option
+                v-for="item in userlist" :key="item.id" :label="item.username" :value="item.id">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="问题级别:" prop="issueRankId">

@@ -79,16 +79,12 @@ export default {
 </script>
 <template>
   <div class="concactAdd">
-    <div class="left">
-      <el-tree :data="list" default-expand-all :props="targetmodeProps" class="treeOne"
-        @node-click="clickModel">
-      </el-tree>
-    </div>
-    <div class="right">
-       <el-tree :data="nodelist" default-expand-all :props="nodeProps" class="treeTwo"
-        @node-click="handleNodeChange">
-        </el-tree>
-    </div>
+    <el-tree :data="list" default-expand-all :props="targetmodeProps" class="treeOne"
+      @node-click="clickModel">
+    </el-tree>
+    <el-tree :data="nodelist" default-expand-all :props="nodeProps" class="treeTwo"
+      @node-click="handleNodeChange">
+    </el-tree>
     <div class="submitBtn">
       <div class="btn">
        <el-button  class="goalTarget" @click="creatSubmit" type="primary">提交</el-button>         
@@ -106,23 +102,14 @@ export default {
 .concactAdd{
   display: flex;
   margin-top:50px;
-  .left{
-   width:200px;
-   height: 380px; 
-   .treeOne{
-      border: 1px solid #ccc;
-       height: 380px;
-       overflow: auto;
-   }
-  }
-  .right{
+  .el-tree {
     width:200px;
-    margin-left:40px;
-    .treeTwo{
-       border: 1px solid #ccc;
-       height: 380px;
-       overflow: auto;
-   }
+    border: 1px solid #ccc;
+    overflow: auto;
+    min-height: 200px;
+    max-height: 400px;
+    margin-left: 20px;
+    &:first {margin-left: 0;}
   }
   
   .submitBtn{

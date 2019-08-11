@@ -32,13 +32,11 @@ export default {
 </template>
 <style lang="less">
 .contract {
-    margin-right: 50px;
     margin: 0 auto;
-     padding-left:20px;
+     padding:0 20px;
     .tablist{
       height:40px;
       padding-top:20px;
-     
     }
     .congoal {
         float: right;

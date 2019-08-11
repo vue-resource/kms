@@ -88,9 +88,9 @@ export default {
             <div class="markShy">
               <div class="matip">              
                 <router-link :to="`/project/action?id=${todo.id}`">
-                   <span class="icon-edit el-icon-edit"></span>
+                   <span class="icon-map el-icon-edit"></span>
                 </router-link>
-                <span class="icon-eyer el-icon-view" @click="handleView(todo.id)"></span>
+                <span class="icon-map el-icon-view" @click="handleView(todo.id)"></span>
               </div>
               <router-link :to="`/contract/list?projectId=${todo.id}`">
                 <el-button class="detail" type="primary">查看项目目标</el-button> 
@@ -146,8 +146,7 @@ export default {
     
     }
     .proContain {
-      width: 760px;
-      height: 860px;
+      width: 80%;
       margin: 10px auto 0;
       border-radius: 4px;
       display: flex;
@@ -178,6 +177,7 @@ export default {
               img {
                 width: 100%;
                 height: 100%;
+                border-radius: 6px;
                 display: block;
                 font-size: 0;
               }
@@ -196,11 +196,12 @@ export default {
                       left: 15px;
                       bottom: 15px;
                       position: absolute;
-                      .icon-eyer,.icon-edit {
+                      .icon-map {
                           font-size: 20px;
                           margin-left:5px;
                           color: #fff;
                           cursor: pointer;
+                          &:hover { color:#409EFF }
                       }
                   }
                   .detail {

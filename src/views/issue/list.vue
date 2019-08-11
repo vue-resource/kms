@@ -40,6 +40,7 @@ export default {
             method: 'get'
           }).then(res => {    
               this.userlist = [{username:'全部', id: '', userId: ''}].concat(res.data);
+              
           })
         },
         //关闭问题
@@ -97,7 +98,7 @@ export default {
       </div>
       <el-button type="primary" @click="issueList" >搜索</el-button>  
       <div class="wightTargetBox">
-        <router-link :to="`/issue/action?id=${this.nodeId}`">
+        <router-link :to="`/issue/action?projectId=${this.projectId}`">
           <el-button class="wightTarget" type="primary" >创建问题</el-button>  
         </router-link>          
       </div>
@@ -113,7 +114,7 @@ export default {
           <router-link :to="`/issue/detail?id=${scope.row.id}`"> 
             <el-button class="wightTarget" type="plain" round>查看</el-button>  
           </router-link> 
-          <router-link :to="`/issue/action?id=${scope.row.id}`"> 
+          <router-link :to="`/issue/action?projectId=${projectId}&id=${scope.row.id}`"> 
             <el-button class="wightTarget" type="plain" round>编辑</el-button>  
           </router-link> 
           <el-button class="wightTarget" type="plain" round @click="closeIssue(scope.row.id)">关闭</el-button>  

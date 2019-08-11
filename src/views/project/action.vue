@@ -45,7 +45,7 @@ export default {
               { required: true, message: '请选择项目负责人', trigger: 'change' }
             ],
             projectPeriodList: [
-              { validator: checkTime, trigger: 'change' }
+              { required: true, validator: checkTime, trigger: 'change' }
             ]
           },
         };
@@ -162,10 +162,8 @@ export default {
 </template>
 <style lang="less">
 .proAddBox {
-    border: 1px solid #ccc;
     border-top:none;
     width: 980px;
-    height: 600px;
     border-radius:0;
     margin: 0 auto;
     .creat {
@@ -189,7 +187,6 @@ export default {
         }
         .Astrict {
             display: inline-block;
-            
             li {
                 padding-bottom: 10px;
                 color: #797979;
@@ -198,12 +195,10 @@ export default {
                     padding-left: 3px;
                     .startDate{
                       width:140px;
-                      // padding-left:5px;
                     }
                 }
                 .startDate{
                   width:140px;
-                  // padding-left:5px;
                 }
                 .blockTwo {
                     padding-left: 5px;
@@ -213,11 +208,6 @@ export default {
                     }
                 }
             }
-            .add,.del{
-              float: left;
-              margin-left:5px;
-            }
-           
         }
         .detips {
             padding-bottom: 15px;
