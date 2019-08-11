@@ -21,9 +21,9 @@ export default {
               issueId: this.issueId
             }
           }).then(res => {                         
-            // if(res.success){
+            if(res.success){
               this.detail = res.data;
-            // }
+            }
           })
         }
     }
@@ -40,7 +40,7 @@ export default {
           <el-form-item label="问题原因:" >{{detail.issueCause}}</el-form-item>
           <el-form-item label="纠正措施:" >{{detail.remedialAction}}</el-form-item>
           <el-form-item label="问题负责人:" >{{detail.leaderName}}</el-form-item>
-          <el-form-item label="问题级别:" >{{detail.issueRank}}</el-form-item>
+          <el-form-item label="问题级别:" >{{detail.issueRankName}}</el-form-item>
           <el-form-item label="完成时间:" >{{detail.finishTime}}</el-form-item>
           <el-form-item label="对应目标:" >{{detail.targetName}}</el-form-item>
           <el-form-item label="相关附件:" >
