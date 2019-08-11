@@ -4,15 +4,9 @@ export default {
     data() {
       return {
         targetId: this.$route.query.id,
-        projectId: this.$route.query.projectId,
-        param: {
-          name: '',
-          nodeName: '',
-          projectPeriod: '',
-          time: ''
+        detail: {
+          fileList: []
         },
-        targetDetail: {},
-        projectDetail: {},
         activeTab: '1',
         dataTab:[
           {name: '目标解决方案', value: '1'},
@@ -22,29 +16,20 @@ export default {
     },
     computed: {
       tableData () {
-        return [this.targetDetail]
+        const {targetId, targetName, targetNum, targetUnit} = this.detail;
+        return [{
+          targetId,
+          targetName,
+          targetNum,
+          targetUnit
+        }];
       }
     },
     // 生命周期
     created() {
-      this.getDetail();
       this.queryTarget();
     },
     methods: {
-      // 项目详情
-      getDetail () {
-        this.$ajax({
-          url: '/project/getProjectInfo',
-          method: 'get',
-          params: {
-            id: this.projectId
-          }
-        }).then(res => {
-          if(res.success){
-            this.projectDetail = res.data;
-          }
-        })
-      },
       // 目标详情
       queryTarget(){
         this.$ajax({
@@ -55,20 +40,20 @@ export default {
             }
           }).then(res => {
             if(res.success){
-              this.targetDetail = res.data;
+              this.detail = res.data;
             }
           })
       },
       updateTarget (role) {
+        const { targetId, fileList } = this.detail;
+        const actual = this.tableData[0].targetNum;
         this.$ajax({
           url: '/target/updateTarget',
           method: 'post',
           data: {
-            ...this.param,
-            cs:role,
-            nodeId: this.targetId,
-            adjunctList: this.targetDetail.adjunctList,
-            targetNum: this.targetDetail.targetNum
+            targetId,
+            fileList,
+            actual
           }
         }).then(res => {
           if(res.success){
@@ -82,23 +67,10 @@ export default {
 <template>
   <div class="project-edit">
     <el-form inline  >
-      <el-form-item label="目标名称">
-        <el-input placeholder="" v-model="param.name"></el-input>
-      </el-form-item>
-      <el-form-item label="边界系统">
-        <el-input v-model="param.nodeName"></el-input>
-      </el-form-item><br>
-      <el-form-item label="边界系统">
-        <el-select v-model="param.projectPeriod" placeholder="请选择" class="involution">
-          <el-option v-for="item in projectDetail.projectTime" :key="item.id"
-            :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="时间计划">
-        <el-date-picker v-model="param.time" value-format="yyyy-MM-dd" type="date" placeholder="选择日期" class="involution">
-        </el-date-picker>
-      </el-form-item>
+      <el-form-item label="目标名称">{{ detail.targetName }}</el-form-item>
+      <el-form-item label="边界系统">{{ detail.nodeName }}</el-form-item><br>
+      <el-form-item label="项目阶段">{{ detail.periodName }}</el-form-item>
+      <el-form-item label="时间计划">{{ detail.datePlan }}</el-form-item>
     </el-form>
     <div class="reletionship">
           <router-link :to="`/contract/topo?id=${targetId}`">
@@ -114,7 +86,7 @@ export default {
                 <el-tab-pane v-for="(tab,idx) in dataTab" :key="idx" 
                 :disabled="tab.disabled" :label="tab.name" :name="tab.value"></el-tab-pane>
               </el-tabs>
-              <span class="tab-tip">2019-08-03</span>
+              <span class="tab-tip">{{ detail.periodName }}</span>
             </div>
             <el-table :data="tableData" class="gridtableft">
               <el-table-column prop="targetId" label="序号" width="100" ></el-table-column>
@@ -127,11 +99,12 @@ export default {
               </el-table-column>
             </el-table>
             <h2 class="text-title">相关附件</h2>
-            <ul v-if="targetDetail.adjunctList" class="ui-list">
-              <li v-for="(item,idx) in targetDetail.adjunctList" :key="idx">
+            <ul v-if="detail.fileList" class="ui-list">
+              <li v-for="(item,idx) in detail.fileList" :key="idx">
                 <div class="carborad">{{ item.fileName}}</div>
               </li>
             </ul>
+             
             <div class="reviewFoot">
               <el-button @click="updateTarget(2)" type="primary" round>发布</el-button>
               <el-button @click="updateTarget(1)" type="plain" round>提交</el-button>
