@@ -1,4 +1,5 @@
 <script>
+import { mapState} from 'vuex';
 export default {
     name: "issue-list",
     data() {
@@ -19,6 +20,14 @@ export default {
       this.issueList()
       this.getUserList();
     },
+    computed: {
+      ...mapState('common',['nodeId'])
+    },
+    watch: {
+      nodeId (nv) {
+       this.issueList();
+      }
+    },
     methods: {
       //问题列表
        issueList(){
@@ -27,11 +36,14 @@ export default {
               url: '/issue/getIssueList',
               method: 'get',
               params: {
-                nodeId: self.projectId, 
+                nodeId: self.nodeId, 
+                projectId:self.projectId,
                 ...self.param
               }
-            }).then(res => {           
-              this.list = res.data;
+            }).then(res => {  
+               if(res.success){         
+                this.list = res.data;
+               }
           })
         },
         getUserList(){
@@ -39,8 +51,9 @@ export default {
             url: '/user/getUserList',
             method: 'get'
           }).then(res => {    
+             if(res.success){
               this.userlist = [{username:'全部', id: '', userId: ''}].concat(res.data);
-              
+             } 
           })
         },
         //关闭问题
@@ -107,8 +120,8 @@ export default {
       <el-table-column prop="id" label="序号" width="50"></el-table-column>
       <el-table-column prop="issueName" label="问题描述" width="200"></el-table-column>
       <el-table-column prop="issueCause" width="200" label="问题原因"></el-table-column>
-      <el-table-column prop="issueRank" width="100" label="问题等级"></el-table-column>
-      <el-table-column prop="leader" width="100" label="责任人"></el-table-column>
+      <el-table-column prop="issueRankName" width="100" label="问题等级"></el-table-column>
+      <el-table-column prop="leaderName" width="100" label="责任人"></el-table-column>
       <el-table-column label="相关功能">
         <template slot-scope="scope">
           <router-link :to="`/issue/detail?id=${scope.row.id}`"> 

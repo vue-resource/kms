@@ -1,4 +1,5 @@
 <script>
+import { mapState} from 'vuex';
 export default {
     name: "issue-action",
     data() {
@@ -7,6 +8,9 @@ export default {
         projectId: this.$route.query.projectId,
         param: {},
         userlist:[],
+        activeTab: '0',
+        targetList:[],
+        list:[],
         rules: {
           issueName: [ { required: true, message: '请输入问题描述', trigger: 'change' }],
           issueScope: [ { required: true, message: '请输入问题影响', trigger: 'change' }],
@@ -15,7 +19,7 @@ export default {
           leaderId: [ { required: true, message: '请选择问题负责人', trigger: 'change' }],
           issueRankId: [ { required: true, message: '请选择问题级别', trigger: 'change' }],
           finishTime: [ { required: true, message: '请选择完成时间', trigger: 'change' }],
-          targetId: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
+          nodeId: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
           adjunctList: [ { required: true,type:"array", message: '请上传附件', trigger: 'change' }]
         }
       }   
@@ -23,12 +27,43 @@ export default {
     // 生命周期
     created() {
       this.getUserList();
+      this.getTargetDirectoryInfoList();
       if(this.issueId){
         this.getDetail();
         
       }
     },
+    computed: {
+      ...mapState('common',['nodeId'])
+    },
+    watch: {
+      nodeId (nv) {
+      this.getTargetDirectoryInfoList();
+      }
+    },
     methods: {
+       // 获取目标列表
+      getTargetDirectoryInfoList () {
+        this.$ajax({
+          url: '/target/getTargetDirectoryInfoList',
+          method: 'get',
+          params: {
+            nodeId: this.nodeId,
+            projectId:this.projectId,
+            queryType: this.activeTab
+          }
+        }).then(res => {
+          if(res.success){
+            this.targetList = res.data.targetList;
+            this.targetList.map((item,key)=>{
+              this.list.push({
+                id:item.id,
+                targetName:item.targetName
+              })
+            })
+          }
+        })
+      },
         //问题详情
         getDetail(){
           this.$ajax({
@@ -37,27 +72,34 @@ export default {
             params: {
               issueId: this.issueId
             }
-          }).then(res => {    
+          }).then(res => {  
+             if(res.success){  
               this.param = res.data;
+             }
           })
         },
          getUserList(){
            this.$ajax({
             url: '/user/getUserList',
             method: 'get'
-          }).then(res => {    
+          }).then(res => {  
+             if(res.success){  
               this.userlist = res.data;
+             }
           })
         },
         createIssue () {
+          const self = this;
           this.$refs['form'].validate((valid) => {
             if (valid) {
               this.$ajax({
                 url: '/issue/createIssue',
                 method: 'post',
-                data: this.param
-              }).then(res => {                         
+                data: self.param,
+              }).then(res => {  
+                 if(res.success){                       
                   this.$router.back();
+                 }
               })
             }
           });
@@ -87,11 +129,6 @@ export default {
             <el-input v-model="param.remedialAction" type="textarea"></el-input>
           </el-form-item>
           <el-form-item label="问题负责人:" prop="leaderId">
-            <!-- <el-select v-model="param.leaderId" placeholder="请选择">
-              <el-option label="李工" value="0"></el-option>
-              <el-option label="马工" value="1"></el-option>
-              <el-option label="孙工" value="2"></el-option>
-            </el-select> -->
             <el-select v-model="param.leaderId" placeholder="请选择" >
               <el-option
                 v-for="item in userlist" :key="item.id" :label="item.username" :value="item.id">
@@ -106,14 +143,14 @@ export default {
             </el-select>
           </el-form-item>
           <el-form-item label="完成时间:" prop="finishTime">
-            <el-date-picker v-model="param.finishTime" type="date" placeholder="选择日期">
+            <el-date-picker v-model="param.finishTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="对应目标:" prop="targetId">
-            <el-select v-model="param.targetId" placeholder="请选择">
-              <el-option label="高" value="0"></el-option>
-              <el-option label="中" value="1"></el-option>
-              <el-option label="低" value="2"></el-option>
+          <el-form-item label="对应目标:" prop="nodeId">
+             <el-select v-model="param.nodeId" placeholder="请选择" >
+              <el-option
+                v-for="item in list" :key="item.id" :label="item.targetName" :value="item.id">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="相关附件:" >
