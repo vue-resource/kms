@@ -15,5 +15,8 @@ export default {
     },
     [Type.UPDATE_USERNAME] ({commit}, username) {
         commit(Type.UPDATE_USERNAME, username);
+    },
+    [Type.UPDATE_NODEID] ({commit}, nodeId) {
+        commit(Type.UPDATE_NODEID, nodeId);
     }
 };

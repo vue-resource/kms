@@ -5,3 +5,4 @@ export const CLEAN_TOKEN = 'cleanToken';
 export const UPDATE_TOKEN = 'updateToken';
 export const GET_USERNAME = 'getUsername';
 export const UPDATE_USERNAME = 'updateUsername';
+export const UPDATE_NODEID = 'updateNodeId';

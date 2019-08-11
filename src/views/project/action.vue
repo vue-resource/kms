@@ -112,7 +112,7 @@ export default {
   <div class="proAddBox">
     <div class="creat">{{ title }}</div>
     <div class="addMain">
-      <el-form ref="form" label-width="100px" :model="param" :rules="rules">
+      <el-form ref="form" label-width="150px" :model="param" :rules="rules">
         <el-form-item label="活动名称:" prop="name">
           <el-input v-model.trim="param.name" class="proName"></el-input>
         </el-form-item>

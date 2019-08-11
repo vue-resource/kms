@@ -12,5 +12,8 @@ export default {
     },
     [Type.UPDATE_USERNAME] (state, username) {
         state.username = username;
+    },
+    [Type.UPDATE_NODEID] (state, nodeId) {
+        state.nodeId = nodeId;
     }
 };

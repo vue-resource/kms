@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex';
 export default {
     name: "silder",
     data() {
@@ -18,8 +19,9 @@ export default {
         this.getNodeList();          
     },
     methods: {
+        ...mapActions('common', ['updateNodeId']),
         //节点渲染
-        getNodeList(id=0){
+        getNodeList(id){
           this.$ajax({
             url: '/node/getNodeList',
             method: 'get',
@@ -29,14 +31,16 @@ export default {
           }).then(res => {
               this.nodelist = res.data;
           })
+        },
+        clickModel (node) {
+          this.updateNodeId(node.id);
         }
     }
 };
 </script>
 <template>
   <div>
-    <el-tree :data="nodelist" default-expand-all :props="defaultProps"></el-tree>   
+    <el-tree :data="nodelist" default-expand-all :props="defaultProps" @node-click="clickModel"></el-tree>   
   </div>
-
 </template>
 

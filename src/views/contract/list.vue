@@ -1,4 +1,5 @@
 <script>
+import { mapState} from 'vuex';
 export default {
     name: "login",
     data() {
@@ -12,6 +13,14 @@ export default {
             {name: '收到的目标', value: '1'}
           ]
         };
+    },
+    computed: {
+      ...mapState('common',['nodeId'])
+    },
+    watch: {
+      nodeId (nv) {
+        this.getTargetDirectoryInfoList();
+      }
     },
     created(){
       this.getDetail();
@@ -38,7 +47,8 @@ export default {
           url: '/target/getTargetDirectoryInfoList',
           method: 'get',
           params: {
-            nodeId: this.projectId,
+            nodeId: this.nodeId,
+            projectId: this.projectId,
             queryType: this.activeTab
           }
         }).then(res => {
@@ -58,7 +68,7 @@ export default {
             ? 'R' 
             : nodeList.sNodeId.indexOf(item.id) > -1
               ? 'S'
-              : nodeList.vNodeId.indexOf(item.id) > -1 ? 'V' : 'X';
+              : nodeList.vNodeId.indexOf(item.id) > -1 ? 'V' : '';
       }
     }
 };
@@ -114,7 +124,7 @@ export default {
           <el-table-column label="目标分类" prop="targetCategory" width="100" fixed></el-table-column>
           <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
-          <el-table-column label="需求编号" prop="updateTime" fixed></el-table-column>
+          <el-table-column label="需求编号" prop="" fixed></el-table-column>
           <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
               <template slot="header">
                   <ul class="mul-thead">
