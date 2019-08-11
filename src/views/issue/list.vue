@@ -1,4 +1,5 @@
 <script>
+import { mapState} from 'vuex';
 export default {
     name: "issue-list",
     data() {
@@ -19,6 +20,14 @@ export default {
       this.issueList()
       this.getUserList();
     },
+    computed: {
+      ...mapState('common',['nodeId'])
+    },
+    watch: {
+      nodeId (nv) {
+       this.issueList();
+      }
+    },
     methods: {
       //问题列表
        issueList(){
@@ -27,8 +36,8 @@ export default {
               url: '/issue/getIssueList',
               method: 'get',
               params: {
-                nodeId: self.projectId, 
-                
+                nodeId: self.nodeId, 
+                projectId:self.projectId,
                 ...self.param
               }
             }).then(res => {  

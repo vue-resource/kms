@@ -1,4 +1,5 @@
 <script>
+import { mapState} from 'vuex';
 export default {
     name: "issue-action",
     data() {
@@ -18,7 +19,7 @@ export default {
           leaderId: [ { required: true, message: '请选择问题负责人', trigger: 'change' }],
           issueRankId: [ { required: true, message: '请选择问题级别', trigger: 'change' }],
           finishTime: [ { required: true, message: '请选择完成时间', trigger: 'change' }],
-          targetId: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
+          nodeId: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
           adjunctList: [ { required: true,type:"array", message: '请上传附件', trigger: 'change' }]
         }
       }   
@@ -32,6 +33,14 @@ export default {
         
       }
     },
+    computed: {
+      ...mapState('common',['nodeId'])
+    },
+    watch: {
+      nodeId (nv) {
+      this.getTargetDirectoryInfoList();
+      }
+    },
     methods: {
        // 获取目标列表
       getTargetDirectoryInfoList () {
@@ -39,7 +48,8 @@ export default {
           url: '/target/getTargetDirectoryInfoList',
           method: 'get',
           params: {
-            nodeId: this.projectId,
+            nodeId: this.nodeId,
+            projectId:this.projectId,
             queryType: this.activeTab
           }
         }).then(res => {
@@ -136,8 +146,8 @@ export default {
             <el-date-picker v-model="param.finishTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="对应目标:" prop="targetId">
-             <el-select v-model="param.targetId" placeholder="请选择" >
+          <el-form-item label="对应目标:" prop="nodeId">
+             <el-select v-model="param.nodeId" placeholder="请选择" >
               <el-option
                 v-for="item in list" :key="item.id" :label="item.targetName" :value="item.id">
               </el-option>
