@@ -79,8 +79,22 @@ export default {
         },
         creatSubmit () {
             this.param.nodeId = this.$refs['node-tree'].getCheckedNodes(true).map(item => item.id);
+            if(!this.param.target_model_id){
+              this.$message({
+                message: '请选择模版',
+                type: 'warning'
+              });
+              return;
+            }
+            if(!this.param.nodeId.length === 0){
+              this.$message({
+                message: '请选择节点',
+                type: 'warning'
+              });
+              return;
+            }
             if(this.param.target_model_id && this.param.nodeId.length > 0){
-            this.$ajax({
+                this.$ajax({
                     url: '/target/createTarget',
                     method: 'post',
                     data:{

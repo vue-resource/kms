@@ -129,7 +129,7 @@ export default {
                   class="endDate" ></el-date-picker>
               </span>
               <template v-if="param.projectPeriodList.length-1 === index">
-                <i class="el-icon-circle-plus-outline"  @click="addEvent"></i>
+                <i class="el-icon-plus"  @click="addEvent"></i>
               </template>
             </li>
           </ul>
@@ -146,7 +146,7 @@ export default {
           </el-select>
         </el-form-item>
         <el-form-item label="项目成员:">
-          <el-input v-model="members" disabled class="projectDes"></el-input>
+          <el-input v-model="members" class="projectDes"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -203,6 +203,14 @@ export default {
                       width:140px;
                       padding-left:5px;
                     }
+                }
+                .el-icon-plus {
+                  font-size: 20px;
+                  margin-left: 10px;
+                  vertical-align: middle;
+                  cursor: pointer;
+                  color: #409EFF;
+                  font-weight: bolder;
                 }
             }
         }
