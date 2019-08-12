@@ -88,9 +88,9 @@ export default {
 .loginWarp{
   width:100%;
   height: 100%;
-  background-image: url('~@/assets/img/body.png');
-  background-size: cover;
-  background-position: center;
+  // background-image: url('~@/assets/img/body.png');
+  // background-size: cover;
+  // background-position: center;
 }
 .loginBox {
     width: 31rem;

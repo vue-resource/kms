@@ -1,14 +1,17 @@
 <template>
-    <div class="blank-page"></div>
+    <div class="blank-page">
+        <h2>您当前访问的目标页面不存在~~~</h2>
+        <router-link to="/">
+           <el-link type="primary">主要链接</el-link>
+        </router-link>
+    </div>
 </template>
 
 <style lang="less">
 .blank-page {
-    width: 100%;
-    height: 100%;
-    background-image: url('~@/assets/img/404.jpeg');
-    background-size: cover;
-    background-position: center;
+    padding: 100px;
+    text-align: center;
+    line-height: 30px;
 }
 </style>
 

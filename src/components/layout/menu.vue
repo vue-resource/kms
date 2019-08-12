@@ -5,28 +5,31 @@ export default {
     data() {
         return {
             nodelist:[],
-            id:this.$route.query.id,
+            projectId: '',
             defaultProps: {
                 children: "children",
                 label: "nodeName"
             }
         };
     },
-    // 生命周期
-    created() {
-        // const id = this.$route.query.id;
-        // console.log(id)        
-        this.getNodeList();          
+    watch: {
+      '$route': {
+        immediate: true,
+        handler (nv) {
+          this.projectId = nv.query.projectId;
+          this.getNodeList();
+        }
+      }
     },
     methods: {
         ...mapActions('common', ['updateNodeId']),
         //节点渲染
-        getNodeList(id){
+        getNodeList(){
           this.$ajax({
             url: '/node/getNodeList',
             method: 'get',
             params: {
-              projectId: this.id
+              projectId: this.projectId
             }
           }).then(res => {
               this.nodelist = res.data;

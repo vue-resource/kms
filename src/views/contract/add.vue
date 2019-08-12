@@ -8,7 +8,7 @@ export default {
             projectId: this.$route.query.projectId,
             targetmodeProps: {
                 children: "children",
-                label: "targetModelName"
+                label: "categoryName"
             },
             nodeProps: {
                 children: "children",
@@ -27,7 +27,7 @@ export default {
         this.getNodeList()
     },
     methods: {
-        //节点渲染 getTargetmodelList
+        //节点渲染 目标模板
        getTargetList(){
             this.$ajax({
                 url: '/target/getTargetmodelList',
@@ -41,13 +41,13 @@ export default {
               }
             })
        },
-       //右侧节点tree 
+       //目标节点 
        getNodeList(){
             this.$ajax({
                 url: '/node/getNodeList',
                 method: 'get',
                 params: {
-                  categoryId: this.projectId
+                  projectId: this.projectId
                 }
             }).then(res => {
                 if(res.success){
@@ -58,11 +58,9 @@ export default {
        clickModel (node) {
          this.param.target_model_id = node.id;
        },
-       handleNodeChange (node) {
-         this.param.nodeId = node.id;
-       },
        creatSubmit () {
-         if(this.param.target_model_id && this.param.nodeId){
+         this.param.nodeId = this.$refs['node-tree'].getCheckedNodes(true).map(item => item.id);
+         if(this.param.target_model_id && this.param.nodeId.length > 0){
            this.$ajax({
                 url: '/target/createTarget',
                 method: 'post',
@@ -79,11 +77,11 @@ export default {
 </script>
 <template>
   <div class="concactAdd">
-    <el-tree :data="list" default-expand-all :props="targetmodeProps" class="treeOne"
+    <el-tree :data="list" default-expand-all highlight-current :props="targetmodeProps" class="treeOne"
       @node-click="clickModel">
     </el-tree>
-    <el-tree :data="nodelist" default-expand-all :props="nodeProps" class="treeTwo"
-      @node-click="handleNodeChange">
+    <el-tree :data="nodelist" default-expand-all highlight-current show-checkbox :props="nodeProps" class="treeTwo"
+      ref="node-tree">
     </el-tree>
     <div class="submitBtn">
       <div class="btn">
@@ -107,7 +105,7 @@ export default {
     border: 1px solid #ccc;
     overflow: auto;
     min-height: 200px;
-    max-height: 400px;
+    max-height: 800px;
     margin-left: 20px;
     &:first {margin-left: 0;}
   }

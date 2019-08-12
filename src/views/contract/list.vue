@@ -60,15 +60,15 @@ export default {
       // 渲染列表
       renderTd (column, item) {
           const nodeList = {
-            rNodeId: column.rNodeId || [],
-            sNodeId: column.sNodeId || [],
-            vNodeId: column.vNodeId || []
+            rnodeId: column.rnodeId || '',
+            snodeId: column.snodeId || '',
+            vnodeId: column.vnodeId || ''
           };
-          return nodeList.rNodeId.indexOf(item.id) > -1  
+          return nodeList.rnodeId === item.id 
             ? 'R' 
-            : nodeList.sNodeId.indexOf(item.id) > -1
+            : nodeList.snodeId === item.id
               ? 'S'
-              : nodeList.vNodeId.indexOf(item.id) > -1 ? 'V' : '';
+              : nodeList.vnodeId === item.id ? 'V' : '';
       }
     }
 };
@@ -125,7 +125,7 @@ export default {
           <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
           <el-table-column label="需求编号" prop="" fixed></el-table-column>
-          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center" width="40">
               <template slot="header">
                   <ul class="mul-thead">
                       <li>{{ col.nodeName }}</li>
@@ -230,7 +230,7 @@ export default {
         background-size: 100% 100%;
     }
     .mul-thead {
-      margin: 0 -10px;
+      padding-right: 15px;
       li {
         border-bottom: 1px solid #ddd;
         &:last-child {
