@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store/index';
 
 const NotFound = () => import( /* webpackChunkName: "common" */ '@/views/notFound');
 const Login = () => import( /* webpackChunkName: "common" */ '@/views/login');
@@ -26,7 +27,10 @@ let routes = [
     redirect: '/project/list'
   },{
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+      title: '登陆'
+    }
   }, 
   // 项目管理
   {
@@ -37,10 +41,18 @@ let routes = [
     redirect: '/project/list',
     children: [{
       path: 'list',
-      component: ProjectList
+      component: ProjectList,
+      meta: {
+        title: '项目列表',
+        needLogin: true
+      }
     }, {
       path: 'action',
-      component: ProjectAction
+      component: ProjectAction,
+      meta: {
+        title: '项目编辑',
+        needLogin: true
+      }
     }]
   }, 
   // 目标管理
@@ -50,16 +62,32 @@ let routes = [
     redirect: '/contract/list',
     children: [{
         path: 'list',
-        component: ContractList
+        component: ContractList,
+        meta: {
+          title: '目标列表',
+          needLogin: true
+        }
       }, {
         path: 'add',
-        component: ContractAdd
+        component: ContractAdd,
+        meta: {
+          title: '目标添加',
+          needLogin: true
+        }
       },{
         path: 'topo',
-        component: ContractTopo
+        component: ContractTopo,
+        meta: {
+          title: '目标需求关系图',
+          needLogin: true
+        }
       },{
         path: 'edit',
-        component: ContractEdit
+        component: ContractEdit,
+        meta: {
+          title: '目标编辑',
+          needLogin: true
+        }
       }
     ]
   },
@@ -71,15 +99,27 @@ let routes = [
     children: [
       {
         path: 'list',
-        component: IssueList
+        component: IssueList,
+        meta: {
+          title: '问题列表',
+          needLogin: true
+        }
       },
       {
         path: 'action',
-        component: IssueAction
+        component: IssueAction,
+        meta: {
+          title: '问题添加/编辑',
+          needLogin: true
+        }
       },
       {
         path: 'detail',
-        component: IssueDetail
+        component: IssueDetail,
+        meta: {
+          title: '问题详情',
+          needLogin: true
+        }
       }
       
     ]
@@ -87,7 +127,10 @@ let routes = [
   // 分块BOM
   {
     path: '/interior',
-    component: Interior
+    component: Interior,
+    meta: {
+      needLogin: true
+    }
   },
   {
     path: '*',
@@ -97,7 +140,25 @@ let routes = [
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'hash',
-  routes: routes
+  routes: routes,
+  scrollBehavior(to, from, savedPosition) {
+    return {
+        x: 0, y: 0
+    };
+  }
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+      document.title = to.meta.title;
+  }
+  if (to.meta.needLogin && !store.state.common.token) {
+      router.replace('/login');
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -7,7 +7,7 @@ const utils = require('./utils');
 
 module.exports = {
     resolve: {
-        extensions: ['.js', '.vue', '.json', '.scss', '.css', '.less'],
+        extensions: ['.js', '.vue'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': utils.resolve('src')
