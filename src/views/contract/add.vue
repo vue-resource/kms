@@ -2,20 +2,25 @@
 export default {
     name: "add-target",
     data() {
+        const self = this;
         return {
-            list:[],
+            categoryList:[],
+            tmplList:[],
             nodelist:[],
             projectId: this.$route.query.projectId,
-            targetmodeProps: {
+            targetCategoryProps: {
                 children: "children",
                 label: "categoryName"
+            },
+            targetmodeProps: {
+                children: "children",
+                label: "targetModelName"
             },
             nodeProps: {
                 children: "children",
                 label: "nodeName"
             },
             param: {
-              projectId: this.projectId,
               target_model_id: '',
               nodeId: ''
             }
@@ -23,64 +28,84 @@ export default {
     },
     // 生命周期
     created() {
-        this.getTargetList()
+        this.getCategoryList()
         this.getNodeList()
     },
     methods: {
-        //节点渲染 目标模板
-       getTargetList(){
+        // 获取目标类目
+        getCategoryList(){
+            this.$ajax({
+                url: 'node/getModelCategoryList',
+                method: 'get'
+            }).then(res => {
+              if(res.success){
+                this.categoryList = res.data;
+              }
+            })
+        },
+        // 获取目标模板
+        getTargetList(id){
             this.$ajax({
                 url: '/target/getTargetmodelList',
                 method: 'get',
                 params: {
-                  categoryId: this.projectId
+                  categoryId: id
                 }
             }).then(res => {
               if(res.success){
-                this.list = res.data;
+                this.tmplList = res.data;
               }
             })
-       },
-       //目标节点 
-       getNodeList(){
+        },
+        // 获取目标节点
+        getNodeList(){
             this.$ajax({
                 url: '/node/getNodeList',
                 method: 'get',
                 params: {
-                  projectId: this.projectId
+                    projectId: this.projectId
                 }
             }).then(res => {
                 if(res.success){
-                  this.nodelist = res.data;
+                    this.nodelist = res.data;
                 }
             })
-       },
-       clickModel (node) {
-         this.param.target_model_id = node.id;
-       },
-       creatSubmit () {
-         this.param.nodeId = this.$refs['node-tree'].getCheckedNodes(true).map(item => item.id);
-         if(this.param.target_model_id && this.param.nodeId.length > 0){
-           this.$ajax({
-                url: '/target/createTarget',
-                method: 'post',
-                data: this.param
-            }).then(res => {
-                if(res.success){
-                  this.$router.back();
-                }
-            })
-         }
-       }
+        },
+        clickCategory (node) {
+            this.getTargetList(node.id);
+        },
+        clickModel (node) {
+            this.param.target_model_id = node.id;
+        },
+        creatSubmit () {
+            this.param.nodeId = this.$refs['node-tree'].getCheckedNodes(true).map(item => item.id);
+            if(this.param.target_model_id && this.param.nodeId.length > 0){
+            this.$ajax({
+                    url: '/target/createTarget',
+                    method: 'post',
+                    data:{
+                        ...this.param,
+                        projectId: this.projectId
+                    }
+                }).then(res => {
+                    if(res.success){
+                        this.$router.back();
+                    }
+                })
+            }
+        }
     }
 };
 </script>
 <template>
   <div class="concactAdd">
-    <el-tree :data="list" default-expand-all highlight-current :props="targetmodeProps" class="treeOne"
+    <el-tree :data="categoryList" default-expand-all highlight-current :props="targetCategoryProps"
+      @node-click="clickCategory">
+    </el-tree>
+    <el-tree :data="tmplList" default-expand-all highlight-current :props="targetmodeProps"
       @node-click="clickModel">
     </el-tree>
-    <el-tree :data="nodelist" default-expand-all highlight-current show-checkbox :props="nodeProps" class="treeTwo"
+    <el-tree :data="nodelist" default-expand-all highlight-current show-checkbox :props="nodeProps"
       ref="node-tree">
     </el-tree>
     <div class="submitBtn">

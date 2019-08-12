@@ -125,7 +125,7 @@ export default {
           <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
           <el-table-column label="需求编号" prop="" fixed></el-table-column>
-          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center" width="40">
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
               <template slot="header">
                   <ul class="mul-thead">
                       <li>{{ col.nodeName }}</li>
@@ -230,7 +230,6 @@ export default {
         background-size: 100% 100%;
     }
     .mul-thead {
-      padding-right: 15px;
       li {
         border-bottom: 1px solid #ddd;
         &:last-child {

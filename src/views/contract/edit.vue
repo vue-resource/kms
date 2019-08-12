@@ -16,9 +16,9 @@ export default {
     },
     computed: {
       tableData () {
-        const {targetId, targetName, targetNum, targetUnit} = this.detail;
+        const {id, targetName, targetNum, targetUnit} = this.detail;
         return [{
-          targetId,
+          id,
           targetName,
           targetNum,
           targetUnit
@@ -45,13 +45,13 @@ export default {
           })
       },
       updateTarget (role) {
-        const { targetId, fileList } = this.detail;
+        const { id, fileList } = this.detail;
         const actual = this.tableData[0].targetNum;
         this.$ajax({
           url: '/target/updateTarget',
           method: 'post',
           data: {
-            targetId,
+            id,
             fileList,
             actual
           }
@@ -66,11 +66,11 @@ export default {
 </script>
 <template>
   <div class="project-edit">
-    <el-form inline  >
-      <el-form-item label="目标名称">{{ detail.targetName }}</el-form-item>
-      <el-form-item label="边界系统">{{ detail.nodeName }}</el-form-item><br>
-      <el-form-item label="项目阶段">{{ detail.periodName }}</el-form-item>
-      <el-form-item label="时间计划">{{ detail.datePlan }}</el-form-item>
+    <el-form inline  class="">
+      <el-form-item label="目标名称：">{{ detail.targetName }}</el-form-item>
+      <el-form-item label="边界系统：">{{ detail.nodeName }}</el-form-item>
+      <el-form-item label="项目阶段：">{{ detail.periodName }}</el-form-item>
+      <el-form-item label="时间计划：">{{ detail.datePlan }}</el-form-item>
     </el-form>
     <div class="reletionship">
           <router-link :to="`/contract/topo?id=${targetId}`">
@@ -89,7 +89,7 @@ export default {
               <span class="tab-tip">{{ detail.periodName }}</span>
             </div>
             <el-table :data="tableData" class="gridtableft">
-              <el-table-column prop="targetId" label="序号" width="100" ></el-table-column>
+              <el-table-column prop="id" label="序号" width="100" ></el-table-column>
               <el-table-column prop="targetName" label="目标名称"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
               <el-table-column label="目标值">

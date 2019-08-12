@@ -12,14 +12,11 @@ export default {
             }
         };
     },
-    watch: {
-      '$route': {
-        immediate: true,
-        handler (nv) {
-          this.projectId = nv.query.projectId;
-          this.getNodeList();
-        }
-      }
+    created () {
+      setTimeout(() => {
+        this.projectId = this.$route.query.projectId;
+        this.getNodeList();
+      }, 300)
     },
     methods: {
         ...mapActions('common', ['updateNodeId']),
