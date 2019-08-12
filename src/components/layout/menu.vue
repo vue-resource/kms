@@ -19,6 +19,7 @@ export default {
           this.projectId = nv.query.projectId;
           this.getNodeList();
         }
+      }
     },
     methods: {
         ...mapActions('common', ['updateNodeId']),
