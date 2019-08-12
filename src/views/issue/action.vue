@@ -16,10 +16,10 @@ export default {
           issueScope: [ { required: true, message: '请输入问题影响', trigger: 'change' }],
           issueCause: [ { required: true, message: '请输入问题原因', trigger: 'change' }],
           remedialAction: [ { required: true, message: '请输入纠正措施', trigger: 'change' }],
-          leaderId: [ { required: true, message: '请选择问题负责人', trigger: 'change' }],
-          issueRankId: [ { required: true, message: '请选择问题级别', trigger: 'change' }],
+          leaderName: [ { required: true, message: '请选择问题负责人', trigger: 'change' }],
+          issueRank: [ { required: true, message: '请选择问题级别', trigger: 'change' }],
           finishTime: [ { required: true, message: '请选择完成时间', trigger: 'change' }],
-          nodeId: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
+          targetName: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
           adjunctList: [ { required: true,type:"array", message: '请上传附件', trigger: 'change' }]
         }
       }   
@@ -128,15 +128,15 @@ export default {
           <el-form-item label="纠正措施:" prop="remedialAction">
             <el-input v-model="param.remedialAction" type="textarea"></el-input>
           </el-form-item>
-          <el-form-item label="问题负责人:" prop="leaderId">
-            <el-select v-model="param.leaderId" placeholder="请选择" >
+          <el-form-item label="问题负责人:" prop="leaderName">
+            <el-select v-model="param.leaderName" placeholder="请选择" >
               <el-option
                 v-for="item in userlist" :key="item.id" :label="item.username" :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="问题级别:" prop="issueRankId">
-            <el-select v-model="param.issueRankId" placeholder="请选择">
+            <el-select v-model="param.issueRank" placeholder="请选择">
               <el-option label="高" :value="0"></el-option>
               <el-option label="中" :value="1"></el-option>
               <el-option label="低" :value="2"></el-option>

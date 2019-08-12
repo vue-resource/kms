@@ -1,6 +1,4 @@
 <script>
-// import moment from "moment";
-// let Atime = new moment();
 export default {
     name: "project-action",
     computed:{
@@ -132,8 +130,6 @@ export default {
               </span>
               <template v-if="param.projectPeriodList.length-1 === index">
                 <i class="el-icon-circle-plus-outline"  @click="addEvent"></i>
-                <!-- <el-button type="primary" class="add" @click="addEvent">添加</el-button> -->
-                <!-- <el-button type="primary" class="del" @click="delEvent(index)">删除</el-button> -->
               </template>
             </li>
           </ul>
