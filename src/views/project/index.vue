@@ -171,6 +171,7 @@ export default {
               width: 200px;
               height: 200px;
               margin-right: 50px;
+              margin-bottom:25px;
               position: relative;
               border-radius: 6px;
               border: 1px solid #ccc;
