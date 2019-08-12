@@ -131,7 +131,8 @@ export default {
                   class="endDate" ></el-date-picker>
               </span>
               <template v-if="param.projectPeriodList.length-1 === index">
-                <el-button type="primary" class="add" @click="addEvent">添加</el-button>
+                <i class="el-icon-circle-plus-outline"  @click="addEvent"></i>
+                <!-- <el-button type="primary" class="add" @click="addEvent">添加</el-button> -->
                 <!-- <el-button type="primary" class="del" @click="delEvent(index)">删除</el-button> -->
               </template>
             </li>
