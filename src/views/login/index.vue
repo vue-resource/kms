@@ -47,13 +47,11 @@ export default {
     }
 };
 </script>
-
 <template>
 <div class="loginWarp">
   <div class="loginBox">
     <div class="loginMain">
       <div class="loginImg"></div>
-      <!-- login -->
       <div class="loginContain">
         <div class="loginTitle"> 项目开发系统 </div>
         <div class="loginForm">
@@ -136,7 +134,6 @@ export default {
         
         .loginFoot {
             width:100%;
-           
         }
         .forgoton {
             margin-right: 10px;
@@ -144,7 +141,6 @@ export default {
             border-bottom:1px solid #ccc;
             padding-bottom:2px;            
         }  
-        
         .user{
           width:20px;
           height: 20px;       

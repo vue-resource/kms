@@ -14,8 +14,6 @@ export default {
     },
     // 生命周期
     created() {
-        // const id = this.$route.query.id;
-        // console.log(id)        
         this.getNodeList();          
     },
     methods: {
