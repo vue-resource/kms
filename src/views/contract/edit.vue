@@ -92,10 +92,10 @@ export default {
               <el-table-column prop="id" label="序号" width="100" ></el-table-column>
               <el-table-column prop="targetName" label="目标名称"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
-              <el-table-column label="目标值">
-                <template slot-scope="scope">
+              <el-table-column prop="targetNum" label="目标值">
+                <!-- <template slot-scope="scope">
                   <el-input v-model="scope.row.targetNum"></el-input>
-                </template>
+                </template> -->
               </el-table-column>
             </el-table>
             <h2 class="text-title">相关附件</h2>
@@ -107,15 +107,15 @@ export default {
              
             <div class="reviewFoot">
               <el-button @click="updateTarget(2)" type="primary" round>发布</el-button>
-              <el-button @click="updateTarget(1)" type="plain" round>提交</el-button>
-              <el-button @click="updateTarget(0)" type="plain" round>保存</el-button>
+              <el-button @click="updateTarget(1)" type="plain" round disabled>提交</el-button>
+              <el-button @click="updateTarget(0)" type="plain" round disabled>保存</el-button>
               <el-button @click="$router.back()" type="plain" round>取消</el-button>
             </div>
           </el-card>
-          <el-card >
+          <el-card  class="card-right">
             <div slot="header" class="clearfix">
-              <span v-if="$route.query.tab == 0">目标定义</span>
-              <el-tabs class="contain-lab" v-model="activeTab" v-else>
+              <!-- <span v-if="$route.query.tab == 0">目标定义</span> -->
+              <el-tabs class="contain-lab" v-model="activeTab">
                 <el-tab-pane v-for="(tab,idx) in dataTab" :key="idx" 
                 :disabled="tab.disabled" :label="tab.name" :name="tab.value"></el-tab-pane>
               </el-tabs>
@@ -125,11 +125,8 @@ export default {
               <el-table-column prop="id" label="序号" width="100" ></el-table-column>
               <el-table-column prop="targetName" label="目标名称"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
-              <el-table-column label="目标值">
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.targetNum"></el-input>
-                </template>
-              </el-table-column>
+              <el-table-column prop="targetUnit" label="设计值"></el-table-column>
+              <el-table-column prop="targetUnit" label="实际值"></el-table-column>
             </el-table>
             <h2 class="text-title">相关附件</h2>
             <ul v-if="detail.fileList" class="ui-list">
@@ -178,6 +175,20 @@ export default {
     width:800px; 
     .card-left{
       margin-right:20px;
+      width:400px;
+    }
+    .contain-lab{
+      height: 20px;
+     border: 0;
+     .el-tabs__nav-wrap::after{
+       width:0;
+       content: '';
+       display: inline-block;
+     }
+    }
+     .card-right{
+      margin-right:20px;
+      width:400px;
     }
     .text-title{
       padding-top:10px;
