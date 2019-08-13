@@ -16,11 +16,11 @@ export default {
     },
     computed: {
       tableData () {
-        const {id, targetName, targetNum, targetUnit} = this.detail;
+        const {id, targetName, actual, targetUnit} = this.detail;
         return [{
           id,
           targetName,
-          targetNum,
+          actual,
           targetUnit
         }];
       }
@@ -46,7 +46,7 @@ export default {
       },
       updateTarget (role) {
         const { id, fileList } = this.detail;
-        const actual = this.tableData[0].targetNum;
+        const actual = this.tableData[0].actual;
         this.$ajax({
           url: '/target/updateTarget',
           method: 'post',
@@ -60,6 +60,12 @@ export default {
             this.$router.back();
           }
         })
+      },
+      handleSuccessleft (response, file, fileList) {
+        console.log(response, file, fileList)
+      },
+      handleSuccessRight (response, file, fileList) {
+        console.log(response, file, fileList)
       }
     }
 };
@@ -81,30 +87,31 @@ export default {
         <div class="cardBox">
           <el-card class="card-left">
             <div slot="header" class="clearfix">
-              <span v-if="$route.query.tab == 0">目标定义</span>
-              <el-tabs class="contain-lab" v-model="activeTab" v-else>
-                <el-tab-pane v-for="(tab,idx) in dataTab" :key="idx" 
-                :disabled="tab.disabled" :label="tab.name" :name="tab.value"></el-tab-pane>
-              </el-tabs>
-              <span class="tab-tip">{{ detail.periodName }}</span>
+              <span>目标定义</span>
+              <span class="tab-tip">2019-09-09</span>
             </div>
             <el-table :data="tableData" class="gridtableft">
-              <el-table-column prop="id" label="序号" width="100" ></el-table-column>
-              <el-table-column prop="targetName" label="目标名称"></el-table-column>
+              <el-table-column prop="id" label="序号" width="60" ></el-table-column>
+              <el-table-column prop="targetName" label="目标名称" width="300"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
-              <el-table-column prop="targetNum" label="目标值">
-                <!-- <template slot-scope="scope">
-                  <el-input v-model="scope.row.targetNum"></el-input>
-                </template> -->
+              <el-table-column label="目标值" width="150">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.actual"></el-input>
+                </template>
               </el-table-column>
             </el-table>
-            <h2 class="text-title">相关附件</h2>
+            <h2 class="text-title">
+              相关附件
+              <el-upload class="upload-demo" :on-success="handleSuccessleft"
+                  action="http://39.100.134.212:8081/rms/api/upload/uploadTargetFile">
+                  <el-button type="text">上传附件</el-button>
+              </el-upload>
+            </h2>
             <ul v-if="detail.fileList" class="ui-list">
               <li v-for="(item,idx) in detail.fileList" :key="idx">
                 <div class="carborad">{{ item.fileName}}</div>
               </li>
             </ul>
-             
             <div class="reviewFoot">
               <el-button @click="updateTarget(2)" type="primary" round>发布</el-button>
               <el-button @click="updateTarget(1)" type="plain" round disabled>提交</el-button>
@@ -114,28 +121,31 @@ export default {
           </el-card>
           <el-card  class="card-right">
             <div slot="header" class="clearfix">
-              <!-- <span v-if="$route.query.tab == 0">目标定义</span> -->
               <el-tabs class="contain-lab" v-model="activeTab">
                 <el-tab-pane v-for="(tab,idx) in dataTab" :key="idx" 
                 :disabled="tab.disabled" :label="tab.name" :name="tab.value"></el-tab-pane>
               </el-tabs>
-              <span class="tab-tip">{{ detail.periodName }}</span>
+              <span class="tab-tip">2019-10-10</span>
             </div>
             <el-table :data="tableData" class="gridtableft">
-              <el-table-column prop="id" label="序号" width="100" ></el-table-column>
-              <el-table-column prop="targetName" label="目标名称"></el-table-column>
+              <el-table-column prop="id" label="序号" width="60" ></el-table-column>
+              <el-table-column prop="targetName" label="目标名称" width="300"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
               <el-table-column prop="targetUnit" label="设计值"></el-table-column>
-              <el-table-column prop="targetUnit" label="实际值"></el-table-column>
+              <el-table-column prop="targetUnit" label="实际值" width="150"></el-table-column>
             </el-table>
-            <h2 class="text-title">相关附件</h2>
+            <h2 class="text-title">
+              相关附件
+              <el-upload class="upload-demo" :on-success="handleSuccessRight"
+                  action="http://39.100.134.212:8081/rms/api/upload/uploadTargetFile">
+                  <el-button type="text">上传附件</el-button>
+              </el-upload>
+            </h2>
             <ul v-if="detail.fileList" class="ui-list">
               <li v-for="(item,idx) in detail.fileList" :key="idx">
                 <div class="carborad">{{ item.fileName}}</div>
               </li>
             </ul>
-             
-           
           </el-card>
           
         </div>
@@ -172,10 +182,9 @@ export default {
   }
   .cardBox{
     display: flex;
-    width:800px; 
-    .card-left{
-      margin-right:20px;
-      width:400px;
+    .el-card {
+      width: 800px;
+      &.card-right {margin-left: 20px;}
     }
     .contain-lab{
       height: 20px;
@@ -186,14 +195,14 @@ export default {
        display: inline-block;
      }
     }
-     .card-right{
-      margin-right:20px;
-      width:400px;
-    }
     .text-title{
       padding-top:10px;
       border-bottom:1px solid #ccc;
       padding-bottom:5px;
+      overflow: hidden;
+      .upload-demo {
+        float: right;
+      }
     }
     .ui-list{
       font-size:14px;

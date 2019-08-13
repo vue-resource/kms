@@ -11,20 +11,26 @@ export default {
           dataTab:[
             {name: '发出的目标', value: '0'},
             {name: '收到的目标', value: '1'}
-          ]
+          ],
+          addTargetDisabled: true
         };
     },
     computed: {
       ...mapState('common',['nodeId'])
     },
     watch: {
-      nodeId (nv) {
-        this.getTargetDirectoryInfoList();
+      nodeId: {
+        immediate: true,
+        handler (nv) {
+          if(nv !== ''){
+            this.addTargetDisabled = false;
+            this.getTargetDirectoryInfoList();
+          }
+        }
       }
     },
     created(){
       this.getDetail();
-      this.getTargetDirectoryInfoList();
     },
     methods: {
       // 获取项目详情
@@ -112,17 +118,18 @@ export default {
             <el-progress :percentage="(detail.finishIssue/detail.countIssue * 100)" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
-        <router-link :to="`/contract/add?projectId=${projectId}`">
+        <el-button v-if="addTargetDisabled" disabled class="goalTargetTex" type="primary">创建目标</el-button>
+        <router-link v-else :to="`/contract/add?projectId=${projectId}`">
           <el-button class="goalTargetTex" type="primary">创建目标</el-button>
         </router-link>
       </div>
     </div>
     <div class="contraceTab">
       <el-table :data="list.targetList" max-height="300" border>
-          <el-table-column label="序号" prop="id" width="100" fixed></el-table-column>
-          <el-table-column label="目标名称" prop="targetName" width="100" fixed></el-table-column>
-          <el-table-column label="目标分类" prop="targetCategory" width="100" fixed></el-table-column>
-          <el-table-column label="单位" prop="targetUnit" width="100" fixed></el-table-column>
+          <el-table-column label="序号" prop="id" width="60" fixed></el-table-column>
+          <el-table-column label="目标名称" prop="targetName" width="250" fixed></el-table-column>
+          <el-table-column label="目标分类" prop="targetCategory" width="200" fixed></el-table-column>
+          <el-table-column label="单位" prop="targetUnit" width="80" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
           <el-table-column label="需求编号" prop="" fixed></el-table-column>
           <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">

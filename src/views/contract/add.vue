@@ -1,4 +1,5 @@
 <script>
+import { mapState} from 'vuex';
 export default {
     name: "add-target",
     data() {
@@ -26,6 +27,9 @@ export default {
               nodeId: ''
             }
         };
+    },
+    computed: {
+      ...mapState('common',['nodeId'])
     },
     // 生命周期
     created() {
@@ -87,7 +91,7 @@ export default {
               });
               return;
             }
-            if(!this.param.nodeId.length === 0){
+            if(this.param.nodeId.length === 0){
               this.$message({
                 message: '请选择节点',
                 type: 'warning'
@@ -100,7 +104,8 @@ export default {
                     method: 'post',
                     data:{
                         ...this.param,
-                        projectId: this.projectId
+                        projectId: this.projectId,
+                        createNodeId: this.nodeId
                     }
                 }).then(res => {
                     if(res.success){

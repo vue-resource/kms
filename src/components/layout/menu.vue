@@ -1,5 +1,6 @@
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import localStorage from '@/utils/tools/localstorage';
 export default {
     name: "silder",
     data() {
@@ -12,12 +13,12 @@ export default {
             }
         };
     },
-    created () {
+    mounted () {
       setTimeout(() => {
-        this.projectId = this.$route.query.projectId;
-        if(this.projectId){
-          this.getNodeList();
-        }
+          this.projectId = this.$route.query.projectId;
+          if(this.projectId){
+            this.getNodeList();
+          }
       }, 300)
     },
     methods: {
@@ -36,6 +37,9 @@ export default {
         },
         clickModel (node) {
           this.updateNodeId(node.id);
+          if(this.$route.path !== '/contract/list'){
+            this.$router.push(`/contract/list?projectId=${localStorage.get('projectId')}`)
+          }
         }
     }
 };

@@ -1,5 +1,6 @@
 <script>
 import projectDetail from './detail';
+import localStorage from '@/utils/tools/localstorage';
 export default {
   name: "project-list",
   data() {
@@ -45,7 +46,10 @@ export default {
           this.dialogTableVisible = true;
         }
       })
-    }    
+    },
+    handleClick (projectId) {
+      localStorage.set('projectId', projectId);
+    }
   }
 };
 </script>
@@ -93,7 +97,7 @@ export default {
                 <span class="icon-map el-icon-view" @click="handleView(todo.id)"></span>
               </div>
               <router-link :to="`/contract/list?projectId=${todo.id}`">
-                <el-button class="detail" type="primary">查看项目目标</el-button> 
+                <el-button class="detail" type="primary" @click="handleClick(todo.id)">查看项目目标</el-button> 
               </router-link>
             </div>
           </li>
