@@ -1,5 +1,5 @@
 'use strict';
-
+// 参考： https://github.com/webpack/webpack/blob/master/schemas/WebpackOptions.json
 const merge = require('webpack-merge');
 const utils = require('./utils');
 const webpack = require('webpack');
