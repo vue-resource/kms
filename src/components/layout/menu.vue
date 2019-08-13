@@ -15,7 +15,9 @@ export default {
     created () {
       setTimeout(() => {
         this.projectId = this.$route.query.projectId;
-        this.getNodeList();
+        if(this.projectId){
+          this.getNodeList();
+        }
       }, 300)
     },
     methods: {

@@ -79,7 +79,7 @@ export default {
           <el-button type="plain">目标拆解</el-button>
     </div>
         <div class="cardBox">
-          <el-card>
+          <el-card class="card-left">
             <div slot="header" class="clearfix">
               <span v-if="$route.query.tab == 0">目标定义</span>
               <el-tabs class="contain-lab" v-model="activeTab" v-else>
@@ -112,7 +112,7 @@ export default {
               <el-button @click="$router.back()" type="plain" round>取消</el-button>
             </div>
           </el-card>
-         
+          
         </div>
   
   </div>
@@ -146,7 +146,8 @@ export default {
   }
   .cardBox{
     display: flex;
-    width:400px; 
+    width:800px; 
+   
     .text-title{
       padding-top:10px;
       border-bottom:1px solid #ccc;

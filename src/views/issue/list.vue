@@ -56,6 +56,9 @@ export default {
              } 
           })
         },
+        issueReset(){
+          console.log("888")
+        },
         //关闭问题
         closeIssue(id){
           this.$ajax({
@@ -110,6 +113,7 @@ export default {
         </el-select>
       </div>
       <el-button type="primary" @click="issueList" >搜索</el-button>  
+      <el-button type="primary" @click="issueReset" >重置</el-button>  
       <div class="wightTargetBox">
         <router-link :to="`/issue/action?projectId=${this.projectId}`">
           <el-button class="wightTarget" type="primary" >创建问题</el-button>  

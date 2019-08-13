@@ -28,6 +28,7 @@ export default {
     created() {
       this.getUserList();
       this.getTargetDirectoryInfoList();
+     
       if(this.issueId){
         this.getDetail();
         
@@ -104,6 +105,19 @@ export default {
             }
           });
         },
+        //POST /upload/uploadTargetFile
+        uploadTargetFile(){
+          this.$ajax({
+                url: '/upload/uploadTargetFile',
+                method: 'post',
+                // data: self.param,
+              }).then(res => {  
+                 if(res.success){                       
+                  // this.$router.back();
+                  console.log(res)
+                 }
+              })
+        },
         onSuccess (response, file, fileList) {
           console.log(response, file, fileList)
         }
@@ -158,7 +172,7 @@ export default {
               <li v-for="(item,idx) in param.adjunctList" :key="idx">{{ item.fileName }}</li>
             </ul>
             <el-upload class="upload-demo" :on-success="onSuccess"
-              action="https://jsonplaceholder.typicode.com/posts/">
+              action="http://39.100.134.212/rms/api/upload/uploadTargetFile">
               <el-button type="primary">点击上传</el-button>
             </el-upload>
           </el-form-item>
