@@ -30,14 +30,18 @@
   </el-container>
 </template>
 <script>
-import { mapState ,mapActions} from 'vuex';
+import {mapActions} from 'vuex';
 import Menu from "./menu";
+import localStorage from '@/utils/tools/localstorage';
 export default {
     name: "layout",
     components: { Menu },
-    computed: {
-      ...mapState('common',['username'])
+    data(){
+      return {
+        username:localStorage.get('username')
+      }
     },
+   
     methods: {
        ...mapActions('common', ['updateUsername', 'cleanToken']),
       checkIsProject() {

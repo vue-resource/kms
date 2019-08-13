@@ -1,5 +1,7 @@
 import * as Type from './consts';
 import Cookie from '@/utils/tools/cookie';
+import localStorage from '@/utils/tools/localstorage';
+
 
 export default {
     [Type.CLEAN_TOKEN] (state) {
@@ -12,6 +14,7 @@ export default {
     },
     [Type.UPDATE_USERNAME] (state, username) {
         state.username = username;
+        localStorage.set('username',username)
     },
     [Type.UPDATE_NODEID] (state, nodeId) {
         state.nodeId = nodeId;

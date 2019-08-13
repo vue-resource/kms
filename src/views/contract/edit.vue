@@ -92,9 +92,9 @@ export default {
             </div>
             <el-table :data="tableData" class="gridtableft">
               <el-table-column prop="id" label="序号" width="60" ></el-table-column>
-              <el-table-column prop="targetName" label="目标名称" width="300"></el-table-column>
+              <el-table-column prop="targetName" label="目标名称" width="250"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
-              <el-table-column label="目标值" width="150">
+              <el-table-column label="目标值" width="100">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.actual"></el-input>
                 </template>
@@ -129,10 +129,10 @@ export default {
             </div>
             <el-table :data="tableData" class="gridtableft">
               <el-table-column prop="id" label="序号" width="60" ></el-table-column>
-              <el-table-column prop="targetName" label="目标名称" width="300"></el-table-column>
+              <el-table-column prop="targetName" label="目标名称" width="250"></el-table-column>
               <el-table-column prop="targetUnit" label="单位"></el-table-column>
               <el-table-column prop="targetUnit" label="设计值"></el-table-column>
-              <el-table-column prop="targetUnit" label="实际值" width="150"></el-table-column>
+              <el-table-column prop="targetUnit" label="实际值" width="100"></el-table-column>
             </el-table>
             <h2 class="text-title">
               相关附件
