@@ -112,6 +112,34 @@ export default {
               <el-button @click="$router.back()" type="plain" round>取消</el-button>
             </div>
           </el-card>
+          <el-card >
+            <div slot="header" class="clearfix">
+              <span v-if="$route.query.tab == 0">目标定义</span>
+              <el-tabs class="contain-lab" v-model="activeTab" v-else>
+                <el-tab-pane v-for="(tab,idx) in dataTab" :key="idx" 
+                :disabled="tab.disabled" :label="tab.name" :name="tab.value"></el-tab-pane>
+              </el-tabs>
+              <span class="tab-tip">{{ detail.periodName }}</span>
+            </div>
+            <el-table :data="tableData" class="gridtableft">
+              <el-table-column prop="id" label="序号" width="100" ></el-table-column>
+              <el-table-column prop="targetName" label="目标名称"></el-table-column>
+              <el-table-column prop="targetUnit" label="单位"></el-table-column>
+              <el-table-column label="目标值">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.targetNum"></el-input>
+                </template>
+              </el-table-column>
+            </el-table>
+            <h2 class="text-title">相关附件</h2>
+            <ul v-if="detail.fileList" class="ui-list">
+              <li v-for="(item,idx) in detail.fileList" :key="idx">
+                <div class="carborad">{{ item.fileName}}</div>
+              </li>
+            </ul>
+             
+           
+          </el-card>
           
         </div>
   
@@ -121,6 +149,7 @@ export default {
 .project-edit {
   padding-top:20px;
   color: #7a7a7a;
+ 
   .clearfix {
     clear: both;
     display: block;
@@ -147,7 +176,9 @@ export default {
   .cardBox{
     display: flex;
     width:800px; 
-   
+    .card-left{
+      margin-right:20px;
+    }
     .text-title{
       padding-top:10px;
       border-bottom:1px solid #ccc;

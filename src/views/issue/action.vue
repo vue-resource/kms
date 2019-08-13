@@ -110,10 +110,8 @@ export default {
           this.$ajax({
                 url: '/upload/uploadTargetFile',
                 method: 'post',
-                // data: self.param,
               }).then(res => {  
                  if(res.success){                       
-                  // this.$router.back();
                   console.log(res)
                  }
               })
@@ -172,7 +170,7 @@ export default {
               <li v-for="(item,idx) in param.adjunctList" :key="idx">{{ item.fileName }}</li>
             </ul>
             <el-upload class="upload-demo" :on-success="onSuccess"
-              action="http://122.115.233.34/rms/api/upload/uploadTargetFile">
+              action="http://39.100.134.212:8081/rms/api/upload/uploadTargetFile">
               <el-button type="primary">点击上传</el-button>
             </el-upload>
           </el-form-item>
