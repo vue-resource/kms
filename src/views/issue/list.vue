@@ -57,7 +57,7 @@ export default {
           })
         },
         issueReset(){
-          console.log("888")
+           this.param={status: '',issueRank: '',leader: '',createName: ''};
         },
         //关闭问题
         closeIssue(id){

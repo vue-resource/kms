@@ -172,7 +172,7 @@ export default {
               <li v-for="(item,idx) in param.adjunctList" :key="idx">{{ item.fileName }}</li>
             </ul>
             <el-upload class="upload-demo" :on-success="onSuccess"
-              action="http://39.100.134.212/rms/api/upload/uploadTargetFile">
+              action="http://122.115.233.34/rms/api/upload/uploadTargetFile">
               <el-button type="primary">点击上传</el-button>
             </el-upload>
           </el-form-item>
