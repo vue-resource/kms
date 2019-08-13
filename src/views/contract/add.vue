@@ -154,24 +154,24 @@ export default {
        color: aliceblue;
        padding: 4px;
       position: relative;
-      &:first-child{
-         background: #409EFF;
-          &:first-child::after{
+      &:nth-child(even){
+         background: #9dc5f8;
+          &:nth-child(even)::after{
             width: 0;
             height:0;
             content: '';
             position: absolute;
             right:-15px;
             top:0px;
-           z-index: 200;
+           z-index: 210;
             border-top:15px solid transparent;
             border-bottom: 15px solid transparent;
-            border-left: 15px solid #409EFF;
+            border-left: 15px solid #9dc5f8;
           }
       }
-        &:nth-child(3){
+        &:nth-child(odd){
          background: #409EFF;
-          &:nth-child(3)::after{
+          &:nth-child(odd)::after{
             width: 0;
             height:0;
             content: '';
@@ -183,33 +183,6 @@ export default {
             border-bottom: 15px solid transparent;
             border-left: 15px solid #409EFF;
           }
-      }
-       &:nth-child(2){
-         background: #9dc5f8;
-          &:nth-child(2)::after{
-            width: 0;
-            height:0;
-            content: '';
-            position: absolute;
-            right:-15px;
-            top:0px;
-            z-index: 210;
-            border-top:15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 15px solid #9dc5f8;
-          }
-      }
-       &::after{
-        width: 0;
-        height:0;
-        content: '';
-        position: absolute;
-        right:-15px;
-        top:0px;
-        z-index:22px;
-        border-top:15px solid transparent;
-        border-bottom: 15px solid transparent;
-        border-left: 15px solid #9dc5f8;
       }
      }
   }
