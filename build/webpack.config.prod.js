@@ -9,6 +9,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
+const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin');
 // 以下2行是为了做chunk缓存优化
 const seen = new Set();
 const nameLength = 4;
@@ -21,27 +22,30 @@ module.exports = merge(baseConfig, {
     output: {
         path: utils.resolve('dist'),
         publicPath: '/',
-        filename: 'static/js/bundle-[name].[hash:5].js',
+        filename: 'static/js/[name].bundle.[hash:5].js',
         chunkFilename: 'static/js/[name].[chunkhash:5].js',
     },
     optimization: {
+        // 压缩优化相关
         minimizer: [
             // js mini
             new UglifyJsPlugin({
-              cache: false,
-              parallel: false,
+              cache: true, 
+              parallel: true,
               sourceMap: false
             }),
-            // css mini
+            // css mini -- 压缩代码，删除无用注释，去除冗余css, 优化css书写顺序
             new OptimizeCSSPlugin({})
         ],
-        // 持久化缓存
+        // minimize: true, // 压缩优化
+
+        // 持久化缓存  code-split
         runtimeChunk: true, // 将包含chunks 映射关系的 list单独从 app.js里提取出来mainfest   长缓存, 结合script-ext-html-webpack-plugin插件，内联到index.html中
         // 参考： https://www.jianshu.com/p/23dcabf35744
-        // HashedModuleIdsPlugin  固定moduleId
+        // HashedModuleIdsPlugin  固定moduleId   lang-term-cache
         moduleIds: 'hashed', // natural、named、hashed、size、total-size 可选。原理类似于虚拟dom等更新策略，防止chunk中不必要的module更新
         
-        // 分包策略
+        // 分包策略 code-split
         splitChunks: {
             chunks: 'all',
             cacheGroups: {
@@ -82,8 +86,9 @@ module.exports = merge(baseConfig, {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new SpeedMeasureWebpackPlugin(), // 测试打包各个阶段的耗时
         // 给每一个chunk制定 缓存策略，类似vue的虚拟dom的缓存优化策略
-        // 自定义 nameResolver
+        // 自定义 nameResolver   lang-term-cache
         // NamedChunkPlugin  固定chunkId    
         new webpack.NamedChunksPlugin(chunk => {
             if (chunk.name) {
@@ -107,8 +112,11 @@ module.exports = merge(baseConfig, {
             //`runtime` must same as runtimeChunk name. default is `runtime`
             inline: /runtime.*\.js$/
         }),
+        // 分离js 和 css, 代替 extract-text-webpack-plugin
+        // 使用contenthash 代替 hash 是为了在修改js的时候，不影响css,不至于让缓存失效
         new MiniCssExtractPlugin({
-            filename: 'static/css/[name].css',
+            filename: 'static/css/[name].bundle.[contenthash: 5].css',
+            chunkFilename: 'static/css/[name].chunk.[contenthash:5].css',
             allChunks: true
         }),
         new webpack.LoaderOptionsPlugin({

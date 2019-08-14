@@ -1,5 +1,9 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": [[
+    "@babel/preset-env", {
+      "modules": false // tree-shaking的时候不transform modules
+    }
+  ]],
   "plugins": [
     "@babel/plugin-syntax-dynamic-import", 
     "@babel/plugin-transform-runtime", 
