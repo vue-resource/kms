@@ -55,7 +55,8 @@ export default {
           params: {
             nodeId: this.nodeId,
             projectId: this.projectId,
-            queryType: this.activeTab
+            queryType: this.activeTab,
+           
           }
         }).then(res => {
           if(res.success){
