@@ -1,5 +1,6 @@
 'use strict';
 // 参考： https://github.com/webpack/webpack/blob/master/schemas/WebpackOptions.json
+//       https://github.com/wallstreetcn/webpack-and-spa-guide
 const merge = require('webpack-merge');
 const utils = require('./utils');
 const webpack = require('webpack');
@@ -16,14 +17,18 @@ const nameLength = 4;
 
 module.exports = merge(baseConfig, {
     mode: 'production',
+    devtool: 'hidden-source-map',
     entry: {
         app: [utils.resolve('src/main.js')]
     },
     output: {
         path: utils.resolve('dist'),
         publicPath: '/',
-        filename: 'static/js/[name].bundle.[hash:5].js',
+        filename: 'static/js/[name].bundle.[chunkhash:5].js',
         chunkFilename: 'static/js/[name].[chunkhash:5].js',
+    },
+    performance: {
+        hints: 'warning'
     },
     optimization: {
         // 压缩优化相关
@@ -32,7 +37,7 @@ module.exports = merge(baseConfig, {
             new UglifyJsPlugin({
               cache: true, 
               parallel: true,
-              sourceMap: false
+              sourceMap: true
             }),
             // css mini -- 压缩代码，删除无用注释，去除冗余css, 优化css书写顺序
             new OptimizeCSSPlugin({})
@@ -42,10 +47,10 @@ module.exports = merge(baseConfig, {
         // 持久化缓存  code-split
         runtimeChunk: true, // 将包含chunks 映射关系的 list单独从 app.js里提取出来mainfest   长缓存, 结合script-ext-html-webpack-plugin插件，内联到index.html中
         // 参考： https://www.jianshu.com/p/23dcabf35744
-        // HashedModuleIdsPlugin  固定moduleId   lang-term-cache
+        // webpack.HashedModuleIdsPlugin  固定moduleId   lang-term-cache
         moduleIds: 'hashed', // natural、named、hashed、size、total-size 可选。原理类似于虚拟dom等更新策略，防止chunk中不必要的module更新
         
-        // 分包策略 code-split
+        // 分包策略 code-split  webpack.CommonsChunkPlugin
         splitChunks: {
             chunks: 'all',
             cacheGroups: {

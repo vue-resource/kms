@@ -8,6 +8,7 @@ const utils = require('./utils');
 
 module.exports = merge(baseConfig, {
     mode: 'development',
+    devtool: 'cheap-module-eval-source-map',
     devServer: {
         stats:'minimal',
         quiet:false,
@@ -28,7 +29,6 @@ module.exports = merge(baseConfig, {
             }
         }
     },
-    devtool: '#eval-source-map',
     entry: {
         app: utils.resolve('src/main.js')
     },
@@ -37,6 +37,9 @@ module.exports = merge(baseConfig, {
         publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'
+    },
+    performance: {
+        hints: false // 不展示文件大小超限信息 
     },
     module: {
         rules: [
