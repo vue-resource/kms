@@ -6,7 +6,9 @@ export default {
       return {
         issueId: this.$route.query.id,
         projectId: this.$route.query.projectId,
-        param: {},
+        param: {
+          adjunctList: []
+        },
         userlist:[],
         activeTab: '0',
         targetList:[],
@@ -28,10 +30,8 @@ export default {
     created() {
       this.getUserList();
       this.getTargetDirectoryInfoList();
-     
       if(this.issueId){
         this.getDetail();
-        
       }
     },
     computed: {
@@ -39,7 +39,7 @@ export default {
     },
     watch: {
       nodeId (nv) {
-      this.getTargetDirectoryInfoList();
+        this.getTargetDirectoryInfoList();
       }
     },
     methods: {
@@ -65,60 +65,56 @@ export default {
           }
         })
       },
-        //问题详情
-        getDetail(){
-          this.$ajax({
-            url: '/issue/getIssue',
-            method: 'get',
-            params: {
-              issueId: this.issueId
+      //问题详情
+      getDetail(){
+        this.$ajax({
+          url: '/issue/getIssue',
+          method: 'get',
+          params: {
+            issueId: this.issueId
+          }
+        }).then(res => {  
+            if(res.success){  
+            this.param = res.data;
             }
-          }).then(res => {  
-             if(res.success){  
-              this.param = res.data;
-             }
-          })
-        },
-         getUserList(){
-           this.$ajax({
-            url: '/user/getUserList',
-            method: 'get'
-          }).then(res => {  
-             if(res.success){  
-              this.userlist = res.data;
-             }
-          })
-        },
-        createIssue () {
-          const self = this;
-          this.$refs['form'].validate((valid) => {
-            if (valid) {
-              this.$ajax({
-                url: '/issue/createIssue',
-                method: 'post',
-                data: self.param,
-              }).then(res => {  
-                 if(res.success){                       
-                  this.$router.back();
-                 }
-              })
-            }
-          });
-        },
-        //POST /upload/uploadTargetFile
-        uploadTargetFile(){
+        })
+      },
+        getUserList(){
           this.$ajax({
-                url: '/upload/uploadTargetFile',
-                method: 'post',
-              }).then(res => {  
-                 if(res.success){                       
-                  console.log(res)
-                 }
-              })
-        },
-        onSuccess (response, file, fileList) {
-          console.log(response, file, fileList)
+          url: '/user/getUserList',
+          method: 'get'
+        }).then(res => {  
+            if(res.success){  
+            this.userlist = res.data;
+            }
+        })
+      },
+      createIssue () {
+        const self = this;
+        this.$refs['form'].validate((valid) => {
+          if (valid) {
+            this.$ajax({
+              url: '/issue/createIssue',
+              method: 'post',
+              data: self.param,
+            }).then(res => {  
+                if(res.success){                       
+                this.$router.back();
+                }
+            })
+          }
+        });
+      },
+      onSuccess (response, file, fileList) {
+        let rel = [];
+        if(fileList.length > 0){
+          rel = fileList.slice(-1).map(file => ({
+            fileName: file.name,
+            fileUrl: file.response.data
+          }));
         }
+        this.param.adjunctList = this.param.adjunctList.concat(rel);
+      }
     }
 };
 </script>
@@ -166,13 +162,19 @@ export default {
             </el-select>
           </el-form-item>
           <el-form-item label="相关附件:" >
-            <ul>
-              <li v-for="(item,idx) in param.adjunctList" :key="idx">{{ item.fileName }}</li>
-            </ul>
-            <el-upload class="upload-demo" :on-success="onSuccess"
-              action="http://39.100.134.212:8081/rms/api/upload/uploadTargetFile">
+            <el-upload class="upload-demo" :on-success="onSuccess" :show-file-list="false"
+              action="/rms/api/upload/uploadTargetFile">
               <el-button type="primary">点击上传</el-button>
             </el-upload>
+            <ul v-if="param.adjunctList && param.adjunctList.length > 0">
+              <li v-for="(item,idx) in param.adjunctList" :key="idx" class="file-item">
+                <div class="carborad">{{ item.fileName}}</div>
+                <div class="btns-tip">
+                  <i class="el-icon-download" @click="$message('即将开发下载功能')"></i>
+                  <i class="el-icon-error" @click="param.adjunctList.splice(idx, 1)"></i>
+                </div>
+              </li>
+            </ul>
           </el-form-item>
           <el-form-item label=" " >
             <el-button type="primary" @click="createIssue">提交</el-button> 
@@ -186,5 +188,23 @@ export default {
 <style lang="less">
 .issue-destail {
   padding: 20px;
+  .file-item{
+    overflow: hidden;
+    .carborad {
+      float: left;
+    }
+    .btns-tip {
+      float: right;
+      i {
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+        &:hover {
+          color: #409eff;
+        }
+      }
+      
+    }
+  }
 }
 </style>
