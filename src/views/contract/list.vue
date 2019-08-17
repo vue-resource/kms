@@ -119,10 +119,12 @@ export default {
             <el-progress :percentage="(detail.finishIssue/detail.countIssue * 100)" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
-        <el-button v-if="addTargetDisabled" disabled class="goalTargetTex" type="primary">创建目标</el-button>
-        <router-link v-else :to="`/contract/add?projectId=${projectId}`">
-          <el-button class="goalTargetTex" type="primary">创建目标</el-button>
-        </router-link>
+        <template v-if="activeTab == 0">
+          <el-button v-if="addTargetDisabled" disabled class="goalTargetTex" type="primary">创建目标</el-button>
+          <router-link v-else :to="`/contract/add?projectId=${projectId}`">
+            <el-button class="goalTargetTex" type="primary">创建目标</el-button>
+          </router-link>
+        </template>
       </div>
     </div>
     <div class="contraceTab">
@@ -137,6 +139,233 @@ export default {
               <template slot="header">
                   <ul class="mul-thead">
                       <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
+                  </ul>
+              </template>
+              <template slot-scope="scope">
+                <router-link v-if="renderTd(scope.row, col)" 
+                  :to="`/contract/edit?id=${scope.row.id}&tab=${activeTab}&projectId=${projectId}`">
+                  {{ renderTd(scope.row, col) }}
+                </router-link>
+              </template>
+          </el-table-column>
+          <el-table-column v-for="(col, idx) in list.nodeList" :key="idx" align="center">
+              <template slot="header">
+                  <ul class="mul-thead">
+                      <li>{{ col.nodeName }}</li>
+                      <li>责任人</li>
+                      <li>部门</li>
+                      <li>角色</li>
                   </ul>
               </template>
               <template slot-scope="scope">
