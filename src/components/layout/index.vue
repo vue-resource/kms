@@ -4,7 +4,9 @@
     <el-header class="kms-header">
       <div class="headImg"></div>
       <div class="headright">
-        <span class="backText">后台管理</span>        
+        <router-link to="/">
+          <el-button type="text">返回首页</el-button>
+        </router-link>
         <el-dropdown class="gray">
             <span class="el-dropdown-link">
                 {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -94,6 +96,7 @@ export default {
             }
             .gray{
                color: #999;
+               margin-left: 20px;
             }
         }
     }

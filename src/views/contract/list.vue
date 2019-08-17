@@ -90,7 +90,7 @@ export default {
     </div>
     <div class="chartBox">
       <div class="circle">
-         <el-progress type="circle" :percentage="detail.consumeDuration/detail.duration * 100" ></el-progress>        
+         <el-progress type="circle" :percentage="detail.duration ? detail.consumeDuration/detail.duration * 100 : 0" ></el-progress>        
       </div>
       <div class="cirleright">
         <div class="cirlehead">
@@ -109,14 +109,14 @@ export default {
               <p>总R：{{detail.countTarget}}</p>
               <p class="add">昨日新增：{{detail.addTarget}}</p>
             </div>
-            <el-progress :percentage="(detail.addTarget/detail.countTarget * 100)" :show-text="false"  style="width:400px"></el-progress>
+            <el-progress :percentage="detail.countTarget ? (detail.addTarget/detail.countTarget * 100) : 0" :show-text="false"  style="width:400px"></el-progress>
           </div>
           <div class="processTwo">
              <div class="processTwoText">
                 <p>总S：{{detail.countIssue}}</p>
                 <p class="add">昨日完成：{{detail.finishIssue}}</p>
              </div>
-            <el-progress :percentage="(detail.finishIssue/detail.countIssue * 100)" :show-text="false" style="width:400px"></el-progress>
+            <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false" style="width:400px"></el-progress>
           </div>
         </div>
         <template v-if="activeTab == 0">

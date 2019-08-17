@@ -136,7 +136,7 @@ export default {
           </li>
         </ul>
         <div class="reviewFoot" v-if="$route.query.tab == 0">
-          <el-button @click="updateTarget(1)" type="info">发布</el-button>
+          <el-button @click="updateTarget(1)" type="warning">发布</el-button>
           <el-button @click="updateTarget(0)" type="primary">保存</el-button>
         </div>
       </el-card>
@@ -179,7 +179,7 @@ export default {
           </li>
         </ul>
         <div class="reviewFoot" v-if="$route.query.tab == 1">
-          <el-button @click="updateTarget(1)" type="info" disabled>发布</el-button>
+          <el-button @click="updateTarget(1)" type="warning">发布</el-button>
           <el-button @click="updateTarget(0)" type="primary">保存</el-button>
         </div>
       </el-card>
