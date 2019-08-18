@@ -4,11 +4,15 @@ export default {
     data() {
       return {
         targetId: this.$route.query.id,
+        viewType: this.$route.query.tab,
         detail: {
-          fileList: []
+          definitionList: [],
+          definitionAdjunctList: [],
+          schemeList: [],
+          schemeAdjunctList: []
         },
-        defineFiles: [],
-        methodsFiles: [],
+        chooseProp: false,
+        curProp: null,
         activeTab: '1',
         dataTab:[
           {name: '目标解决方案', value: '1'},
@@ -18,18 +22,25 @@ export default {
     },
     computed: {
       tableData () {
-        const {id, targetName, actual, targetUnit} = this.detail;
+        const {targetId, targetName, draftNum, targetUnit, targetNum, actual} = this.detail;
         return [{
-          id,
+          targetId,
           targetName,
+          draftNum,
+          targetUnit,
           actual,
-          targetUnit
+          targetNum
         }];
+      },
+      propList () {
+        return this.viewType == 1 
+          ? this.detail.schemeList
+          : this.detail.definitionList;
       }
     },
     // 生命周期
     created() {
-      this.queryTarget();
+      // this.queryTarget();
     },
     methods: {
       // 目标详情
@@ -39,7 +50,7 @@ export default {
             method: 'get',
             params: {
               targetId: this.targetId,
-              viewType:this.activeTab //添加视觉效果 by duyin 2019-8-14
+              viewType:this.viewType
             }
           }).then(res => {
             if(res.success){
@@ -47,42 +58,49 @@ export default {
             }
           })
       },
-      updateTarget (role) {
-        const { id, fileList } = this.detail;
-        const actual = this.tableData[0].actual;
+      handleSuccess (response, file, fileList) {
+        const {id, propertyName} = this.curProp;
+        let rel = [];
+        if(fileList.length > 0){
+          rel = fileList.slice(-1).map(file => ({
+            id: '',
+            fileName: file.name,
+            url: file.response.data,
+            propertyId: id,
+            propertyName
+          }));
+        }
+        if(this.viewType == 1){
+          this.detail.schemeAdjunctList =  this.detail.schemeAdjunctList.concat( rel );
+        }else {
+          this.detail.definitionAdjunctList =  this.detail.definitionAdjunctList.concat( rel );
+        }
+        this.chooseProp = false;
+      },
+      getParams (status) {
+        const {
+          targetId, targetNum, draftNum, actual, 
+          definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
+        const viewType = this.viewType;
+        const targetStatus = status;
+        const fileInfoEntityList = viewType == 1 ? schemeAdjunctList : definitionAdjunctList;
+        const propertyInfoList = viewType == 1 ? schemeList : definitionList;
+        return {
+          targetId, viewType, targetStatus, targetNum, draftNum, actual,
+          fileInfoEntityList, propertyInfoList
+        };
+      },
+      updateTargets (role) {
+        const param = this.getParams(role);
         this.$ajax({
           url: '/target/updateTarget',
           method: 'post',
-          data: {
-            id,
-            fileList,
-            actual
-          }
+          data: param
         }).then(res => {
           if(res.success){
             this.$router.back();
           }
         })
-      },
-      handleSuccessleft (response, file, fileList) {
-        let rel = [];
-        if(fileList.length > 0){
-          rel = fileList.slice(-1).map(file => ({
-            fileName: file.name,
-            fileUrl: file.response.data
-          }));
-        }
-        this.defineFiles = this.defineFiles.concat(rel);
-      },
-      handleSuccessRight (response, file, fileList) {
-        let rel = [];
-        if(fileList.length > 0){
-          rel = fileList.slice(-1).map(file => ({
-            fileName: file.name,
-            fileUrl: file.response.data
-          }));
-        }
-        this.methodsFiles = this.methodsFiles.concat(rel);
       }
     }
 };
@@ -96,10 +114,10 @@ export default {
       <el-form-item label="时间计划：">{{ detail.datePlan }}</el-form-item>
     </el-form>
     <div class="reletionship">
-          <router-link :to="`/contract/topo?id=${targetId}`">
-            <el-button type="primary" class="temp-text">需求关系图</el-button>
-          </router-link>
-          <el-button type="plain" disabled>目标拆解</el-button>
+      <router-link :to="`/contract/topo?id=${targetId}`">
+        <el-button type="primary" class="temp-text">需求关系图</el-button>
+      </router-link>
+      <el-button type="plain" disabled>目标拆解</el-button>
     </div>
     <div class="cardBox">
       <!-- 目标定义 -->
@@ -109,35 +127,39 @@ export default {
           <span class="tab-tip">最近更新：2019-09-09</span>
         </div>
         <el-table :data="tableData" class="gridtableft">
-          <el-table-column prop="id" label="序号" width="60" ></el-table-column>
-          <el-table-column prop="targetName" label="目标名称" width="250"></el-table-column>
-          <el-table-column prop="targetUnit" label="单位"></el-table-column>
-          <el-table-column label="目标值" width="100">
+          <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
+          <el-table-column prop="targetName" label="目标名称"></el-table-column>
+          <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
+          <el-table-column label="目标值">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.actual" v-if="$route.query.tab == 0"></el-input>
-              <span v-else>{{ scope.row.actual }}</span>
+              <el-input v-model="scope.row.targetNum" v-if="viewType == 0"></el-input>
+              <span v-else>{{ scope.row.targetNum }}</span>
             </template>
           </el-table-column>
+          <template v-if="detail.definitionList && detail.definitionList.length > 0">
+            <el-table-column v-for="(prop, idx) in detail.definitionList" :label="prop.propertyName" :key="idx">
+                <el-input v-model="prop.value" v-if="viewType == 0"></el-input>
+                <span v-else>{{ prop.type == 1 ? '附件类型' : prop.value }}</span>
+            </el-table-column>
+          </template>
         </el-table>
         <h2 class="text-title">
+          <el-button v-if="viewType == 0" type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
-          <el-upload class="upload-demo" :on-success="handleSuccessleft" :show-file-list="false"
-              action="/rms/api/upload/uploadTargetFile" v-if="$route.query.tab == 0">
-              <el-button type="text" class="upset">上传附件</el-button>
-          </el-upload>
         </h2>
-        <ul v-if="defineFiles.length > 0" class="ui-list">
-          <li v-for="(item,idx) in defineFiles" :key="idx" class="file-item">
-            <div class="carborad">{{ item.fileName}}</div>
+        <ul v-if="detail.definitionAdjunctList && detail.definitionAdjunctList.length > 0" class="ui-list">
+          <li v-for="(item,idx) in detail.definitionAdjunctList" :key="idx" class="file-item">
+            <div class="carborad">{{ item.fileName }}</div>
             <div class="btns-tip">
-              <i class="el-icon-download" @click="$message('即将开发下载功能')"></i>
-              <i class="el-icon-error" @click="defineFiles.splice(idx, 1)"></i>
+              <span>属性名称：{{ item.propertyName }}</span>
+              <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+              <i class="el-icon-error" @click="detail.definitionAdjunctList.splice(idx, 1)"></i>
             </div>
           </li>
         </ul>
-        <div class="reviewFoot" v-if="$route.query.tab == 0">
+        <div class="reviewFoot" v-if="viewType == 0">
           <el-button @click="updateTarget(1)" type="warning">发布</el-button>
-          <el-button @click="updateTarget(0)" type="primary">保存</el-button>
+          <el-button @click="updateTarget()" type="primary">保存</el-button>
         </div>
       </el-card>
       
@@ -151,44 +173,70 @@ export default {
           <span class="tab-tip">最近更新：2019-10-10</span>
         </div>
         <el-table :data="tableData" class="gridtableft">
-          <el-table-column prop="id" label="序号" width="60" ></el-table-column>
-          <el-table-column prop="targetName" label="目标名称" width="250"></el-table-column>
-          <el-table-column prop="targetUnit" label="单位"></el-table-column>
-          <el-table-column prop="targetUnit" label="设计值"></el-table-column>
-          <el-table-column label="目标值" width="100">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.actual" v-if="$route.query.tab == 1"></el-input>
-              <span v-else>{{ scope.row.actual }}</span>
-            </template>
-          </el-table-column>
+          <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
+          <el-table-column prop="targetName" label="目标名称"></el-table-column>
+          <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
+          <el-table-column prop="targetNum" label="目标值"></el-table-column>
+          <template v-if="detail.actual">
+            <el-table-column label="设计值">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.draftNum" v-if="viewType == 1"></el-input>
+                <span v-else>{{ scope.row.draftNum }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="实际值">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.actual" v-if="viewType == 1"></el-input>
+                <span v-else>{{ scope.row.actual }}</span>
+              </template>
+            </el-table-column>
+          </template>
+          <template v-if="detail.schemeList && detail.schemeList.length > 0">
+            <el-table-column v-for="(prop, idx) in detail.schemeList" :label="prop.propertyName" :key="idx">
+                <el-input v-model="prop.value" v-if="viewType == 0"></el-input>
+                <span v-else>{{ prop.type == 1 ? '附件类型' : prop.value }}</span>
+            </el-table-column>
+          </template>
         </el-table>
         <h2 class="text-title">
+          <el-button v-if="viewType == 1" type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
-          <el-upload class="upload-demo" :on-success="handleSuccessRight" :show-file-list="false"
-              action="/rms/api/upload/uploadTargetFile" v-if="$route.query.tab == 1">
-              <el-button type="text" class="upset">上传附件</el-button>
-          </el-upload>
         </h2>
-        <ul v-if="methodsFiles.length > 0" class="ui-list">
-          <li v-for="(item,idx) in methodsFiles" :key="idx" class="file-item">
+        <ul v-if="detail.schemeAdjunctList && detail.schemeAdjunctList.length > 0" class="ui-list">
+          <li v-for="(item,idx) in detail.schemeAdjunctList" :key="idx" class="file-item">
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
-              <i class="el-icon-download" @click="$message('即将开发下载功能')"></i>
-              <i class="el-icon-error" @click="methodsFiles.splice(idx, 1)"></i>
+              <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+              <i class="el-icon-error" @click="detail.schemeAdjunctList.splice(idx, 1)"></i>
             </div>
           </li>
         </ul>
         <div class="reviewFoot" v-if="$route.query.tab == 1">
           <el-button @click="updateTarget(1)" type="warning">发布</el-button>
-          <el-button @click="updateTarget(0)" type="primary">保存</el-button>
+          <el-button @click="updateTarget()" type="primary">保存</el-button>
         </div>
       </el-card>
       <div class="btn-back">
         <el-button @click="$router.back()" type="plain">返回</el-button>
       </div>
-      
     </div>
-  
+    <!-- 上传附件，添加属性 -->
+    <el-dialog title="选择属性" :visible.sync="chooseProp" width="50%" class="choose-prop-dialog">
+      <ul class="choose-prop-list">
+        <li v-for="(prop, idx) in propList" :key="idx" @click="curProp = prop">
+          <el-upload class="upload-demo" :on-success="handleSuccess" :show-file-list="false"
+              action="/rms/api/upload/uploadTargetFile">
+              <el-button type="text">{{ prop.propertyName }}</el-button>
+          </el-upload>
+        </li>
+        <li @click="curProp = {id: 111, propertyName: 'hhhhh'}">
+          <el-upload :on-success="handleSuccess" :show-file-list="false"
+              action="/rms/api/upload/uploadTargetFile">
+              <el-button type="text">测试上传</el-button>
+          </el-upload>
+        </li>
+      </ul>
+    </el-dialog>
   </div>
 </template>
 <style lang="less">
@@ -248,16 +296,7 @@ export default {
           border-bottom:1px solid #ccc;
         }
       }
-      
-      .upload-demo {
-        .upset{
-          position:absolute;
-          right: 0;
-          top:10px;
-        }
-       
-      }
-       
+      .el-button {float: right;}
     }
     .ui-list{
       font-size:14px;
@@ -289,6 +328,25 @@ export default {
     padding-top: 20px;
     padding-bottom: 100px;
     text-align: center;
+  }
+  .choose-prop-dialog {
+    .el-dialog__header {
+      border-bottom: 1px solid #ddd;
+    }
+    .el-dialog__body {
+      padding: 20px;
+      .choose-prop-list{
+        overflow: hidden;
+        li {
+          float: left;
+          width: 20%;
+          cursor: pointer;
+          line-height: 25px;
+          padding-left: 20px;
+          &:hover { background-color: #EBEEF5;color:#409EFF;}
+        }
+      }
+    }
   }
 }
 </style>

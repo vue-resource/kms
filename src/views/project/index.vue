@@ -91,9 +91,9 @@ export default {
             <img :src="projectImg"/>
             <div class="markShy">
               <div class="matip">              
-                <router-link :to="`/project/action?id=${todo.id}`">
+                <!-- <router-link :to="`/project/action?id=${todo.id}`">
                    <span class="icon-map el-icon-edit"></span>
-                </router-link>
+                </router-link> -->
                 <span class="icon-map el-icon-view" @click="handleView(todo.id)"></span>
               </div>
               <router-link :to="`/contract/list?projectId=${todo.id}`">
@@ -107,9 +107,6 @@ export default {
     <el-dialog :visible.sync="dialogTableVisible">
       <h2 slot="title" class="detail-head">
         <span>{{ detail.name }}</span>
-        <router-link :to="`/project/action?id=${detail.id}`">
-          <el-button class="detail" type="primary">编辑</el-button>
-        </router-link>
       </h2>
       <project-detail :source="detail"></project-detail>
     </el-dialog>

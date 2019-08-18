@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <h2>topology</h2>
+        <h2>需求关系图示例</h2>
         <div class="topology-box">
             <tree :data="tree" node-text="name" layoutType="euclidean" type="cluster" zoomable></tree>
         </div>

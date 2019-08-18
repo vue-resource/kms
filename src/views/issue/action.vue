@@ -75,12 +75,12 @@ export default {
           }
         }).then(res => {  
             if(res.success){  
-            this.param = res.data;
+              this.param = res.data;
             }
         })
       },
-        getUserList(){
-          this.$ajax({
+      getUserList(){
+        this.$ajax({
           url: '/user/getUserList',
           method: 'get'
         }).then(res => {  
@@ -170,7 +170,7 @@ export default {
               <li v-for="(item,idx) in param.adjunctList" :key="idx" class="file-item">
                 <div class="carborad">{{ item.fileName}}</div>
                 <div class="btns-tip">
-                  <i class="el-icon-download" @click="$message('即将开发下载功能')"></i>
+                  <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
                   <i class="el-icon-error" @click="param.adjunctList.splice(idx, 1)"></i>
                 </div>
               </li>
