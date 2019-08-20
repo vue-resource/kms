@@ -13,6 +13,7 @@ export default {
         },
         chooseProp: false,
         curProp: null,
+        targetNumberNew:'',
         activeTab: '1',
         dataTab:[
           {name: '目标解决方案', value: '1'},
@@ -22,6 +23,7 @@ export default {
     },
     computed: {
       tableData () {
+        const targetNumberNew = this.targetNumberNew;
         const {targetId, targetName, draftNum, targetUnit, targetNum, actual} = this.detail;
         return [{
           targetId,
@@ -29,7 +31,8 @@ export default {
           draftNum,
           targetUnit,
           actual,
-          targetNum
+          targetNum,
+          targetNumberNew
         }];
       },
       propList () {
@@ -55,6 +58,7 @@ export default {
           }).then(res => {
             if(res.success){
               this.detail = res.data;
+              this.targetNumberNew = res.data.targetNum;
             }
           })
       },
@@ -184,7 +188,7 @@ export default {
           <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
           <el-table-column prop="targetName" label="目标名称"></el-table-column>
           <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
-          <el-table-column prop="targetNum" label="目标值"></el-table-column>
+          <el-table-column prop="targetNumberNew" label="目标值"></el-table-column>
           <template v-if="detail.actual">
             <el-table-column label="设计值">
               <template slot-scope="scope">
