@@ -15,7 +15,7 @@ module.exports = merge(baseConfig, {
         historyApiFallback: true,
         noInfo: true,
         host: 'localhost',
-        port: 8888,
+        port: 8080,
         hot: true,
         contentBase: utils.resolve('dist'),
         compress: true,

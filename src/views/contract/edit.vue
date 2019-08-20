@@ -58,24 +58,32 @@ export default {
             }
           })
       },
+      startUpload (prop) {
+        this.curProp = prop;
+        this.$refs.upload.$el.querySelector('input[type=file]').click();
+      },
       handleSuccess (response, file, fileList) {
+        console.log(response, file, fileList)
+        if(response.success !== 1){
+          this.$message(response.errorMsg);
+          this.$refs.upload.clearFiles();
+          return;
+        }
         const {id, propertyName} = this.curProp;
-        let rel = [];
-        if(fileList.length > 0){
-          rel = fileList.slice(-1).map(file => ({
+        const rel = [{
             id: '',
             fileName: file.name,
             url: file.response.data,
             propertyId: id,
             propertyName
-          }));
-        }
+        }];
         if(this.viewType == 1){
           this.detail.schemeAdjunctList =  this.detail.schemeAdjunctList.concat( rel );
         }else {
           this.detail.definitionAdjunctList =  this.detail.definitionAdjunctList.concat( rel );
         }
         this.chooseProp = false;
+        this.$refs.upload.clearFiles();
       },
       getParams (status) {
         const {
@@ -137,9 +145,9 @@ export default {
             </template>
           </el-table-column>
           <template v-if="detail.definitionList && detail.definitionList.length > 0">
-            <el-table-column v-for="(prop, idx) in detail.definitionList" :label="prop.propertyName" :key="idx">
-                <el-input v-model="prop.value" v-if="viewType == 0"></el-input>
-                <span v-else>{{ prop.type == 1 ? '附件类型' : prop.value }}</span>
+            <el-table-column v-for="(item, idx) in detail.definitionList" :label="item.propertyName" :key="idx">
+                <el-input v-model="item.propertyNumber" v-if="viewType == 0 && item.propertyType != 1"></el-input>
+                <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
             </el-table-column>
           </template>
         </el-table>
@@ -192,9 +200,9 @@ export default {
             </el-table-column>
           </template>
           <template v-if="detail.schemeList && detail.schemeList.length > 0">
-            <el-table-column v-for="(prop, idx) in detail.schemeList" :label="prop.propertyName" :key="idx">
-                <el-input v-model="prop.value" v-if="viewType == 0"></el-input>
-                <span v-else>{{ prop.type == 1 ? '附件类型' : prop.value }}</span>
+            <el-table-column v-for="(item, idx) in detail.schemeList" :label="item.propertyName" :key="idx">
+                <el-input v-model="item.propertyNumber" v-if="viewType == 1 && item.propertyType != 1"></el-input>
+                <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
             </el-table-column>
           </template>
         </el-table>
@@ -222,14 +230,13 @@ export default {
     </div>
     <!-- 上传附件，添加属性 -->
     <el-dialog title="选择属性" :visible.sync="chooseProp" width="50%" class="choose-prop-dialog">
+      <el-upload class="upload-demo" :on-success="handleSuccess" :show-file-list="false" ref="upload"
+          action="/rms/api/upload/uploadTargetFile">
+      </el-upload>
       <ul class="choose-prop-list">
-        <li v-for="(prop, idx) in propList" :key="idx" @click="curProp = prop">
-          <el-upload class="upload-demo" :on-success="handleSuccess" :show-file-list="false"
-              action="/rms/api/upload/uploadTargetFile">
-              <el-button type="text">{{ prop.propertyName }}</el-button>
-          </el-upload>
+        <li v-for="(prop, idx) in propList" :key="idx" @click="startUpload">
+          <el-button type="text">{{ prop.propertyName }}</el-button>
         </li>
-       
       </ul>
     </el-dialog>
   </div>

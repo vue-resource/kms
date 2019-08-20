@@ -13,13 +13,16 @@ export default {
             }
         };
     },
-    mounted () {
-      setTimeout(() => {
-          this.projectId = this.$route.query.projectId;
-          if(this.projectId){
+    watch: {
+      $route:{
+        immediate: true,
+        handler (nv) {
+          if(nv.query.projectId){
+            this.projectId = nv.query.projectId;
             this.getNodeList();
           }
-      }, 300)
+        }
+      }
     },
     methods: {
         ...mapActions('common', ['updateNodeId']),
