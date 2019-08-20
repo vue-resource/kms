@@ -40,7 +40,7 @@ export default {
     },
     // 生命周期
     created() {
-      // this.queryTarget();
+      this.queryTarget();
     },
     methods: {
       // 目标详情
@@ -90,7 +90,7 @@ export default {
           fileInfoEntityList, propertyInfoList
         };
       },
-      updateTargets (role) {
+      updateTarget (role) {
         const param = this.getParams(role);
         this.$ajax({
           url: '/target/updateTarget',
@@ -229,12 +229,7 @@ export default {
               <el-button type="text">{{ prop.propertyName }}</el-button>
           </el-upload>
         </li>
-        <li @click="curProp = {id: 111, propertyName: 'hhhhh'}">
-          <el-upload :on-success="handleSuccess" :show-file-list="false"
-              action="/rms/api/upload/uploadTargetFile">
-              <el-button type="text">测试上传</el-button>
-          </el-upload>
-        </li>
+       
       </ul>
     </el-dialog>
   </div>
