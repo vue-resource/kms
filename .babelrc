@@ -2,7 +2,11 @@
   "presets": [[
     "@babel/preset-env", {
       // "loose": true, // 使编译后的代码不需要完全遵循 ES6 规定，简化编译后的代码，提高代码执行效率   不建议使用
-      "modules": false // tree-shaking的时候不transform modules，即把 ES6 模块转为 CommonJS 模块的功能给关闭掉。
+      "modules": false,  // tree-shaking的时候不transform modules，即把 ES6 模块转为 CommonJS 模块的功能给关闭掉。
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"],
+        "node": "current"
+      }
     }
   ]],
   "plugins": [
