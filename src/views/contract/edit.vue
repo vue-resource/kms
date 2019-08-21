@@ -62,7 +62,7 @@ export default {
             }
           })
       },
-      startUpload (prop) {
+      startUpload(prop) {
         this.curProp = prop;
         this.$refs.upload.$el.querySelector('input[type=file]').click();
       },
@@ -74,6 +74,7 @@ export default {
           return;
         }
         const {id, propertyName} = this.curProp;
+        console.log('test', this.curProp)
         const rel = [{
             id: '',
             fileName: file.name,
@@ -243,7 +244,7 @@ export default {
           action="/rms/api/upload/uploadTargetFile">
       </el-upload>
       <ul class="choose-prop-list">
-        <li v-for="(prop, idx) in propList" :key="idx" @click="startUpload">
+        <li v-for="(prop, idx) in propList" :key="idx" @click="startUpload(prop)">
           <el-button type="text">{{ prop.propertyName }}</el-button>
         </li>
       </ul>
