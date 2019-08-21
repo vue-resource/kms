@@ -191,7 +191,7 @@ export default {
           <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
           <el-table-column prop="targetNumberNew" label="目标值"></el-table-column>
           <template v-if="detail.actual">
-            <el-table-column label="设计值">
+            <el-table-column label="草稿值">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.draftNum" v-if="viewType == 1"></el-input>
                 <span v-else>{{ scope.row.draftNum }}</span>
