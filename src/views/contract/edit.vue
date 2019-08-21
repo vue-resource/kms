@@ -91,14 +91,14 @@ export default {
         this.$refs.upload.clearFiles();
       },
       getParams (status) {
-        const { targetId, definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
+        const { id,targetId='', definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
         const { targetNum, draftNum, actual } = this.tableData[0] || {};
         const viewType = this.viewType;
         const targetStatus = status;
         const fileInfoEntityList = viewType == 1 ? schemeAdjunctList : definitionAdjunctList;
         const propertyInfoList = viewType == 1 ? schemeList : definitionList;
         return {
-          targetId, viewType, targetStatus, targetNum, draftNum, actual,
+          id,targetId, viewType, targetStatus, targetNum, draftNum, actual,
           fileInfoEntityList, propertyInfoList
         };
       },
