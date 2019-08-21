@@ -91,9 +91,8 @@ export default {
         this.$refs.upload.clearFiles();
       },
       getParams (status) {
-        const {
-          targetId, targetNum, draftNum, actual, 
-          definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
+        const { targetId, definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
+        const { targetNum, draftNum, actual } = this.tableData[0] || {};
         const viewType = this.viewType;
         const targetStatus = status;
         const fileInfoEntityList = viewType == 1 ? schemeAdjunctList : definitionAdjunctList;
