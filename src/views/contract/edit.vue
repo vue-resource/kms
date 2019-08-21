@@ -150,7 +150,8 @@ export default {
           </el-table-column>
           <template v-if="detail.definitionList && detail.definitionList.length > 0">
             <el-table-column v-for="(item, idx) in detail.definitionList" :label="item.propertyName" :key="idx">
-                <el-input v-model="item.propertyNumber" v-if="viewType == 0 && item.propertyType != 1"></el-input>
+               <input v-model="item.propertyNumber" v-if="viewType == 0 && item.propertyType != 1" class="inputNum">
+                <!-- <el-input v-model="item.propertyNumber" v-if="viewType == 0 && item.propertyType != 1" ></el-input> -->
                 <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
             </el-table-column>
           </template>
@@ -205,7 +206,11 @@ export default {
           </template>
           <template v-if="detail.schemeList && detail.schemeList.length > 0">
             <el-table-column v-for="(item, idx) in detail.schemeList" :label="item.propertyName" :key="idx">
-                <el-input v-model="item.propertyNumber" v-if="viewType == 1 && item.propertyType != 1"></el-input>
+                <!-- <span v-if="viewType == 1 && item.propertyType != 1" >
+                    <el-input v-model="item.propertyNumber" ></el-input>
+                  
+                </span> -->
+                <input type="text" v-model="item.propertyNumber" v-if="viewType == 1 && item.propertyType != 1" class="inputNum"/>
                 <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
             </el-table-column>
           </template>
@@ -279,6 +284,30 @@ export default {
       // width: fit-content;
       position: relative;    
       &.card-right {margin-top: 20px;}
+       .inputNum{
+        -webkit-appearance: none;
+          background-color: #FFF;
+          background-image: none;
+          border-radius: 4px;
+          border: 1px solid #DCDFE6;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          color: #606266;
+          display: inline-block;
+          font-size: inherit;
+          height: 40px;
+          line-height: 40px;
+          outline: 0;
+          padding: 0 15px;
+          -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+          transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+          width: 100%;
+          height: 32px;
+          line-height: 32px;
+          &:focus{
+            border-color: #409EFF;
+          }
+      }
     }
     .contain-lab{
       height: 20px;
