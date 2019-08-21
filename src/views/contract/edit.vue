@@ -23,7 +23,6 @@ export default {
     },
     computed: {
       tableData () {
-        const targetNumberNew = this.targetNumberNew;
         const {targetId, targetName, draftNum, targetUnit, targetNum, actual} = this.detail;
         return [{
           targetId,
@@ -31,8 +30,7 @@ export default {
           draftNum,
           targetUnit,
           actual,
-          targetNum,
-          targetNumberNew
+          targetNum
         }];
       },
       propList () {
@@ -58,7 +56,6 @@ export default {
           }).then(res => {
             if(res.success){
               this.detail = res.data;
-              this.targetNumberNew = res.data.targetNum;
             }
           })
       },
@@ -144,8 +141,8 @@ export default {
           <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
           <el-table-column label="目标值">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.targetNum" v-if="viewType == 0"></el-input>
-              <span v-else>{{ scope.row.targetNum }}</span>
+              <el-input v-model="scope.row.draftNum" v-if="viewType == 0"></el-input>
+              <span v-else>{{ scope.row.draftNum }}</span>
             </template>
           </el-table-column>
           <template v-if="detail.definitionList && detail.definitionList.length > 0">
@@ -189,14 +186,8 @@ export default {
           <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
           <el-table-column prop="targetName" label="目标名称"></el-table-column>
           <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
-          <el-table-column prop="targetNumberNew" label="目标值"></el-table-column>
+          <el-table-column prop="targetNum" label="目标值"></el-table-column>
           <template v-if="detail.actual">
-            <el-table-column label="草稿值">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.draftNum" v-if="viewType == 1"></el-input>
-                <span v-else>{{ scope.row.draftNum }}</span>
-              </template>
-            </el-table-column>
             <el-table-column label="实际值">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.actual" v-if="viewType == 1"></el-input>
