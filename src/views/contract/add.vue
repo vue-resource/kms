@@ -129,7 +129,7 @@ export default {
           <el-tree :data="tmplList" default-expand-all highlight-current :props="targetmodeProps"
             @node-click="clickModel">
           </el-tree>
-          <el-tree :data="nodelist" default-expand-all highlight-current show-checkbox :props="nodeProps"
+          <el-tree :data="nodelist" default-expand-all check-strictly highlight-current show-checkbox :props="nodeProps"
             ref="node-tree">
           </el-tree>
           <div class="submitBtn">
