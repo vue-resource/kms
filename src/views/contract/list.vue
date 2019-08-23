@@ -67,13 +67,12 @@ export default {
       // 渲染列表
       renderTd (column, item) {
           const nodeList = {
-            rnodeId: column.rnodeId || '',
             snodeId: column.snodeId || '',
-            vnodeId: column.vnodeId || ''
+            dnodeId: column.dnodeId || ''
           };
-          return nodeList.rnodeId === item.id 
+          return nodeList.snodeId === item.id 
             ? 'S' 
-            : nodeList.snodeId === item.id
+            : nodeList.dnodeId === item.id
               ? 'D' : '';
       }
     }
