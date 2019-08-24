@@ -129,7 +129,7 @@ export default {
       <el-table :data="list.targetList" max-height="300" border>
           <el-table-column label="序号" prop="id" width="60" fixed></el-table-column>
           <el-table-column label="目标名称" prop="targetName" width="250" fixed></el-table-column>
-          <el-table-column label="目标分类" prop="targetCategory" width="200" fixed></el-table-column>
+          <el-table-column label="目标分类" prop="categoryName" width="200" fixed></el-table-column>
           <el-table-column label="单位" prop="targetUnit" width="80" fixed></el-table-column>
           <el-table-column label="目标值" prop="targetNum" width="100" fixed></el-table-column>
           <el-table-column label="需求编号" prop="" fixed></el-table-column>
