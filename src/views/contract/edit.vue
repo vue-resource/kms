@@ -75,7 +75,7 @@ export default {
         const rel = [{
             id: '',
             fileName: file.name,
-            url: file.response.data,
+            fileUrl: file.response.data,
             propertyId: id,
             propertyName
         }];
