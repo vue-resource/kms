@@ -65,14 +65,14 @@ export default {
         })
       },
       // 渲染列表
-      renderTd (column, item) {
+      renderTd (row, attr) {
           const nodeList = {
-            snodeId: column.snodeId || '',
-            dnodeId: column.dnodeId || ''
+            snodeId: row.snodeId || '',
+            dnodeId: row.dnodeId || ''
           };
-          return nodeList.snodeId === item.id 
+          return nodeList.snodeId === attr.id 
             ? 'S' 
-            : nodeList.dnodeId === item.id
+            : nodeList.dnodeId === attr.id
               ? 'D' : '';
       }
     }
@@ -126,7 +126,39 @@ export default {
       </div>
     </div>
     <div class="contraceTab">
-      <el-table :data="list.targetList" max-height="300" border>
+      <kms-table fixedHeader border stripe minWidth="1000" maxHeight="400">
+        <thead slot="header">
+            <tr>
+                <th>序号</th>
+                <th>目标名称</th>
+                <th>目标分类</th>
+                <th>单位</th>
+                <th>目标值</th>
+                <th>需求编号</th>
+                <th class="attr-column" v-for="(col, idx) in list.nodeList" :key="idx">
+                  <span>{{ col.nodeName }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody slot="body">
+            <tr v-for="(item, idx) in list.targetList" :key="idx">
+                <td>{{ item.id }}</td>
+                <td>{{ item.targetName }}</td>
+                <td>{{ item.categoryName }}</td>
+                <td>{{ item.targetUnit }}</td>
+                <td>{{ item.targetNum }}</td>
+                <td></td>
+                <td class="attr-column" v-for="(action, idx) in list.nodeList" :key="idx">
+                  <router-link v-if="renderTd(item, action)" 
+                    :to="`/contract/edit?id=${item.id}&tab=${activeTab}&projectId=${projectId}`">
+                    {{ renderTd(item, action) }}
+                  </router-link>
+                </td>
+            </tr>
+        </tbody>
+      </kms-table>
+      <div v-show="list.targetList.length === 0" class="data-blank">暂无数据</div>
+      <!-- <el-table :data="list.targetList" max-height="300" border>
           <el-table-column label="序号" prop="id" width="60" fixed></el-table-column>
           <el-table-column label="目标名称" prop="targetName" width="250" fixed></el-table-column>
           <el-table-column label="目标分类" prop="categoryName" width="200" fixed></el-table-column>
@@ -146,7 +178,7 @@ export default {
                 </router-link>
               </template>
           </el-table-column>
-      </el-table>
+      </el-table> -->
     </div>
   </div>
 </template>
@@ -244,6 +276,16 @@ export default {
           border-bottom: none;
         }
       }
+    }
+    .contraceTab .ui-table .attr-column {
+        width: 25px;
+        line-height: 1;
+        // vertical-align: top;
+    }
+    .data-blank {
+      line-height: 100px;
+      text-align: center;
+      color: #bbb;
     }
 }
 </style>

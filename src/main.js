@@ -12,7 +12,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import interceptors from '@/api/server'
 // import filters from '@/utils/filters'
 // import directives from '@/utils/directives'
-// import comps from '@/utils/comp'
+import comps from '@/utils/component'
 // import plugins from '@/utils/plugins'
 
 // 扩充vue原型方法
@@ -25,10 +25,10 @@ Vue.prototype.$ajax = interceptors
 // for(let key in directives) {
 //     Vue.directive(key, directives[key])
 // }
-// // 全局组件
-// for(let key in comps) {
-//     Vue.component(key, comps[key])
-// }
+// 全局组件
+for(let key in comps) {
+    Vue.component(key, comps[key])
+}
 
 // for(let key in plugins) {
 //     Vue.use(key)
