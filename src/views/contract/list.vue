@@ -90,7 +90,7 @@ export default {
       <kms-table fixedHeader border stripe minWidth="1000" maxHeight="400">
         <thead slot="header">
             <tr>
-              <th colspan="6">
+              <th colspan="6" class="empty">
                 <div class="chartBox">
                   <div class="circle">
                     <el-progress type="circle" :percentage="detail.duration ? detail.consumeDuration/detail.duration * 100 : 0" ></el-progress>        
@@ -289,6 +289,15 @@ export default {
         line-height: 1;
         // vertical-align: top;
     }
+    .contraceTab .ui-table th {
+      background-color: #343747;
+      color: #fff;
+      &.empty {
+        background-color: #f4f4f4;
+      }
+    }
+
+    
     .data-blank {
       line-height: 100px;
       text-align: center;
