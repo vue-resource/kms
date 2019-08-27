@@ -86,48 +86,55 @@ export default {
            :label="tab.name" :name="tab.value"></el-tab-pane>
       </el-tabs>
     </div>
-    <div class="chartBox">
-      <div class="circle">
-         <el-progress type="circle" :percentage="detail.duration ? detail.consumeDuration/detail.duration * 100 : 0" ></el-progress>        
-      </div>
-      <div class="cirleright">
-        <div class="cirlehead">
-           <div class="timeLeft">
-              <p>项目工期</p>
-              <p class="timeText">{{detail.duration}}天</p>
-           </div>
-           <div class="timeright">
-              <p>消耗</p>
-              <p class="timeText">{{detail.consumeDuration}}天</p>
-           </div>
-        </div>
-        <div class="cirlefoot">
-          <div class="processOne">
-            <div class="processOneText">
-              <p>总R：{{detail.countTarget}}</p>
-              <p class="add">昨日新增：{{detail.addTarget}}</p>
-            </div>
-            <el-progress :percentage="detail.countTarget ? (detail.addTarget/detail.countTarget * 100) : 0" :show-text="false"  style="width:400px"></el-progress>
-          </div>
-          <div class="processTwo">
-             <div class="processTwoText">
-                <p>总S：{{detail.countIssue}}</p>
-                <p class="add">昨日完成：{{detail.finishIssue}}</p>
-             </div>
-            <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false" style="width:400px"></el-progress>
-          </div>
-        </div>
-        <template v-if="activeTab == 0">
-          <el-button v-if="addTargetDisabled" disabled class="goalTargetTex" type="primary">创建目标</el-button>
-          <router-link v-else :to="`/contract/add?projectId=${projectId}`">
-            <el-button class="goalTargetTex" type="primary">创建目标</el-button>
-          </router-link>
-        </template>
-      </div>
-    </div>
     <div class="contraceTab">
       <kms-table fixedHeader border stripe minWidth="1000" maxHeight="400">
         <thead slot="header">
+            <tr>
+              <th colspan="6">
+                <div class="chartBox">
+                  <div class="circle">
+                    <el-progress type="circle" :percentage="detail.duration ? detail.consumeDuration/detail.duration * 100 : 0" ></el-progress>        
+                  </div>
+                  <div class="cirleright">
+                    <div class="cirlehead">
+                      <div class="timeLeft">
+                          <p>项目工期</p>
+                          <p class="timeText">{{detail.duration}}天</p>
+                      </div>
+                      <div class="timeright">
+                          <p>消耗</p>
+                          <p class="timeText">{{detail.consumeDuration}}天</p>
+                      </div>
+                    </div>
+                    <div class="cirlefoot">
+                      <div class="processOne">
+                        <div class="processOneText">
+                          <p>总R：{{detail.countTarget}}</p>
+                          <p class="add">昨日新增：{{detail.addTarget}}</p>
+                        </div>
+                        <el-progress :percentage="detail.countTarget ? (detail.addTarget/detail.countTarget * 100) : 0" :show-text="false"  style="width:400px"></el-progress>
+                      </div>
+                      <div class="processTwo">
+                        <div class="processTwoText">
+                            <p>总S：{{detail.countIssue}}</p>
+                            <p class="add">昨日完成：{{detail.finishIssue}}</p>
+                        </div>
+                        <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false" style="width:400px"></el-progress>
+                      </div>
+                    </div>
+                    <template v-if="activeTab == 0">
+                      <el-button v-if="addTargetDisabled" disabled class="goalTargetTex" type="primary">创建目标</el-button>
+                      <router-link v-else :to="`/contract/add?projectId=${projectId}`">
+                        <el-button class="goalTargetTex" type="primary">创建目标</el-button>
+                      </router-link>
+                    </template>
+                  </div>
+                </div>
+              </th>
+              <th class="attr-column" rowspan="2" v-for="(col, idx) in list.nodeList" :key="idx">
+                  <span>{{ col.nodeName }}</span>
+              </th>
+            </tr>
             <tr>
                 <th>序号</th>
                 <th>目标名称</th>
@@ -135,9 +142,6 @@ export default {
                 <th>单位</th>
                 <th>目标值</th>
                 <th>需求编号</th>
-                <th class="attr-column" v-for="(col, idx) in list.nodeList" :key="idx">
-                  <span>{{ col.nodeName }}</span>
-                </th>
             </tr>
         </thead>
         <tbody slot="body">
@@ -188,23 +192,26 @@ export default {
     margin-right: 50px;
     margin: 0 auto;
     .congoal {
-        float: right;
-        display: flex;
-        font-size: 14px;   
+      width: 100%;
+      height:40px;
+      position: relative;
+      padding-bottom: 20px;  
       .contab{
+        position: absolute;
+        right: 0;
         height:40px;
       } 
-        .goaltipOne {
-          border-bottom: 1px solid blue;
-        }
-        .line {
-            height: 15px;
-            width: 1px;
-            background: #999;
-            position: relative;
-            top: 1px;
-            margin: 0 5px;
-        }
+      .goaltipOne {
+        border-bottom: 1px solid blue;
+      }
+      .line {
+          height: 15px;
+          width: 1px;
+          background: #999;
+          position: relative;
+          top: 1px;
+          margin: 0 5px;
+      }
     }
     .contraceTab{
       padding-top:10px;
