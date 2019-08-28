@@ -87,7 +87,7 @@ export default {
       </el-tabs>
     </div>
     <div class="contraceTab">
-      <kms-table fixedHeader border stripe minWidth="1000" maxHeight="400">
+      <kms-table fixedHeader border stripe maxHeight="600">
         <thead slot="header">
             <tr>
               <th colspan="6" class="empty">
@@ -112,14 +112,14 @@ export default {
                           <p>总R：{{detail.countTarget}}</p>
                           <p class="add">昨日新增：{{detail.addTarget}}</p>
                         </div>
-                        <el-progress :percentage="detail.countTarget ? (detail.addTarget/detail.countTarget * 100) : 0" :show-text="false"  style="width:400px"></el-progress>
+                        <el-progress :percentage="detail.countTarget ? (detail.addTarget/detail.countTarget * 100) : 0" :show-text="false"></el-progress>
                       </div>
                       <div class="processTwo">
                         <div class="processTwoText">
                             <p>总S：{{detail.countIssue}}</p>
                             <p class="add">昨日完成：{{detail.finishIssue}}</p>
                         </div>
-                        <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false" style="width:400px"></el-progress>
+                        <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false"></el-progress>
                       </div>
                     </div>
                     <template v-if="activeTab == 0">
@@ -215,27 +215,28 @@ export default {
     }
     .contraceTab{
       padding-top:10px;
+      overflow-x: auto;
+      width: 100%;
     }
     .chartBox {
-        width: 642px;
-        height: 220px;
+        height: 200px;
+        max-width: 500px;
         clear:both;
         display: flex;
-         background: #f4f4f4!important;
+        background: #f4f4f4;
         border-radius: 6px;
-         position: relative;
+        position: relative;
         margin: 0px 10px 10px 0;
         .circle{
           margin-top:40px;
-          margin-left:26px;     
+          margin-left:20px;     
         }
         .cirleright{
-          padding-top:30px;
-          padding-left:25px;    
-           color:#aeaeae;
+          color:#aeaeae;
+          flex:1;
+          padding: 20px;
           .cirlehead{
             display: flex;
-           
             .timeText{
               font-weight: 300;
               font-size:24px;
@@ -293,7 +294,8 @@ export default {
       background-color: #343747;
       color: #fff;
       &.empty {
-        background-color: #f4f4f4;
+        background-color: #fff;
+        border: none;
       }
     }
 

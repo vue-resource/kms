@@ -33,91 +33,10 @@ export default {
 <style lang="less">
 .contract {
     margin: 0 auto;
-     padding:0 20px;
+    padding:0 20px;
     .tablist{
       height:40px;
       padding-top:20px;
-    }
-    .congoal {
-        float: right;
-        display: flex;
-        font-size: 14px;
-        .goaltipOne {
-          padding-right:10px;
-          border-bottom: 1px solid blue;
-        }
-        
-        .line {
-            height: 15px;
-            width: 1px;
-            background: #999;
-            position: relative;
-            top: 1px;
-            margin: 0 5px;
-        }
-    }
-    .chartBox {
-        width: 642px;
-        height: 220px;
-        display: flex;
-        background: #ccc;
-        border-radius: 6px;
-         position: relative;
-        margin: 10px 10px 10px 0;
-        .circle{
-          margin-top:40px;
-          margin-left:26px;
-        }
-        .cirleright{
-          padding-top:25px;
-          padding-left:25px; 
-         
-          .cirlehead{
-            display: flex;
-            .timeLeft{
-             
-            }
-            .timeText{
-              font-weight: 300;
-              font-size:24px;
-              padding-top:10px;
-            }
-            .timeright{
-              padding-left:25px;
-            }
-
-          }
-          .cirlefoot{
-            .processOne{
-               padding-top:10px;
-               .processOneText{
-                  display: flex;
-                }
-            }
-            .add{
-              padding-left:30px;
-            }
-            .processTwoText{
-              display: flex;
-            }
-          }
-          .goalTarget{
-            position: absolute;
-            right:20px;
-            top:20px;
-            background: blue;
-            color: #fff;
-            border-radius: 6px;
-            padding:5px 20px;
-            font-size:12px;
-          }
-        }
-    }
-    .confine {
-        width: 450px;
-        height: 220px;
-        margin-top: 20px;
-        display: inline-block;
     }
 }
 </style>

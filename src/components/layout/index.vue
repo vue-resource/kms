@@ -105,6 +105,13 @@ export default {
       overflow: hidden;
       .kms-side-bar {
         border-right: 1px solid #ddd;
+        .el-tree {
+          background-color: #343747;
+          color: #fff; 
+          .el-tree-node:hover {
+            color: #606266;
+          }
+        }
       }
       .kms-content {
         position: relative;
