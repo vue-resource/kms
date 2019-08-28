@@ -108,7 +108,7 @@ export default {
         .el-tree {
           background-color: #343747;
           color: #fff; 
-          .el-tree-node:hover {
+          .el-tree-node:hover, .el-tree-node.is-current{
             color: #606266;
           }
         }
