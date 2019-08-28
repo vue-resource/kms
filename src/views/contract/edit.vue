@@ -154,7 +154,7 @@ export default {
           </template>
         </el-table>
         <h2 class="text-title">
-          <el-button v-if="viewType == 0" type="text" @click="chooseProp = true">上传附件</el-button>
+          <el-button v-if="viewType == 0 && detail.definitionList.length > 0" type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
         </h2>
         <ul v-if="detail.definitionAdjunctList && detail.definitionAdjunctList.length > 0" class="ui-list">
@@ -207,7 +207,7 @@ export default {
           </template>
         </el-table>
         <h2 class="text-title">
-          <el-button v-if="viewType == 1" type="text" @click="chooseProp = true">上传附件</el-button>
+          <el-button v-if="viewType == 1 && detail.schemeList.length > 0" type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
         </h2>
         <ul v-if="detail.schemeAdjunctList && detail.schemeAdjunctList.length > 0" class="ui-list">
