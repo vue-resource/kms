@@ -286,8 +286,13 @@ export default {
       }
     }
     .contraceTab .ui-table .attr-column {
-        width: 25px;
+        width: 15px;
         line-height: 1;
+        span {
+          display: block;
+          width: 14px;
+          word-break: break-word;
+        }
         // vertical-align: top;
     }
     .contraceTab .ui-table th {
