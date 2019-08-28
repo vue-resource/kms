@@ -88,7 +88,7 @@ export default {
       <div class="proMain">
         <ul class="ulist">
           <li v-for="(todo,index) in info.projectInfoList" class="gether" :key="index">
-            <img :src="projectImg"/>
+            <img :src="todo.image"/>
             <div class="markShy">
               <div class="matip">              
                 <!-- <router-link :to="`/project/action?id=${todo.id}`">
