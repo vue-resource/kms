@@ -87,7 +87,7 @@ export default {
       </el-tabs>
     </div>
     <div class="contraceTab">
-      <kms-table fixedHeader border stripe maxHeight="600">
+      <kms-table border stripe>
         <thead slot="header">
             <tr>
               <th colspan="6" class="empty">
