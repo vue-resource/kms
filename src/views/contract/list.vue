@@ -6,7 +6,10 @@ export default {
         return {
           projectId: this.$route.query.projectId,
           detail:{},
-          list: {},
+          list: {
+            nodeList: [],
+            targetList: []
+          },
           activeTab: '0',
           dataTab:[
             {name: '发出的目标', value: '0'},
