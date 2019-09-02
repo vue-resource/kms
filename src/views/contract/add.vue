@@ -83,7 +83,7 @@ export default {
             this.param.target_model_id = node.id;
         },
         creatSubmit () {
-            this.param.nodeId = this.$refs['node-tree'].getCheckedNodes(true).map(item => item.id);
+            this.param.nodeId = this.$refs['node-tree'].getCheckedNodes().map(item => item.id);
             if(!this.param.target_model_id){
               this.$message({
                 message: '请选择模版',
