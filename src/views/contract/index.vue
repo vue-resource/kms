@@ -7,8 +7,8 @@ export default {
             activeName: '1',
             dataTab:[
               {name: '目标管理', value: '1', path: '/contract?projectId='+projectId},
-              {name: '分块BOM', value: '2', path: '/b', disabled: true},
-              {name: '成本分析', value: '3', path: '/a', disabled: true},
+              // {name: '分块BOM', value: '2', path: '/b', disabled: true},
+              // {name: '成本分析', value: '3', path: '/a', disabled: true},
               {name: '问题管理', value: '4', path: '/issue?projectId='+projectId},
             ]
         };
