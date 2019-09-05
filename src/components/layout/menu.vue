@@ -24,6 +24,9 @@ export default {
         }
       }
     },
+    computed: {
+      ...mapState('common', ['nodeId']),
+    },
     methods: {
         ...mapActions('common', ['updateNodeId']),
         //节点渲染
@@ -36,6 +39,10 @@ export default {
             }
           }).then(res => {
               this.nodelist = res.data;
+              this.$nextTick(() => {
+                const keys = [this.nodeId]
+                this.$refs.tree.setCheckedKeys(keys);
+              })
           })
         },
         clickModel (node) {
@@ -49,7 +56,8 @@ export default {
 </script>
 <template>
   <div>
-    <el-tree :data="nodelist" default-expand-all :props="defaultProps" @node-click="clickModel"></el-tree>   
+    <el-tree :data="nodelist" default-expand-all :props="defaultProps" ref="tree"
+    node-key="id" highlight-current @node-click="clickModel"></el-tree>   
   </div>
 </template>
 
