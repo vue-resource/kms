@@ -108,10 +108,11 @@ export default {
         background-color: #343747;
         .el-tree {
           background-color: #343747;
-          color: #fff;
+         color: #fff;
           .el-tree-node__content:hover{
             color: #606266;
           }
+          .el-tree-node>.el-tree-node__children { color: #fff;background-color: #343747;}
           .el-tree-node.is-current,.el-tree-node.is-checked { color:#343747; background-color: #fff;}
         }
       }
