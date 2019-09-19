@@ -60,4 +60,13 @@ export default {
     node-key="id" highlight-current @node-click="clickModel"></el-tree>   
   </div>
 </template>
-
+<style lang="less">
+.el-tree-node__label {
+    font-size: 14px;
+    display: block;
+    width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>

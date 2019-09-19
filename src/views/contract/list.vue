@@ -139,10 +139,10 @@ export default {
               </th>
             </tr>
             <tr>
-                <th>序号</th>
+                <th width="50">序号</th>
                 <th>目标名称</th>
                 <th>目标分类</th>
-                <th>单位</th>
+                <th width="50">单位</th>
                 <th>目标值</th>
                 <th>需求编号</th>
             </tr>
@@ -298,12 +298,19 @@ export default {
         }
         // vertical-align: top;
     }
-    .contraceTab .ui-table th {
-      background-color: #343747;
-      color: #fff;
-      &.empty {
-        background-color: #fff;
-        border: none;
+    .contraceTab .ui-table {
+      table{
+        table-layout: auto;
+      }
+      tr {
+        th {
+          background-color: #343747;
+          color: #fff;
+          &.empty {
+            background-color: #fff;
+            border: none;
+          }
+        }
       }
     }
 
