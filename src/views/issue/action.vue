@@ -21,7 +21,7 @@ export default {
           leaderName: [ { required: true, message: '请选择问题负责人', trigger: 'change' }],
           issueRank: [ { required: true, message: '请选择问题级别', trigger: 'change' }],
           finishTime: [ { required: true, message: '请选择完成时间', trigger: 'change' }],
-          targetName: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
+          targetId: [ { required: true, message: '请选择问题对应目标', trigger: 'change' }],
           adjunctList: [ { required: true,type:"array", message: '请上传附件', trigger: 'change' }]
         }
       }   
@@ -91,6 +91,8 @@ export default {
       },
       createIssue () {
         const self = this;
+        this.param.leader = this.param.leaderName;
+        this.param.nodeId = this.nodeId;
         this.$refs['form'].validate((valid) => {
           if (valid) {
             this.$ajax({
@@ -154,8 +156,8 @@ export default {
             <el-date-picker v-model="param.finishTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="对应目标:" prop="nodeId">
-             <el-select v-model="param.nodeId" placeholder="请选择" >
+          <el-form-item label="对应目标:" prop="targetId">
+             <el-select v-model="param.targetId" placeholder="请选择" >
               <el-option
                 v-for="item in list" :key="item.id" :label="item.targetName" :value="item.id">
               </el-option>

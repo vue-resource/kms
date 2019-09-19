@@ -91,12 +91,12 @@ export default {
     </div>
     <div class="contraceTab">
       <kms-table border stripe>
-        <thead slot="header">
+        <thead slot="header" >
             <tr>
               <th colspan="6" class="empty">
                 <div class="chartBox">
                   <div class="circle">
-                    <el-progress type="circle" :percentage="detail.duration ? detail.consumeDuration/detail.duration * 100 : 0" ></el-progress>        
+                    <el-progress type="circle" :percentage="detail.duration ? parseInt(detail.consumeDuration/detail.duration * 100) : 0" ></el-progress>        
                   </div>
                   <div class="cirleright">
                     <div class="cirlehead">
