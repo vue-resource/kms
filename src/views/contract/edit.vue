@@ -9,7 +9,8 @@ export default {
           definitionList: [],
           definitionAdjunctList: [],
           schemeList: [],
-          schemeAdjunctList: []
+          schemeAdjunctList: [],
+          finalList:[]
         },
         chooseProp: false,
         curProp: null,
@@ -80,7 +81,11 @@ export default {
             propertyName
         }];
         if(this.viewType == 1){
-          this.detail.schemeAdjunctList =  this.detail.schemeAdjunctList.concat( rel );
+          if(this.detail.targetStatus < 2){
+            this.detail.schemeAdjunctList =  this.detail.schemeAdjunctList.concat( rel );
+          }else {
+            this.detail.finalList =  this.detail.finalList.concat( rel );
+          }
         }else {
           this.detail.definitionAdjunctList =  this.detail.definitionAdjunctList.concat( rel );
         }
@@ -88,7 +93,7 @@ export default {
         this.$refs.upload.clearFiles();
       },
       getParams (status) {
-        const { id,targetId='', definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
+        const { id,targetId, definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
         const { targetNum, draftNum, actual } = this.tableData[0] || {};
         const viewType = this.viewType;
         const targetStatus = status;
@@ -141,20 +146,25 @@ export default {
           <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
           <el-table-column label="目标值">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.draftNum" v-if="viewType == 0"></el-input>
+              <el-input v-if="viewType == 0 && detail.targetStatus < 2"
+                v-model="scope.row.draftNum"></el-input>
               <span v-else>{{ scope.row.draftNum }}</span>
             </template>
           </el-table-column>
           <template v-if="detail.definitionList && detail.definitionList.length > 0">
             <el-table-column v-for="(item, idx) in detail.definitionList" :label="item.propertyName" :key="idx">
-               <input v-model="item.propertyNumber" v-if="viewType == 0 && item.propertyType != 1" class="inputNum">
-                <!-- <el-input v-model="item.propertyNumber" v-if="viewType == 0 && item.propertyType != 1" ></el-input> -->
-                <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
+              <input 
+                v-if="viewType == 0 && detail.targetStatus < 2 && item.propertyType != 1"
+                v-model="item.propertyNumber" class="inputNum">
+              <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
             </el-table-column>
           </template>
         </el-table>
         <h2 class="text-title">
-          <el-button v-if="viewType == 0 && detail.definitionList.length > 0" type="text" @click="chooseProp = true">上传附件</el-button>
+          <el-button 
+            v-if="viewType == 0 && detail.targetStatus < 2 
+            && detail.definitionList && detail.definitionList.length > 0" 
+            type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
         </h2>
         <ul v-if="detail.definitionAdjunctList && detail.definitionAdjunctList.length > 0" class="ui-list">
@@ -163,11 +173,12 @@ export default {
             <div class="btns-tip">
               <span>属性名称：{{ item.propertyName }}</span>
               <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
-              <i class="el-icon-error" @click="detail.definitionAdjunctList.splice(idx, 1)"></i>
+              <i class="el-icon-error" v-if="viewType == 0 && detail.targetStatus < 2"
+                @click="detail.definitionAdjunctList.splice(idx, 1)"></i>
             </div>
           </li>
         </ul>
-        <div class="reviewFoot" v-if="viewType == 0">
+        <div class="reviewFoot" v-if="viewType == 0 && detail.targetStatus < 2">
           <el-button @click="updateTarget(1)" type="warning">发布</el-button>
           <el-button @click="updateTarget()" type="primary">保存</el-button>
         </div>
@@ -186,28 +197,29 @@ export default {
           <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
           <el-table-column prop="targetName" label="目标名称"></el-table-column>
           <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
-          <!-- <el-table-column prop="targetNum" label="目标值"></el-table-column> -->
           <template v-if="detail.actual">
             <el-table-column label="实际值">
               <template slot-scope="scope">
-                <el-input v-model="scope.row.actual" v-if="viewType == 1"></el-input>
+                <el-input
+                  v-if="viewType == 1 && detail.targetStatus < 2"
+                  v-model="scope.row.actual"></el-input>
                 <span v-else>{{ scope.row.actual }}</span>
               </template>
             </el-table-column>
           </template>
           <template v-if="detail.schemeList && detail.schemeList.length > 0">
             <el-table-column v-for="(item, idx) in detail.schemeList" :label="item.propertyName" :key="idx">
-                <!-- <span v-if="viewType == 1 && item.propertyType != 1" >
-                    <el-input v-model="item.propertyNumber" ></el-input>
-                  
-                </span> -->
-                <input type="text" v-model="item.propertyNumber" v-if="viewType == 1 && item.propertyType != 1" class="inputNum"/>
+                <input type="text" 
+                  v-if="viewType == 1 && detail.targetStatus < 2 && item.propertyType != 1"
+                  v-model="item.propertyNumber" class="inputNum"/>
                 <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
             </el-table-column>
           </template>
         </el-table>
         <h2 class="text-title">
-          <el-button v-if="viewType == 1 && detail.schemeList.length > 0" type="text" @click="chooseProp = true">上传附件</el-button>
+          <el-button 
+            v-if="viewType == 1 && detail.targetStatus < 2 && detail.schemeList && detail.schemeList.length > 0" 
+            type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
         </h2>
         <ul v-if="detail.schemeAdjunctList && detail.schemeAdjunctList.length > 0" class="ui-list">
@@ -215,19 +227,79 @@ export default {
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
               <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
-              <i class="el-icon-error" @click="detail.schemeAdjunctList.splice(idx, 1)"></i>
+              <i v-if="viewType == 1 && detail.targetStatus < 2"
+                class="el-icon-error" @click="detail.schemeAdjunctList.splice(idx, 1)"></i>
             </div>
           </li>
         </ul>
-        <div class="reviewFoot" v-if="$route.query.tab == 1">
+        <div class="reviewFoot" v-if="viewType == 1 && detail.targetStatus < 2">
           <el-button @click="updateTarget(1)" type="warning">发布</el-button>
           <el-button @click="updateTarget()" type="primary">保存</el-button>
         </div>
+        <div class="reviewFoot" v-if="viewType == 0 && detail.targetStatus == 1">
+          <el-button @click="updateTarget(2)" type="warning">确定</el-button>       
+        </div>
       </el-card>
+
+      <!-- 目标验证 -->
+      <el-card  class="card-right" v-if="detail.targetStatus > 1">
+        <div slot="header" class="clearfix">        
+          <span>目标验证</span>
+          <span class="tab-tip">最近更新：2019-09-09</span>    
+        </div>
+        <el-table :data="tableData" class="gridtableft">
+          <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
+          <el-table-column prop="targetName" label="目标名称"></el-table-column>
+          <el-table-column prop="targetUnit" label="单位" width="80"></el-table-column>
+          <template v-if="detail.actual">
+            <el-table-column label="实际值">
+              <template slot-scope="scope">
+                <el-input 
+                  v-if="viewType == 1 && detail.targetStatus < 4"
+                  v-model="scope.row.actual"></el-input>
+                <span v-else>{{ scope.row.actual }}</span>
+              </template>
+            </el-table-column>
+          </template>
+          <template v-if="detail.finalList && detail.finalList.length > 0">
+            <el-table-column v-for="(item, idx) in detail.finalList" :label="item.propertyName" :key="idx">
+                <input 
+                  v-if="viewType == 1 && detail.targetStatus < 4 && item.propertyType != 1"
+                  type="text" v-model="item.propertyNumber" class="inputNum"/>
+                <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
+            </el-table-column>
+          </template>
+        </el-table>
+        <h2 class="text-title">
+          <el-button 
+            v-if="viewType == 1 && detail.targetStatus < 4 && detail.finalList && detail.finalList.length > 0" type="text" 
+            @click="chooseProp = true">上传附件</el-button>
+          <span class="upText">相关附件</span>
+        </h2>
+        <ul v-if="detail.finalList && detail.finalList.length > 0" class="ui-list">
+          <li v-for="(item,idx) in detail.finalList" :key="idx" class="file-item">
+            <div class="carborad">{{ item.fileName}}</div>
+            <div class="btns-tip">
+              <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+              <i v-if="viewType == 1 && detail.targetStatus < 4"
+                @click="detail.finalList.splice(idx, 1)" class="el-icon-error"></i>
+            </div>
+          </li>
+        </ul>
+        <div class="reviewFoot" v-if="viewType == 1 && detail.targetStatus < 4">
+          <el-button @click="updateTarget(3)" type="warning">发布</el-button>
+          <el-button @click="updateTarget()" type="primary">保存</el-button>
+        </div>
+        <div class="reviewFoot" v-if="viewType == 0 && detail.targetStatus == 3">
+          <el-button @click="updateTarget(4)" type="warning">确定</el-button>       
+        </div>
+      </el-card>
+
       <div class="btn-back">
         <el-button @click="$router.back()" type="plain">返回</el-button>
       </div>
     </div>
+    
     <!-- 上传附件，添加属性 -->
     <el-dialog title="选择属性" :visible.sync="chooseProp" width="50%" class="choose-prop-dialog">
       <el-upload class="upload-demo" :on-success="handleSuccess" :show-file-list="false" ref="upload"
