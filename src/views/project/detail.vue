@@ -84,8 +84,8 @@ export default {
     }
 }
 .el-message-box {
-    width: 900px;
-    height: 500px;
+    // width: 900px;
+    // height: 500px;
 }
 </style>
 

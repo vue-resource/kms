@@ -1,4 +1,5 @@
 <script>
+import {mapMutations} from 'vuex';
 import projectDetail from './detail';
 import localStorage from '@/utils/tools/localstorage';
 export default {
@@ -18,9 +19,10 @@ export default {
   },
   components: { projectDetail },
   created() {
-      this.getList();
+    this.getList();
   },
   methods: {
+    ...mapMutations('common', ['updateProjectName']),
     // 项目列表
     getList(){
       this.$ajax({
@@ -91,12 +93,10 @@ export default {
             <img :src="todo.image"/>
             <div class="markShy">
               <div class="matip">              
-                <!-- <router-link :to="`/project/action?id=${todo.id}`">
-                   <span class="icon-map el-icon-edit"></span>
-                </router-link> -->
                 <span class="icon-map el-icon-view" @click="handleView(todo.id)"></span>
               </div>
-              <router-link :to="`/contract/list?projectId=${todo.id}`">
+              <router-link :to="`/contract/list?projectId=${todo.id}`" @click.native="updateProjectName(todo.projectName)">
+                <div class="project-name">{{ todo.projectName }}</div>
                 <el-button class="detail" type="primary" @click="handleClick(todo.id)">查看项目目标</el-button> 
               </router-link>
             </div>
@@ -194,17 +194,26 @@ export default {
                   left: 0;
                   background: rgba(0, 0, 0, 0.2);
                   display: none;
-                    .matip {
-                      left: 15px;
-                      bottom: 15px;
-                      position: absolute;
-                      .icon-map {
-                          font-size: 20px;
-                          margin-left:5px;
-                          color: #fff;
-                          cursor: pointer;
-                          &:hover { color:#409EFF }
-                      }
+                  .matip {
+                    left: 15px;
+                    bottom: 15px;
+                    position: absolute;
+                    .icon-map {
+                        font-size: 20px;
+                        margin-left:5px;
+                        color: #fff;
+                        cursor: pointer;
+                        &:hover { color:#409EFF }
+                    }
+                  }
+                  .project-name {
+                    text-align: center;
+                    margin-top:20px;
+                    color: #fff;
+                    padding: 0 10px;
+                    word-break: break-all;
+                    font-size: 18px;
+                    text-align-last: left;
                   }
                   .detail {
                       position: absolute;

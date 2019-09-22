@@ -18,7 +18,7 @@ export default {
         activeTab: '1',
         dataTab:[
           {name: '目标解决方案', value: '1'},
-          {name: '目标验证', value: '2', disabled: true}
+          // {name: '目标验证', value: '2', disabled: true}
         ]
       }
     },
@@ -35,9 +35,12 @@ export default {
         }];
       },
       propList () {
-        return this.viewType == 1 
-          ? this.detail.schemeList
-          : this.detail.definitionList;
+        const {definitionList, schemeList, finalList, targetStatus} = this.detail;
+        const propSet = this.viewType == 0
+          ? definitionList
+          : targetStatus > 1 && targetStatus < 4
+            ? finalList : schemeList;
+        return propSet ? propSet.filter(item => item.propertyType == 1) : [];
       }
     },
     // 生命周期
@@ -93,18 +96,25 @@ export default {
         this.$refs.upload.clearFiles();
       },
       getParams (status) {
-        const { id,targetId, definitionList, definitionAdjunctList, schemeList, schemeAdjunctList} = this.detail;
+        const { id,targetId, definitionList, definitionAdjunctList, 
+          schemeList, schemeAdjunctList, finalList, finalAdjunctList} = this.detail;
         const { targetNum, draftNum, actual } = this.tableData[0] || {};
         const viewType = this.viewType;
         const targetStatus = status;
-        const fileInfoEntityList = viewType == 1 ? schemeAdjunctList : definitionAdjunctList;
-        const propertyInfoList = viewType == 1 ? schemeList : definitionList;
+        const fileInfoEntityList = viewType == 0 
+          ? definitionAdjunctList
+          : this.detail.targetStatus > 1 && this.detail.targetStatus < 4
+            ? finalAdjunctList : schemeAdjunctList;
+        const propertyInfoList = viewType == 0 
+          ? definitionList 
+          : this.detail.targetStatus > 1 && this.detail.targetStatus < 4
+            ? finalList : schemeList;
         return {
           id,targetId, viewType, targetStatus, targetNum, draftNum, actual,
           fileInfoEntityList, propertyInfoList
         };
       },
-      updateTarget (role) {
+      sureUpdate (role) {
         const param = this.getParams(role);
         this.$ajax({
           url: '/target/updateTarget',
@@ -115,6 +125,19 @@ export default {
             this.$router.back();
           }
         })
+      },
+      updateTarget (role) {
+        if(role == 2 || role ==4){
+          this.$confirm('此操作不可撤销, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.sureUpdate(role);
+          })
+        }else {
+          this.sureUpdate(role);
+        }
       }
     }
 };
@@ -138,7 +161,7 @@ export default {
       <el-card class="card-left">
         <div slot="header" class="clearfix">
           <span>目标定义</span>
-          <span class="tab-tip">最近更新：2019-09-09</span>
+          <span class="tab-tip">最近更新：{{ detail.updateTime }}</span>
         </div>
         <el-table :data="tableData" class="gridtableft">
           <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
@@ -163,7 +186,8 @@ export default {
         <h2 class="text-title">
           <el-button 
             v-if="viewType == 0 && detail.targetStatus < 2 
-            && detail.definitionList && detail.definitionList.length > 0" 
+            && detail.definitionList 
+            && detail.definitionList.filter(item => item.propertyType == 1).length > 0" 
             type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
         </h2>
@@ -191,7 +215,7 @@ export default {
             <el-tab-pane v-for="(tab,idx) in dataTab" :key="idx" 
             :disabled="tab.disabled" :label="tab.name" :name="tab.value"></el-tab-pane>
           </el-tabs>
-          <span class="tab-tip">最近更新：2019-10-10</span>
+          <span class="tab-tip">最近更新：{{ detail.updateTime }}</span>
         </div>
         <el-table :data="tableData" class="gridtableft">
           <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
@@ -218,7 +242,8 @@ export default {
         </el-table>
         <h2 class="text-title">
           <el-button 
-            v-if="viewType == 1 && detail.targetStatus < 2 && detail.schemeList && detail.schemeList.length > 0" 
+            v-if="viewType == 1 && detail.targetStatus < 2 && detail.schemeList 
+              && detail.schemeList.filter(item => item.propertyType == 1).length > 0" 
             type="text" @click="chooseProp = true">上传附件</el-button>
           <span  class="upText">相关附件</span>
         </h2>
@@ -245,7 +270,7 @@ export default {
       <el-card  class="card-right" v-if="detail.targetStatus > 1">
         <div slot="header" class="clearfix">        
           <span>目标验证</span>
-          <span class="tab-tip">最近更新：2019-09-09</span>    
+          <span class="tab-tip">最近更新：{{ detail.updateTime }}</span>    
         </div>
         <el-table :data="tableData" class="gridtableft">
           <el-table-column prop="targetId" label="序号" width="60" ></el-table-column>
@@ -272,17 +297,18 @@ export default {
         </el-table>
         <h2 class="text-title">
           <el-button 
-            v-if="viewType == 1 && detail.targetStatus < 4 && detail.finalList && detail.finalList.length > 0" type="text" 
+            v-if="viewType == 1 && detail.targetStatus < 4 && detail.finalList 
+              && detail.finalList.filter(item => item.propertyType == 1).length > 0" type="text" 
             @click="chooseProp = true">上传附件</el-button>
           <span class="upText">相关附件</span>
         </h2>
-        <ul v-if="detail.finalList && detail.finalList.length > 0" class="ui-list">
-          <li v-for="(item,idx) in detail.finalList" :key="idx" class="file-item">
+        <ul v-if="detail.finalAdjunctList && detail.finalAdjunctList.length > 0" class="ui-list">
+          <li v-for="(item,idx) in detail.finalAdjunctList" :key="idx" class="file-item">
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
               <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
               <i v-if="viewType == 1 && detail.targetStatus < 4"
-                @click="detail.finalList.splice(idx, 1)" class="el-icon-error"></i>
+                @click="detail.finalAdjunctList.splice(idx, 1)" class="el-icon-error"></i>
             </div>
           </li>
         </ul>

@@ -16,6 +16,7 @@ export default {
     watch: {
       $route:{
         immediate: true,
+        deep: true,
         handler (nv) {
           if(nv.query.projectId){
             this.projectId = nv.query.projectId;
@@ -46,7 +47,7 @@ export default {
           })
         },
         clickModel (node) {
-          this.updateNodeId(node.id);
+          this.updateNodeId(node);
           if(this.$route.path !== '/contract/list'){
             this.$router.push(`/contract/list?projectId=${localStorage.get('projectId')}`)
           }

@@ -16,7 +16,21 @@ export default {
         state.username = username;
         localStorage.set('username',username)
     },
-    [Type.UPDATE_NODEID] (state, nodeId) {
+    [Type.CLEAR_PROJECT] (state) {
+        state.nodeId = '';
+        state.nodeName = '';
+        state.projectName = '';
+        localStorage.del('nodeId')
+        localStorage.del('projectName')
+    },
+    [Type.UPDATE_PROJECTNAME] (state, name) {
+        state.projectName = name;
+        localStorage.set('projectName',name)
+    },
+    [Type.UPDATE_NODEID] (state, node) {
+        const {nodeId, nodeName} = node;
         state.nodeId = nodeId;
+        state.nodeName = nodeName;
+        localStorage.set('nodeId',nodeId)
     }
 };

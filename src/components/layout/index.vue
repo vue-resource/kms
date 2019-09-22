@@ -26,26 +26,40 @@
         <Menu />
       </el-aside>
       <el-main class="kms-content">
+        <el-breadcrumb separator-class="el-icon-arrow-right" v-if="projectName" class="breadcrumb-demo">
+          <el-breadcrumb-item :to="{ path: '/' }">项目主页</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ projectName }}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ nodeName }}</el-breadcrumb-item>
+        </el-breadcrumb>
         <slot></slot>
       </el-main>
     </el-container>
   </el-container>
 </template>
 <script>
-import {mapActions} from 'vuex';
+import {mapMutations, mapActions, mapState} from 'vuex';
 import Menu from "./menu";
 import localStorage from '@/utils/tools/localstorage';
 export default {
     name: "layout",
     components: { Menu },
-    data(){
-      return {
-        username:localStorage.get('username')
+    computed: {
+      ...mapState('common', ['username', 'nodeName', 'projectName'])
+    },
+    watch: {
+      $route:{
+        immediate: true,
+        deep: true,
+        handler (nv) {
+          if(nv.path === '/project/list'){
+            this.clearProject();
+          }
+        }
       }
     },
-   
     methods: {
-       ...mapActions('common', ['updateUsername', 'cleanToken']),
+      ...mapActions('common', ['updateUsername', 'cleanToken']),
+      ...mapMutations('common', ['clearProject']),
       checkIsProject() {
           return this.$route.path.startsWith("/project");
       },
@@ -119,6 +133,10 @@ export default {
       .kms-content {
         position: relative;
       }
+    }
+    .breadcrumb-demo {
+      padding-left: 20px;
+      line-height: 30px;
     }
 }
 </style>

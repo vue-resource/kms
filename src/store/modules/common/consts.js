@@ -3,6 +3,7 @@
 */
 export const CLEAN_TOKEN = 'cleanToken';
 export const UPDATE_TOKEN = 'updateToken';
-export const GET_USERNAME = 'getUsername';
+export const CLEAR_PROJECT = 'clearProject';
 export const UPDATE_USERNAME = 'updateUsername';
+export const UPDATE_PROJECTNAME = 'updateProjectName';
 export const UPDATE_NODEID = 'updateNodeId';

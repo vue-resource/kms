@@ -71,12 +71,17 @@ export default {
       renderTd (row, attr) {
           const nodeList = {
             snodeId: row.snodeId || '',
+            vnodeId: row.vnodeId || '',
+            fnodeId: row.fnodeId || '',
             dnodeId: row.dnodeId || ''
           };
           return nodeList.snodeId === attr.id 
             ? 'S' 
-            : nodeList.dnodeId === attr.id
-              ? 'D' : '';
+            : nodeList.dnodeId === attr.id 
+              ? 'D' 
+              : nodeList.vnodeId === attr.id 
+                ? 'V'
+                :nodeList.fnodeId === attr.id ? 'F' :''
       }
     }
 };
