@@ -5,6 +5,6 @@ export default {
     token: Cookie.get('t_rms') || '',
     username: localStorage.get('username')|| '',
     nodeId: localStorage.get('nodeId') || '',
-    nodeName: '',
-    projectName: ''
+    nodeName: localStorage.get('nodeName') || '',
+    projectName: localStorage.get('projectName') || ''
 };
