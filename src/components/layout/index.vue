@@ -4,6 +4,7 @@
     <el-header class="kms-header">
       <div class="headImg"></div>
       <div class="headright">
+         
         <router-link to="/">
           <el-button type="text">返回首页</el-button>
         </router-link>
@@ -13,9 +14,12 @@
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
+                <el-dropdown-item @click.native="dialogFormVisible = true">修改密码</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
       </div>
+      
+  
     </el-header>
     <el-container class="kms-body">
       <el-aside
@@ -35,7 +39,24 @@
         <slot></slot>
       </el-main>
     </el-container>
+        <el-dialog title="修改密码" :visible.sync="dialogFormVisible" width="40%">
+          <el-form :model="form" :rules="rules"  ref="form">
+            <el-form-item label="旧密码" :label-width="formLabelWidth" prop="password">
+              <el-input v-model="form.password"   auto-complete="off"></el-input> 
+              <div slot="prepend" class="password"></div>         
+            </el-form-item>
+              <el-form-item label="新密码" :label-width="formLabelWidth" prop="password">
+               <el-input v-model="form.newPassword"  auto-complete="off"></el-input>
+               <div slot="prepend" class="password"></div>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="passwordHandel">确 定</el-button>
+          </div>
+        </el-dialog>
   </el-container>
+  
 </template>
 <script>
 import {mapActions, mapState} from 'vuex';
@@ -43,6 +64,18 @@ import Menu from "./menu";
 import localStorage from '@/utils/tools/localstorage';
 export default {
     name: "layout",
+    data(){
+      return {
+         form: {password:'',newPassword:''},
+         dialogFormVisible: false,
+         formLabelWidth: '100px',
+         rules: {
+            password: [
+              { required: true, message: '请输入密码', trigger: 'change' },
+            ],
+          }
+      }
+    },
     components: { Menu },
     computed: {
       ...mapState('common', ['username', 'nodeName', 'projectName'])
@@ -51,6 +84,25 @@ export default {
       ...mapActions('common', ['updateUsername', 'cleanToken']),
       checkIsProject() {
           return this.$route.path.startsWith("/project");
+      },
+      passwordHandel(){
+         this.$refs['form'].validate(valid => {
+            if(valid){
+              this.$ajax({
+                url: '/rms_api/password',
+                method: 'get',
+                params: this.form
+              }).then(res => {
+                this.dialogFormVisible = false;
+                if(res.success==1){
+                   this.$message({
+                      message: '修改成功',
+                      type: 'success'
+                    });
+                }
+              })
+            }
+          });
       },
       logout () {
         this.$ajax({
