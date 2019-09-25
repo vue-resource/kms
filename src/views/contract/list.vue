@@ -129,7 +129,7 @@ export default {
                         <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false"></el-progress>
                       </div>
                     </div>
-                    <template v-if="activeTab == 0 && list.editPermission">
+                    <template v-if="activeTab == 0 && list.editPermission > 0">
                       <router-link :to="`/contract/add?projectId=${projectId}`">
                         <el-button class="goalTargetTex" type="primary">创建目标</el-button>
                       </router-link>
