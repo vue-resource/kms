@@ -7,6 +7,7 @@ export default {
           projectId: this.$route.query.projectId,
           detail:{},
           list: {
+            editPermission: false,
             nodeList: [],
             targetList: []
           },
@@ -14,8 +15,7 @@ export default {
           dataTab:[
             {name: '发出的目标', value: '0'},
             {name: '收到的目标', value: '1'}
-          ],
-          addTargetDisabled: true
+          ]
         };
     },
     computed: {
@@ -26,7 +26,6 @@ export default {
         immediate: true,
         handler (nv) {
           if(nv !== ''){
-            this.addTargetDisabled = false;
             this.getTargetDirectoryInfoList();
           }
         }
@@ -130,9 +129,8 @@ export default {
                         <el-progress :percentage="detail.countIssue ? (detail.finishIssue/detail.countIssue * 100) : 0" :show-text="false"></el-progress>
                       </div>
                     </div>
-                    <template v-if="activeTab == 0">
-                      <el-button v-if="addTargetDisabled" disabled class="goalTargetTex" type="primary">创建目标</el-button>
-                      <router-link v-else :to="`/contract/add?projectId=${projectId}`">
+                    <template v-if="activeTab == 0 && list.editPermission">
+                      <router-link :to="`/contract/add?projectId=${projectId}`">
                         <el-button class="goalTargetTex" type="primary">创建目标</el-button>
                       </router-link>
                     </template>
