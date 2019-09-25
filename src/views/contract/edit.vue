@@ -175,12 +175,14 @@ export default {
             </template>
           </el-table-column>
           <template v-if="detail.definitionList && detail.definitionList.length > 0">
-            <el-table-column v-for="(item, idx) in detail.definitionList" :label="item.propertyName" :key="idx">
-              <input 
-                v-if="viewType == 0 && detail.targetStatus < 2 && item.propertyType != 1"
-                v-model="item.propertyNumber" class="inputNum">
-              <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
-            </el-table-column>
+            <template v-for="(item, idx) in detail.definitionList">
+              <el-table-column :label="item.propertyName" :key="idx" v-if="item.propertyType != 1">
+                <input 
+                  v-if="viewType == 0 && detail.targetStatus < 2"
+                  v-model="item.propertyNumber" class="inputNum">
+                <span v-else>{{ item.propertyNumber }}</span>
+              </el-table-column>
+            </template>
           </template>
         </el-table>
         <h2 class="text-title">
@@ -196,7 +198,7 @@ export default {
             <div class="carborad">{{ item.fileName }}</div>
             <div class="btns-tip">
               <span>属性名称：{{ item.propertyName }}</span>
-              <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+              <!-- <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i> -->
               <i class="el-icon-error" v-if="viewType == 0 && detail.targetStatus < 2"
                 @click="detail.definitionAdjunctList.splice(idx, 1)"></i>
             </div>
@@ -232,12 +234,14 @@ export default {
             </el-table-column>
           </template>
           <template v-if="detail.schemeList && detail.schemeList.length > 0">
-            <el-table-column v-for="(item, idx) in detail.schemeList" :label="item.propertyName" :key="idx">
+            <template v-for="(item, idx) in detail.schemeList">
+              <el-table-column :label="item.propertyName" :key="idx" v-if="item.propertyType != 1">
                 <input type="text" 
-                  v-if="viewType == 1 && detail.targetStatus < 2 && item.propertyType != 1"
+                  v-if="viewType == 1 && detail.targetStatus < 2 "
                   v-model="item.propertyNumber" class="inputNum"/>
-                <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
+                <span v-else>{{ item.propertyNumber }}</span>
             </el-table-column>
+            </template>
           </template>
         </el-table>
         <h2 class="text-title">
@@ -251,7 +255,7 @@ export default {
           <li v-for="(item,idx) in detail.schemeAdjunctList" :key="idx" class="file-item">
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
-              <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+              <!-- <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i> -->
               <i v-if="viewType == 1 && detail.targetStatus < 2"
                 class="el-icon-error" @click="detail.schemeAdjunctList.splice(idx, 1)"></i>
             </div>
@@ -287,12 +291,14 @@ export default {
             </el-table-column>
           </template>
           <template v-if="detail.finalList && detail.finalList.length > 0">
-            <el-table-column v-for="(item, idx) in detail.finalList" :label="item.propertyName" :key="idx">
+            <template v-for="(item, idx) in detail.finalList">
+              <el-table-column :label="item.propertyName" :key="idx" v-if="item.propertyType != 1">
                 <input 
-                  v-if="viewType == 1 && detail.targetStatus < 4 && item.propertyType != 1"
+                  v-if="viewType == 1 && detail.targetStatus < 4"
                   type="text" v-model="item.propertyNumber" class="inputNum"/>
-                <span v-else>{{ item.propertyType == 1 ? '附件类型' : item.propertyNumber }}</span>
-            </el-table-column>
+                <span v-else>{{ item.propertyNumber }}</span>
+              </el-table-column>
+            </template>
           </template>
         </el-table>
         <h2 class="text-title">
@@ -306,7 +312,7 @@ export default {
           <li v-for="(item,idx) in detail.finalAdjunctList" :key="idx" class="file-item">
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
-              <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+              <!-- <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i> -->
               <i v-if="viewType == 1 && detail.targetStatus < 4"
                 @click="detail.finalAdjunctList.splice(idx, 1)" class="el-icon-error"></i>
             </div>
