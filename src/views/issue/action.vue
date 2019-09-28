@@ -107,6 +107,11 @@ export default {
           }
         });
       },
+      downHandle(id){
+        let orgin = window.location.origin,
+        token = this.$store.state.common.token;
+        window.location.href= orgin+"/rms/api/upload/getFile?fileId="+id+"&token="+token;
+      },
       onSuccess (response, file, fileList) {
         let rel = [];
         if(fileList.length > 0){
@@ -172,7 +177,7 @@ export default {
               <li v-for="(item,idx) in param.adjunctList" :key="idx" class="file-item">
                 <div class="carborad">{{ item.fileName}}</div>
                 <div class="btns-tip">
-                  <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i>
+                  <i class="el-icon-download" v-if="item.id" @click="downHandle(item.id)"></i>
                   <i class="el-icon-error" @click="param.adjunctList.splice(idx, 1)"></i>
                 </div>
               </li>

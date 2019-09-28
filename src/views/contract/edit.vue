@@ -46,6 +46,7 @@ export default {
     // 生命周期
     created() {
       this.queryTarget();
+       
     },
     methods: {
       // 目标详情
@@ -87,7 +88,7 @@ export default {
           if(this.detail.targetStatus < 2){
             this.detail.schemeAdjunctList =  this.detail.schemeAdjunctList.concat( rel );
           }else {
-            this.detail.finalList =  this.detail.finalList.concat( rel );
+            this.detail.finalAdjunctList =  this.detail.finalAdjunctList.concat( rel );
           }
         }else {
           this.detail.definitionAdjunctList =  this.detail.definitionAdjunctList.concat( rel );
@@ -101,6 +102,7 @@ export default {
         const { targetNum, draftNum, actual } = this.tableData[0] || {};
         const viewType = this.viewType;
         const targetStatus = status;
+       
         const fileInfoEntityList = viewType == 0 
           ? definitionAdjunctList
           : this.detail.targetStatus > 1 && this.detail.targetStatus < 4
@@ -125,6 +127,12 @@ export default {
             this.$router.back();
           }
         })
+      },
+      downHandle(id){
+        let orgin = window.location.origin,
+        token = this.$store.state.common.token;
+        window.location.href= orgin+"/rms/api/upload/getFile?fileId="+id+"&token="+token;
+        
       },
       updateTarget (role) {
         if(role == 2 || role ==4){
@@ -198,7 +206,7 @@ export default {
             <div class="carborad">{{ item.fileName }}</div>
             <div class="btns-tip">
               <span>属性名称：{{ item.propertyName }}</span>
-              <!-- <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i> -->
+              <i class="el-icon-download" v-if="item.id" @click="downHandle(item.id)"></i>
               <i class="el-icon-error" v-if="viewType == 0 && detail.targetStatus < 2"
                 @click="detail.definitionAdjunctList.splice(idx, 1)"></i>
             </div>
@@ -255,7 +263,7 @@ export default {
           <li v-for="(item,idx) in detail.schemeAdjunctList" :key="idx" class="file-item">
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
-              <!-- <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i> -->
+              <i class="el-icon-download" v-if="item.id" @click="downHandle(item.id)"></i>
               <i v-if="viewType == 1 && detail.targetStatus < 2"
                 class="el-icon-error" @click="detail.schemeAdjunctList.splice(idx, 1)"></i>
             </div>
@@ -308,11 +316,11 @@ export default {
             @click="chooseProp = true">上传附件</el-button>
           <span class="upText">相关附件</span>
         </h2>
-        <ul v-if="detail.finalAdjunctList && detail.finalAdjunctList.length > 0" class="ui-list">
+        <ul v-if="detail.finalAdjunctList &&detail.finalAdjunctList.length > 0" class="ui-list">
           <li v-for="(item,idx) in detail.finalAdjunctList" :key="idx" class="file-item">
             <div class="carborad">{{ item.fileName}}</div>
             <div class="btns-tip">
-              <!-- <i class="el-icon-download" v-if="item.id" @click="$message('即将开发下载功能')"></i> -->
+              <i class="el-icon-download" v-if="item.id" @click="downHandle(item.id)"></i>
               <i v-if="viewType == 1 && detail.targetStatus < 4"
                 @click="detail.finalAdjunctList.splice(idx, 1)" class="el-icon-error"></i>
             </div>
