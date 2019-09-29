@@ -134,6 +134,34 @@ export default {
         window.location.href= orgin+"/rms/api/upload/getFile?fileId="+id+"&token="+token;
         
       },
+      delHandle(){
+         this.$confirm('是否删除该内容', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+           this.$ajax({
+              url: '/target/delTarget',
+              method: 'get',
+              params: {
+                targetId: this.targetId,
+                viewType:this.viewType
+              }
+            }).then(res => {
+              console.log(res)
+              if(res.success){
+               
+                this.$router.back();
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+        
+      },
       updateTarget (role) {
         if(role == 2 || role ==4){
           this.$confirm('此操作不可撤销, 是否继续?', '提示', {
@@ -159,10 +187,14 @@ export default {
       <el-form-item label="时间计划：">{{ detail.datePlan }}</el-form-item>
     </el-form>
     <div class="reletionship">
-      <router-link :to="`/contract/topo?id=${targetId}`">
-        <el-button type="primary" class="temp-text">需求关系图</el-button>
-      </router-link>
+      <!-- <router-link :to="`/contract/topo?id=${targetId}`"> -->
+        <el-button type="plain"  disabled>需求关系图</el-button>
+      <!-- </router-link> -->
       <el-button type="plain" disabled>目标拆解</el-button>
+      <el-button v-if="viewType == 0 && detail.targetStatus < 2" 
+          @click="delHandle"
+          type="primary" 
+      class="temp-text" >删除</el-button>
     </div>
     <div class="cardBox">
       <!-- 目标定义 -->
@@ -375,7 +407,7 @@ export default {
   .reletionship{
     position: absolute;
     right:0;
-    transform: translate3d(-50%,-60px,0);
+    transform: translate3d(-5%,-60px,0);
     height:40px;
    .temp-text{
      margin-right:10px;
